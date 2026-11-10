@@ -1,0 +1,2270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://www.opengroup.org/xsd/archimate/3.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengroup.org/xsd/archimate/3.0/ http://www.opengroup.org/xsd/archimate/3.0/archimate3_Diagram.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" identifier="id-ead0b005-068f-497c-9a75-05e68d6cef79">
+	<name>ClimateIQ - Weather Aggregation</name>
+	<elements>
+		<element identifier="id-30478" xsi:type="Grouping">
+			<name xml:lang="en">AWS Services</name>
+		</element>
+		<element identifier="id-30427" xsi:type="Grouping">
+			<name xml:lang="en">External Sources</name>
+		</element>
+		<element identifier="id-30425" xsi:type="Location">
+			<name xml:lang="en">AWS Home Region</name>
+		</element>
+		<element identifier="id-30426" xsi:type="Location">
+			<name xml:lang="en">AWS Regional Zone</name>
+		</element>
+		<element identifier="id-30256" xsi:type="ApplicationComponent">
+			<name xml:lang="en">Sensor Data Publisher</name>
+		</element>
+		<element identifier="id-30255" xsi:type="ApplicationComponent">
+			<name xml:lang="en">Satellite Data Publisher</name>
+		</element>
+		<element identifier="id-30254" xsi:type="ApplicationComponent">
+			<name xml:lang="en">Weather Data Publisher</name>
+		</element>
+		<element identifier="id-30248" xsi:type="DataObject">
+			<name xml:lang="en">Data Storage</name>
+		</element>
+		<element identifier="id-30262" xsi:type="ApplicationEvent">
+			<name xml:lang="en">Weather Data</name>
+		</element>
+		<element identifier="id-30263" xsi:type="ApplicationEvent">
+			<name xml:lang="en">Satellite Data</name>
+		</element>
+		<element identifier="id-30264" xsi:type="ApplicationEvent">
+			<name xml:lang="en">Sensor Data</name>
+		</element>
+		<element identifier="id-30216" xsi:type="ApplicationInterface">
+			<name xml:lang="en">Satellite Data Interface</name>
+		</element>
+		<element identifier="id-30213" xsi:type="ApplicationInterface">
+			<name xml:lang="en">Webhook Interface</name>
+		</element>
+		<element identifier="id-30257" xsi:type="ApplicationInterface">
+			<name xml:lang="en">Sensor Data Feed</name>
+		</element>
+		<element identifier="id-30258" xsi:type="ApplicationInterface">
+			<name xml:lang="en">REST Pull Interface</name>
+		</element>
+		<element identifier="id-30193" xsi:type="ApplicationService">
+			<name xml:lang="en">Data Ingestion</name>
+		</element>
+		<element identifier="id-30195" xsi:type="ApplicationService">
+			<name xml:lang="en">Data Processing</name>
+		</element>
+		<element identifier="id-30200" xsi:type="ApplicationService">
+			<name xml:lang="en">ClimateIQ Platform</name>
+		</element>
+		<element identifier="id-30208" xsi:type="ApplicationService">
+			<name xml:lang="en">Dashboards</name>
+		</element>
+		<element identifier="id-30206" xsi:type="ApplicationService">
+			<name xml:lang="en">Data Distribution</name>
+		</element>
+		<element identifier="id-30261" xsi:type="ApplicationService">
+			<name xml:lang="en">Weather Analysis</name>
+		</element>
+		<element identifier="id-30259" xsi:type="ApplicationService">
+			<name xml:lang="en">Monitoring &amp; Observability</name>
+		</element>
+		<element identifier="id-30260" xsi:type="ApplicationService">
+			<name xml:lang="en">Security &amp; Compliance</name>
+		</element>
+		<element identifier="id-30204" xsi:type="BusinessActor">
+			<name xml:lang="en">Integration Partner &amp; Developer</name>
+		</element>
+		<element identifier="id-30202" xsi:type="BusinessActor">
+			<name xml:lang="en">Enterprise Client</name>
+		</element>
+		<element identifier="id-30199" xsi:type="BusinessActor">
+			<name xml:lang="en">Dashboard User</name>
+		</element>
+		<element identifier="id-30218" xsi:type="BusinessActor">
+			<name xml:lang="en">External Data Provider</name>
+		</element>
+		<element identifier="id-30196" xsi:type="BusinessService">
+			<name xml:lang="en">Data Ingestion</name>
+		</element>
+		<element identifier="id-30212" xsi:type="BusinessService">
+			<name xml:lang="en">Weather API (Webhook)</name>
+		</element>
+		<element identifier="id-30210" xsi:type="BusinessService">
+			<name xml:lang="en">Cloud Provider</name>
+		</element>
+		<element identifier="id-30215" xsi:type="BusinessService">
+			<name xml:lang="en">Satellite Data Feed</name>
+		</element>
+		<element identifier="id-30272" xsi:type="BusinessService">
+			<name xml:lang="en">Weather API</name>
+		</element>
+		<element identifier="id-30303" xsi:type="TechnologyEvent">
+			<name xml:lang="en">Sensor Data</name>
+		</element>
+		<element identifier="id-30424" xsi:type="TechnologyFunction">
+			<name xml:lang="en">API - Get Weather</name>
+		</element>
+		<element identifier="id-30423" xsi:type="TechnologyFunction">
+			<name xml:lang="en">Send Alert</name>
+		</element>
+		<element identifier="id-30296" xsi:type="TechnologyInterface">
+			<name xml:lang="en">Sensor Data Feed</name>
+		</element>
+		<element identifier="id-30287" xsi:type="TechnologyInterface">
+			<name xml:lang="en">Sensor Data Feed</name>
+		</element>
+		<element identifier="id-30289" xsi:type="Node">
+			<name xml:lang="en">ClimateIQ Platform</name>
+		</element>
+		<element identifier="id-30286" xsi:type="Node">
+			<name xml:lang="en">IoT Data Ingestion</name>
+		</element>
+		<element identifier="id-30299" xsi:type="Node">
+			<name xml:lang="en">Data Ingestion</name>
+		</element>
+		<element identifier="id-30284" xsi:type="Device">
+			<name xml:lang="en">IoT Sensor</name>
+		</element>
+		<element identifier="id-30292" xsi:type="Node">
+			<name xml:lang="en">Data Processing</name>
+		</element>
+		<element identifier="id-30301" xsi:type="Device">
+			<name xml:lang="en">Satellite</name>
+		</element>
+		<element identifier="id-30298" xsi:type="TechnologyService">
+			<name xml:lang="en">Weather API</name>
+		</element>
+		<element identifier="id-30293" xsi:type="TechnologyService">
+			<name xml:lang="en">Data Storage</name>
+		</element>
+		<element identifier="id-30290" xsi:type="TechnologyService">
+			<name xml:lang="en">API Gateway</name>
+		</element>
+		<element identifier="id-30422" xsi:type="TechnologyService">
+			<name xml:lang="en">Data Distribution</name>
+		</element>
+		<element identifier="id-30421" xsi:type="TechnologyService">
+			<name xml:lang="en">IAM</name>
+		</element>
+		<element identifier="id-30420" xsi:type="TechnologyService">
+			<name xml:lang="en">Monitoring &amp; Observability</name>
+		</element>
+		<element identifier="id-30077" xsi:type="Requirement">
+			<name xml:lang="en">NFR3 Availability</name>
+		</element>
+		<element identifier="id-30072" xsi:type="Requirement">
+			<name xml:lang="en">FR1 Ingest weather data</name>
+		</element>
+		<element identifier="id-30074" xsi:type="Requirement">
+			<name xml:lang="en">NFR1 Scalability</name>
+		</element>
+		<element identifier="id-30079" xsi:type="Outcome">
+			<name xml:lang="en">Operational Efficiency</name>
+		</element>
+		<element identifier="id-30075" xsi:type="Requirement">
+			<name xml:lang="en">NFR2 Data privacy and complience</name>
+		</element>
+		<element identifier="id-30084" xsi:type="Driver">
+			<name xml:lang="en">Reduce operational costs</name>
+		</element>
+		<element identifier="id-30083" xsi:type="Driver">
+			<name xml:lang="en">Expand to global markets</name>
+		</element>
+		<element identifier="id-30091" xsi:type="Goal">
+			<name xml:lang="en">99.9% Uptime</name>
+		</element>
+		<element identifier="id-30088" xsi:type="Goal">
+			<name xml:lang="en">Use container orchestration</name>
+		</element>
+		<element identifier="id-30089" xsi:type="Outcome">
+			<name xml:lang="en">Enhanced Brand Reputation</name>
+		</element>
+		<element identifier="id-30087" xsi:type="Goal">
+			<name xml:lang="en">Meet global data residency and security standards</name>
+		</element>
+		<element identifier="id-30085" xsi:type="Goal">
+			<name xml:lang="en">Feed insights into dashboards. App. APIS, etc</name>
+		</element>
+		<element identifier="id-30150" xsi:type="Driver">
+			<name xml:lang="en">Integrate with client systems</name>
+		</element>
+		<element identifier="id-30156" xsi:type="Requirement">
+			<name xml:lang="en">FR3 Secure access</name>
+		</element>
+		<element identifier="id-30153" xsi:type="Goal">
+			<name xml:lang="en">Ingest structured and unstructured data from multiple spurces</name>
+		</element>
+		<element identifier="id-30158" xsi:type="Requirement">
+			<name xml:lang="en">NFR4 Data integrity and confidentiality</name>
+		</element>
+		<element identifier="id-30152" xsi:type="Goal">
+			<name xml:lang="en">Normalise, enrich and validate incoming data</name>
+		</element>
+		<element identifier="id-30154" xsi:type="Driver">
+			<name xml:lang="en">Enhance brand reputation</name>
+		</element>
+		<element identifier="id-30159" xsi:type="Driver">
+			<name xml:lang="en">Service Relaibility</name>
+		</element>
+		<element identifier="id-30160" xsi:type="Outcome">
+			<name xml:lang="en">Deliver normalised, enriched and validated data</name>
+		</element>
+		<element identifier="id-30155" xsi:type="Requirement">
+			<name xml:lang="en">FR2 Normalise data</name>
+		</element>
+		<element identifier="id-30148" xsi:type="Driver">
+			<name xml:lang="en">Provide customisable alerts and predictions</name>
+		</element>
+		<element identifier="id-30147" xsi:type="Driver">
+			<name xml:lang="en">Enable automation for smart agri and logistics</name>
+		</element>
+		<element identifier="id-30151" xsi:type="Goal">
+			<name xml:lang="en">Support analytics</name>
+		</element>
+		<element identifier="id-30149" xsi:type="Driver">
+			<name xml:lang="en">Meets SLA for real-time data delivery</name>
+		</element>
+		<element identifier="id-30157" xsi:type="Requirement">
+			<name xml:lang="en">FR7 Monitor the platform</name>
+		</element>
+		<element identifier="id-30081" xsi:type="Stakeholder">
+			<name xml:lang="en">CTO</name>
+		</element>
+		<element identifier="id-30163" xsi:type="Stakeholder">
+			<name xml:lang="en">Platform Engineer</name>
+		</element>
+		<element identifier="id-30164" xsi:type="Stakeholder">
+			<name xml:lang="en">Data Scientist</name>
+		</element>
+		<element identifier="id-30161" xsi:type="Stakeholder">
+			<name xml:lang="en">Product Manager</name>
+		</element>
+		<element identifier="id-30162" xsi:type="Stakeholder">
+			<name xml:lang="en">Enterprise Client</name>
+		</element>
+		<element identifier="id-30165" xsi:type="Stakeholder">
+			<name xml:lang="en">Developer / Interagtion Partner</name>
+		</element>
+		<element identifier="id-30188" xsi:type="Capability">
+			<name xml:lang="en">Data Ingestion &amp; Normalisation</name>
+		</element>
+		<element identifier="id-30191" xsi:type="Capability">
+			<name xml:lang="en">Real-time data feed</name>
+		</element>
+	</elements>
+	<relationships>
+		<relationship identifier="id-30197" source="id-30193" target="id-30195" xsi:type="Serving">
+			<name xml:lang="en">Sends raw data</name>
+		</relationship>
+		<relationship identifier="id-30251" source="id-30200" target="id-30202" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30250" source="id-30200" target="id-30218" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30252" source="id-30200" target="id-30204" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30247" source="id-30200" target="id-30248" xsi:type="Access">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30268" source="id-30206" target="id-30248" xsi:type="Access">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30253" source="id-30200" target="id-30199" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30275" source="id-30262" target="id-30195" xsi:type="Triggering">
+			<name xml:lang="en">Raw weather data</name>
+		</relationship>
+		<relationship identifier="id-30276" source="id-30254" target="id-30262" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30265" source="id-30195" target="id-30248" xsi:type="Access">
+			<name xml:lang="en">Stores normalised data</name>
+		</relationship>
+		<relationship identifier="id-30277" source="id-30213" target="id-30254" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30266" source="id-30261" target="id-30248" xsi:type="Access">
+			<name xml:lang="en">Reads &amp; analyses data; stores outputs</name>
+		</relationship>
+		<relationship identifier="id-30267" source="id-30208" target="id-30248" xsi:type="Access">
+			<name xml:lang="en">Reads data</name>
+		</relationship>
+		<relationship identifier="id-30271" source="id-30258" target="id-30272" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30274" source="id-30257" target="id-30256" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30269" source="id-30206" target="id-30202" xsi:type="Flow">
+			<name xml:lang="en">Sends data and/or alerts</name>
+		</relationship>
+		<relationship identifier="id-30270" source="id-30208" target="id-30202" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30273" source="id-30258" target="id-30254" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30282" source="id-30264" target="id-30195" xsi:type="Triggering">
+			<name xml:lang="en">Raw sensor data</name>
+		</relationship>
+		<relationship identifier="id-30280" source="id-30255" target="id-30263" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30281" source="id-30263" target="id-30195" xsi:type="Triggering">
+			<name xml:lang="en">Raw satellite data</name>
+		</relationship>
+		<relationship identifier="id-30278" source="id-30216" target="id-30255" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30279" source="id-30256" target="id-30264" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30192" source="id-30196" target="id-30188" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Delivers</name>
+		</relationship>
+		<relationship identifier="id-30194" source="id-30196" target="id-30193" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Consumes</name>
+		</relationship>
+		<relationship identifier="id-30205" source="id-30204" target="id-30206" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30214" source="id-30215" target="id-30216" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30198" source="id-30199" target="id-30200" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30207" source="id-30199" target="id-30208" xsi:type="Triggering">
+			<name xml:lang="en">Views</name>
+		</relationship>
+		<relationship identifier="id-30201" source="id-30202" target="id-30200" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30217" source="id-30218" target="id-30193" xsi:type="Serving">
+			<name xml:lang="en">Feeds data</name>
+		</relationship>
+		<relationship identifier="id-30219" source="id-30204" target="id-30193" xsi:type="Association">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30211" source="id-30212" target="id-30213" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30209" source="id-30210" target="id-30200" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30203" source="id-30204" target="id-30200" xsi:type="Triggering">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30291" source="id-30292" target="id-30293" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30300" source="id-30301" target="id-30299" xsi:type="Serving">
+			<name xml:lang="en">Satellite Data</name>
+		</relationship>
+		<relationship identifier="id-30294" source="id-30286" target="id-30257" xsi:type="Realization">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30285" source="id-30286" target="id-30287" xsi:type="Composition">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30302" source="id-30303" target="id-30292" xsi:type="Triggering">
+			<name xml:lang="en">Raw Data</name>
+		</relationship>
+		<relationship identifier="id-30297" source="id-30298" target="id-30299" xsi:type="Triggering">
+			<name xml:lang="en">Weather Data</name>
+		</relationship>
+		<relationship identifier="id-30304" source="id-30299" target="id-30292" xsi:type="Triggering">
+			<name xml:lang="en">Raw Data</name>
+		</relationship>
+		<relationship identifier="id-30283" source="id-30284" target="id-30257" xsi:type="Serving">
+			<name xml:lang="en">Push data</name>
+		</relationship>
+		<relationship identifier="id-30295" source="id-30284" target="id-30296" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30288" source="id-30289" target="id-30290" xsi:type="Assignment">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30520" source="id-30292" target="id-30422" xsi:type="Serving">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30073" source="id-30091" target="id-30072" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30076" source="id-30087" target="id-30075" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30071" source="id-30091" target="id-30074" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30078" source="id-30091" target="id-30077" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30080" source="id-30081" target="id-30084" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30082" source="id-30081" target="id-30083" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30086" source="id-30091" target="id-30079" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30090" source="id-30085" target="id-30089" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30092" source="id-30083" target="id-30091" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30094" source="id-30083" target="id-30087" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30095" source="id-30084" target="id-30088" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30093" source="id-30083" target="id-30085" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30166" source="id-30162" target="id-30150" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30167" source="id-30161" target="id-30154" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30169" source="id-30161" target="id-30149" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30174" source="id-30161" target="id-30083" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30176" source="id-30158" target="id-30160" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Delivers</name>
+		</relationship>
+		<relationship identifier="id-30179" source="id-30077" target="id-30091" xsi:type="Influence">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30173" source="id-30165" target="id-30150" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30177" source="id-30155" target="id-30160" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Delivers</name>
+		</relationship>
+		<relationship identifier="id-30170" source="id-30161" target="id-30148" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30184" source="id-30160" target="id-30152" xsi:type="Influence">
+			<name xml:lang="en">Underpins</name>
+		</relationship>
+		<relationship identifier="id-30175" source="id-30074" target="id-30160" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Delivers</name>
+		</relationship>
+		<relationship identifier="id-30182" source="id-30074" target="id-30152" xsi:type="Influence">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30172" source="id-30161" target="id-30147" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30185" source="id-30074" target="id-30160" xsi:type="Influence">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30186" source="id-30072" target="id-30160" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Delivers</name>
+		</relationship>
+		<relationship identifier="id-30187" source="id-30152" target="id-30188" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Delivers</name>
+		</relationship>
+		<relationship identifier="id-30181" source="id-30155" target="id-30160" xsi:type="Influence">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30189" source="id-30160" target="id-30152" xsi:type="Association" isDirected="true">
+			<name xml:lang="en">Underpins</name>
+		</relationship>
+		<relationship identifier="id-30171" source="id-30163" target="id-30150" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30180" source="id-30072" target="id-30160" xsi:type="Influence">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30178" source="id-30159" target="id-30091" xsi:type="Association">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30183" source="id-30158" target="id-30160" xsi:type="Influence">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30190" source="id-30191" target="id-30091" xsi:type="Realization">
+			<name xml:lang="en"></name>
+		</relationship>
+		<relationship identifier="id-30168" source="id-30081" target="id-30169" xsi:type="Association" isDirected="true">
+			<name xml:lang="en"></name>
+		</relationship>
+	</relationships>
+	<organizations>
+		<item>
+			<label xml:lang="en">Model with total view</label>
+			<item>
+				<label>Catalogs</label>
+				<item>
+					<label xml:lang="en">Composite elements</label>
+					<item identifierRef="id-30478"/>
+					<item identifierRef="id-30427"/>
+					<item identifierRef="id-30425"/>
+					<item identifierRef="id-30426"/>
+				</item>
+				<item>
+					<label xml:lang="en">Application layer</label>
+					<item identifierRef="id-30256"/>
+					<item identifierRef="id-30255"/>
+					<item identifierRef="id-30254"/>
+					<item identifierRef="id-30248"/>
+					<item identifierRef="id-30262"/>
+					<item identifierRef="id-30263"/>
+					<item identifierRef="id-30264"/>
+					<item identifierRef="id-30216"/>
+					<item identifierRef="id-30213"/>
+					<item identifierRef="id-30257"/>
+					<item identifierRef="id-30258"/>
+					<item identifierRef="id-30197"/>
+					<item identifierRef="id-30251"/>
+					<item identifierRef="id-30250"/>
+					<item identifierRef="id-30252"/>
+					<item identifierRef="id-30247"/>
+					<item identifierRef="id-30268"/>
+					<item identifierRef="id-30253"/>
+					<item identifierRef="id-30275"/>
+					<item identifierRef="id-30276"/>
+					<item identifierRef="id-30265"/>
+					<item identifierRef="id-30277"/>
+					<item identifierRef="id-30266"/>
+					<item identifierRef="id-30267"/>
+					<item identifierRef="id-30271"/>
+					<item identifierRef="id-30274"/>
+					<item identifierRef="id-30269"/>
+					<item identifierRef="id-30270"/>
+					<item identifierRef="id-30273"/>
+					<item identifierRef="id-30282"/>
+					<item identifierRef="id-30280"/>
+					<item identifierRef="id-30281"/>
+					<item identifierRef="id-30278"/>
+					<item identifierRef="id-30279"/>
+					<item identifierRef="id-30193"/>
+					<item identifierRef="id-30195"/>
+					<item identifierRef="id-30200"/>
+					<item identifierRef="id-30208"/>
+					<item identifierRef="id-30206"/>
+					<item identifierRef="id-30261"/>
+					<item identifierRef="id-30259"/>
+					<item identifierRef="id-30260"/>
+				</item>
+				<item>
+					<label xml:lang="en">Business layer</label>
+					<item identifierRef="id-30204"/>
+					<item identifierRef="id-30202"/>
+					<item identifierRef="id-30199"/>
+					<item identifierRef="id-30218"/>
+					<item identifierRef="id-30192"/>
+					<item identifierRef="id-30194"/>
+					<item identifierRef="id-30205"/>
+					<item identifierRef="id-30214"/>
+					<item identifierRef="id-30198"/>
+					<item identifierRef="id-30207"/>
+					<item identifierRef="id-30201"/>
+					<item identifierRef="id-30217"/>
+					<item identifierRef="id-30219"/>
+					<item identifierRef="id-30211"/>
+					<item identifierRef="id-30209"/>
+					<item identifierRef="id-30203"/>
+					<item identifierRef="id-30196"/>
+					<item identifierRef="id-30212"/>
+					<item identifierRef="id-30210"/>
+					<item identifierRef="id-30215"/>
+					<item identifierRef="id-30272"/>
+				</item>
+				<item>
+					<label xml:lang="en">Technology layer</label>
+					<item identifierRef="id-30303"/>
+					<item identifierRef="id-30424"/>
+					<item identifierRef="id-30423"/>
+					<item identifierRef="id-30296"/>
+					<item identifierRef="id-30287"/>
+					<item identifierRef="id-30289"/>
+					<item identifierRef="id-30286"/>
+					<item identifierRef="id-30299"/>
+					<item identifierRef="id-30284"/>
+					<item identifierRef="id-30292"/>
+					<item identifierRef="id-30301"/>
+					<item identifierRef="id-30291"/>
+					<item identifierRef="id-30300"/>
+					<item identifierRef="id-30294"/>
+					<item identifierRef="id-30285"/>
+					<item identifierRef="id-30302"/>
+					<item identifierRef="id-30297"/>
+					<item identifierRef="id-30304"/>
+					<item identifierRef="id-30283"/>
+					<item identifierRef="id-30295"/>
+					<item identifierRef="id-30288"/>
+					<item identifierRef="id-30520"/>
+					<item identifierRef="id-30298"/>
+					<item identifierRef="id-30293"/>
+					<item identifierRef="id-30290"/>
+					<item identifierRef="id-30422"/>
+					<item identifierRef="id-30421"/>
+					<item identifierRef="id-30420"/>
+				</item>
+				<item>
+					<label xml:lang="en">Motivation elements</label>
+					<item identifierRef="id-30077"/>
+					<item identifierRef="id-30072"/>
+					<item identifierRef="id-30074"/>
+					<item identifierRef="id-30079"/>
+					<item identifierRef="id-30075"/>
+					<item identifierRef="id-30084"/>
+					<item identifierRef="id-30083"/>
+					<item identifierRef="id-30091"/>
+					<item identifierRef="id-30088"/>
+					<item identifierRef="id-30089"/>
+					<item identifierRef="id-30087"/>
+					<item identifierRef="id-30085"/>
+					<item identifierRef="id-30150"/>
+					<item identifierRef="id-30156"/>
+					<item identifierRef="id-30153"/>
+					<item identifierRef="id-30158"/>
+					<item identifierRef="id-30152"/>
+					<item identifierRef="id-30154"/>
+					<item identifierRef="id-30159"/>
+					<item identifierRef="id-30160"/>
+					<item identifierRef="id-30155"/>
+					<item identifierRef="id-30148"/>
+					<item identifierRef="id-30147"/>
+					<item identifierRef="id-30151"/>
+					<item identifierRef="id-30149"/>
+					<item identifierRef="id-30157"/>
+					<item identifierRef="id-30073"/>
+					<item identifierRef="id-30076"/>
+					<item identifierRef="id-30071"/>
+					<item identifierRef="id-30078"/>
+					<item identifierRef="id-30080"/>
+					<item identifierRef="id-30082"/>
+					<item identifierRef="id-30086"/>
+					<item identifierRef="id-30090"/>
+					<item identifierRef="id-30092"/>
+					<item identifierRef="id-30094"/>
+					<item identifierRef="id-30095"/>
+					<item identifierRef="id-30093"/>
+					<item identifierRef="id-30166"/>
+					<item identifierRef="id-30167"/>
+					<item identifierRef="id-30168"/>
+					<item identifierRef="id-30169"/>
+					<item identifierRef="id-30174"/>
+					<item identifierRef="id-30176"/>
+					<item identifierRef="id-30179"/>
+					<item identifierRef="id-30173"/>
+					<item identifierRef="id-30177"/>
+					<item identifierRef="id-30170"/>
+					<item identifierRef="id-30184"/>
+					<item identifierRef="id-30175"/>
+					<item identifierRef="id-30182"/>
+					<item identifierRef="id-30172"/>
+					<item identifierRef="id-30185"/>
+					<item identifierRef="id-30186"/>
+					<item identifierRef="id-30187"/>
+					<item identifierRef="id-30181"/>
+					<item identifierRef="id-30189"/>
+					<item identifierRef="id-30171"/>
+					<item identifierRef="id-30180"/>
+					<item identifierRef="id-30178"/>
+					<item identifierRef="id-30183"/>
+					<item identifierRef="id-30081"/>
+					<item identifierRef="id-30163"/>
+					<item identifierRef="id-30164"/>
+					<item identifierRef="id-30161"/>
+					<item identifierRef="id-30162"/>
+					<item identifierRef="id-30165"/>
+				</item>
+				<item>
+					<label xml:lang="en">Strategy elements</label>
+					<item identifierRef="id-30188"/>
+					<item identifierRef="id-30191"/>
+					<item identifierRef="id-30190"/>
+				</item>
+				<item>
+					<label xml:lang="en">Implementation and migration elements</label>
+				</item>
+				<item>
+					<label xml:lang="en">Physical elements</label>
+				</item>
+			</item>
+			<item>
+				<label>Views</label>
+				<item identifierRef="id-29654"/>
+				<item identifierRef="id-29657"/>
+				<item identifierRef="id-29660"/>
+				<item identifierRef="id-29663"/>
+				<item identifierRef="id-29666"/>
+				<item identifierRef="id-29669"/>
+				<item identifierRef="id-29672"/>
+			</item>
+		</item>
+	</organizations>
+	<views>
+		<diagrams>
+			<view identifier="id-29654">
+				<name xml:lang="en">Conceptual View</name>
+				<node identifier="id-29869" elementRef="id-30202" xsi:type="Element" x="533" y="433" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29871" elementRef="id-30193" xsi:type="Element" x="67" y="133" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29873" elementRef="id-30195" xsi:type="Element" x="67" y="233" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29875" elementRef="id-30248" xsi:type="Element" x="67" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29877" elementRef="id-30261" xsi:type="Element" x="67" y="433" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29879" elementRef="id-30206" xsi:type="Element" x="300" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29881" elementRef="id-30208" xsi:type="Element" x="300" y="433" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29897" elementRef="id-30259" xsi:type="Element" x="533" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29899" elementRef="id-30260" xsi:type="Element" x="533" y="133" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29675" elementRef="id-30218" xsi:type="Element" x="67" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<connection identifier="id-29883" xsi:type="Relationship" relationshipRef="id-30197" source="id-29871" target="id-29873">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="133" y="160"/>
+					<targetAttachment x="133" y="233"/>
+				</connection>
+				<connection identifier="id-29885" xsi:type="Relationship" relationshipRef="id-30265" source="id-29873" target="id-29875">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="133" y="260"/>
+					<targetAttachment x="133" y="333"/>
+				</connection>
+				<connection identifier="id-29887" xsi:type="Relationship" relationshipRef="id-30266" source="id-29877" target="id-29875">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="133" y="440"/>
+					<targetAttachment x="133" y="360"/>
+				</connection>
+				<connection identifier="id-29889" xsi:type="Relationship" relationshipRef="id-30268" source="id-29879" target="id-29875">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="300" y="360"/>
+					<targetAttachment x="133" y="360"/>
+				</connection>
+				<connection identifier="id-29891" xsi:type="Relationship" relationshipRef="id-30267" source="id-29881" target="id-29875">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="300" y="460"/>
+					<bendpoint x="249" y="460"/>
+					<bendpoint x="249" y="360"/>
+					<targetAttachment x="201" y="360"/>
+				</connection>
+				<connection identifier="id-29893" xsi:type="Relationship" relationshipRef="id-30269" source="id-29879" target="id-29869">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="434" y="360"/>
+					<bendpoint x="599" y="359"/>
+					<targetAttachment x="600" y="433"/>
+				</connection>
+				<connection identifier="id-29895" xsi:type="Relationship" relationshipRef="id-30270" source="id-29881" target="id-29869">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="367" y="460"/>
+					<targetAttachment x="533" y="460"/>
+				</connection>
+				<connection identifier="id-29902" xsi:type="Relationship" relationshipRef="id-30217" source="id-29675" target="id-29871">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="135" y="60"/>
+					<targetAttachment x="135" y="160"/>
+				</connection>
+			</view>
+			<view identifier="id-29657">
+				<name xml:lang="en">Contextual View</name>
+				<node identifier="id-29993" elementRef="id-30199" xsi:type="Element" x="500" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29995" elementRef="id-30204" xsi:type="Element" x="300" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29997" elementRef="id-30202" xsi:type="Element" x="100" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29999" elementRef="id-30248" xsi:type="Element" x="100" y="300" w="933" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30001" elementRef="id-30200" xsi:type="Element" x="100" y="167" w="933" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30005" elementRef="id-30210" xsi:type="Element" x="900" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30007" elementRef="id-30218" xsi:type="Element" x="700" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<connection identifier="id-30003" xsi:type="Relationship" relationshipRef="id-30247" source="id-30001" target="id-29999">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="567" y="234"/>
+					<targetAttachment x="567" y="300"/>
+				</connection>
+				<connection identifier="id-30009" xsi:type="Relationship" relationshipRef="id-30250" source="id-30001" target="id-30007">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="767" y="167"/>
+					<targetAttachment x="767" y="100"/>
+				</connection>
+				<connection identifier="id-30011" xsi:type="Relationship" relationshipRef="id-30253" source="id-30001" target="id-29993">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="567" y="167"/>
+					<targetAttachment x="567" y="100"/>
+				</connection>
+				<connection identifier="id-30013" xsi:type="Relationship" relationshipRef="id-30252" source="id-30001" target="id-29995">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="367" y="167"/>
+					<targetAttachment x="367" y="100"/>
+				</connection>
+				<connection identifier="id-30015" xsi:type="Relationship" relationshipRef="id-30251" source="id-30001" target="id-29997">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="167"/>
+					<targetAttachment x="167" y="100"/>
+				</connection>
+				<connection identifier="id-30017" xsi:type="Relationship" relationshipRef="id-30209" source="id-30005" target="id-30001">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="967" y="100"/>
+					<targetAttachment x="967" y="167"/>
+				</connection>
+			</view>
+			<view identifier="id-29660">
+				<name xml:lang="en">Technology View</name>
+				<node identifier="id-29820" elementRef="id-30427" xsi:type="Element" x="105" y="33" w="700" h="133">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="88" g="88" b="88" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<node identifier="id-29822" elementRef="id-30284" xsi:type="Element" x="172" y="67" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29824" elementRef="id-30301" xsi:type="Element" x="439" y="67" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29826" elementRef="id-30298" xsi:type="Element" x="639" y="67" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+				</node>
+				<node identifier="id-29828" elementRef="id-30426" xsi:type="Element" x="105" y="200" w="267" h="300">
+					<style lineWidth="1">
+						<fillColor r="239" g="209" b="228" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<node identifier="id-29830" elementRef="id-30286" xsi:type="Element" x="135" y="233" w="207" h="233">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+						<node identifier="id-29832" elementRef="id-30296" xsi:type="Element" x="169" y="267" w="133" h="67">
+							<style lineWidth="1">
+								<fillColor r="214" g="248" b="184" a="100"/>
+								<lineColor r="0" g="0" b="0" a="100"/>
+								<font name="Arial" size="10" style="plain">
+									<color r="0" g="0" b="0" a="100"/>
+								</font>
+							</style>
+						</node>
+						<node identifier="id-29834" elementRef="id-30303" xsi:type="Element" x="169" y="367" w="133" h="67">
+							<style lineWidth="1">
+								<fillColor r="214" g="248" b="184" a="100"/>
+								<lineColor r="0" g="0" b="0" a="100"/>
+								<font name="Arial" size="10" style="plain">
+									<color r="0" g="0" b="0" a="100"/>
+								</font>
+							</style>
+						</node>
+					</node>
+				</node>
+				<node identifier="id-29836" elementRef="id-30425" xsi:type="Element" x="100" y="533" w="1233" h="533">
+					<style lineWidth="1">
+						<fillColor r="239" g="209" b="228" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<node identifier="id-29838" elementRef="id-30289" xsi:type="Element" x="133" y="573" w="900" h="473">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+						<node identifier="id-29840" elementRef="id-30292" xsi:type="Element" x="439" y="700" w="133" h="67">
+							<style lineWidth="1">
+								<fillColor r="214" g="248" b="184" a="100"/>
+								<lineColor r="0" g="0" b="0" a="100"/>
+								<font name="Arial" size="10" style="plain">
+									<color r="0" g="0" b="0" a="100"/>
+								</font>
+							</style>
+						</node>
+						<node identifier="id-29842" elementRef="id-30299" xsi:type="Element" x="439" y="600" w="133" h="67">
+							<style lineWidth="1">
+								<fillColor r="214" g="248" b="184" a="100"/>
+								<lineColor r="0" g="0" b="0" a="100"/>
+								<font name="Arial" size="10" style="plain">
+									<color r="0" g="0" b="0" a="100"/>
+								</font>
+							</style>
+						</node>
+						<node identifier="id-29846" elementRef="id-30293" xsi:type="Element" x="439" y="800" w="133" h="67">
+							<style lineWidth="1">
+								<fillColor r="214" g="248" b="184" a="100"/>
+								<lineColor r="0" g="0" b="0" a="100"/>
+								<font name="Arial" size="10" style="plain">
+									<color r="0" g="0" b="0" a="100"/>
+								</font>
+							</style>
+						</node>
+						<node identifier="id-29850" elementRef="id-30422" xsi:type="Element" x="633" y="800" w="367" h="133">
+							<style lineWidth="1">
+								<fillColor r="214" g="248" b="184" a="100"/>
+								<lineColor r="0" g="0" b="0" a="100"/>
+								<font name="Arial" size="10" style="plain">
+									<color r="0" g="0" b="0" a="100"/>
+								</font>
+							</style>
+							<node identifier="id-29852" elementRef="id-30423" xsi:type="Element" x="833" y="833" w="133" h="67">
+								<style lineWidth="1">
+									<fillColor r="214" g="248" b="184" a="100"/>
+									<lineColor r="0" g="0" b="0" a="100"/>
+									<font name="Arial" size="10" style="plain">
+										<color r="0" g="0" b="0" a="100"/>
+									</font>
+								</style>
+							</node>
+							<node identifier="id-29854" elementRef="id-30424" xsi:type="Element" x="672" y="833" w="133" h="67">
+								<style lineWidth="1">
+									<fillColor r="214" g="248" b="184" a="100"/>
+									<lineColor r="0" g="0" b="0" a="100"/>
+									<font name="Arial" size="10" style="plain">
+										<color r="0" g="0" b="0" a="100"/>
+									</font>
+								</style>
+							</node>
+						</node>
+					</node>
+					<node identifier="id-29856" elementRef="id-30421" xsi:type="Element" x="1167" y="573" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29858" elementRef="id-30420" xsi:type="Element" x="1167" y="670" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="214" g="248" b="184" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+				</node>
+				<connection identifier="id-29844" xsi:type="Relationship" relationshipRef="id-30304" source="id-29842" target="id-29840">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="506" y="667"/>
+					<targetAttachment x="506" y="700"/>
+				</connection>
+				<connection identifier="id-29848" xsi:type="Relationship" relationshipRef="id-30291" source="id-29840" target="id-29846">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="506" y="767"/>
+					<targetAttachment x="506" y="800"/>
+				</connection>
+				<connection identifier="id-30521" xsi:type="Relationship" relationshipRef="id-30520" source="id-29840" target="id-29850">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="573" y="753"/>
+					<bendpoint x="718" y="752"/>
+					<targetAttachment x="719" y="800"/>
+				</connection>
+				<connection identifier="id-29860" xsi:type="Relationship" relationshipRef="id-30295" source="id-29822" target="id-29832">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="237" y="134"/>
+					<targetAttachment x="237" y="267"/>
+				</connection>
+				<connection identifier="id-29862" xsi:type="Relationship" relationshipRef="id-30302" source="id-29834" target="id-29840">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="236" y="434"/>
+					<bendpoint x="235" y="733"/>
+					<targetAttachment x="439" y="734"/>
+				</connection>
+				<connection identifier="id-29864" xsi:type="Relationship" relationshipRef="id-30300" source="id-29824" target="id-29842">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="506" y="134"/>
+					<targetAttachment x="506" y="600"/>
+				</connection>
+				<connection identifier="id-29866" xsi:type="Relationship" relationshipRef="id-30297" source="id-29826" target="id-29842">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="706" y="134"/>
+					<bendpoint x="705" y="618"/>
+					<targetAttachment x="573" y="619"/>
+				</connection>
+			</view>
+			<view identifier="id-29663">
+				<name xml:lang="en">Motivation View</name>
+				<node identifier="id-29905" elementRef="id-30081" xsi:type="Element" x="100" y="33" w="1133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29907" elementRef="id-30083" xsi:type="Element" x="100" y="133" w="967" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29909" elementRef="id-30084" xsi:type="Element" x="1100" y="133" w="140" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29911" elementRef="id-30085" xsi:type="Element" x="100" y="233" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29913" elementRef="id-30088" xsi:type="Element" x="1100" y="233" w="140" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29915" elementRef="id-30087" xsi:type="Element" x="267" y="233" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29921" elementRef="id-30091" xsi:type="Element" x="433" y="233" w="633" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29931" elementRef="id-30079" xsi:type="Element" x="933" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29933" elementRef="id-30089" xsi:type="Element" x="100" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29939" elementRef="id-30072" xsi:type="Element" x="433" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29943" elementRef="id-30074" xsi:type="Element" x="600" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29947" elementRef="id-30075" xsi:type="Element" x="267" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29951" elementRef="id-30077" xsi:type="Element" x="767" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<connection identifier="id-29917" xsi:type="Relationship" relationshipRef="id-30080" source="id-29905" target="id-29909">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="1167" y="100"/>
+					<targetAttachment x="1167" y="133"/>
+				</connection>
+				<connection identifier="id-29919" xsi:type="Relationship" relationshipRef="id-30082" source="id-29905" target="id-29907">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="583" y="100"/>
+					<targetAttachment x="583" y="133"/>
+				</connection>
+				<connection identifier="id-29923" xsi:type="Relationship" relationshipRef="id-30092" source="id-29907" target="id-29921">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="750" y="200"/>
+					<targetAttachment x="750" y="233"/>
+				</connection>
+				<connection identifier="id-29925" xsi:type="Relationship" relationshipRef="id-30093" source="id-29907" target="id-29911">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="200"/>
+					<targetAttachment x="167" y="233"/>
+				</connection>
+				<connection identifier="id-29927" xsi:type="Relationship" relationshipRef="id-30094" source="id-29907" target="id-29915">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="333" y="200"/>
+					<targetAttachment x="334" y="233"/>
+				</connection>
+				<connection identifier="id-29929" xsi:type="Relationship" relationshipRef="id-30095" source="id-29909" target="id-29913">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="1170" y="200"/>
+					<targetAttachment x="1170" y="233"/>
+				</connection>
+				<connection identifier="id-29935" xsi:type="Relationship" relationshipRef="id-30086" source="id-29921" target="id-29931">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="1000" y="300"/>
+					<targetAttachment x="1000" y="333"/>
+				</connection>
+				<connection identifier="id-29937" xsi:type="Relationship" relationshipRef="id-30090" source="id-29911" target="id-29933">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="300"/>
+					<targetAttachment x="167" y="333"/>
+				</connection>
+				<connection identifier="id-29941" xsi:type="Relationship" relationshipRef="id-30073" source="id-29921" target="id-29939">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="500" y="300"/>
+					<targetAttachment x="500" y="333"/>
+				</connection>
+				<connection identifier="id-29945" xsi:type="Relationship" relationshipRef="id-30071" source="id-29921" target="id-29943">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="666" y="300"/>
+					<targetAttachment x="667" y="333"/>
+				</connection>
+				<connection identifier="id-29949" xsi:type="Relationship" relationshipRef="id-30076" source="id-29915" target="id-29947">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="334" y="300"/>
+					<targetAttachment x="334" y="333"/>
+				</connection>
+				<connection identifier="id-29953" xsi:type="Relationship" relationshipRef="id-30078" source="id-29921" target="id-29951">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="833" y="300"/>
+					<targetAttachment x="834" y="333"/>
+				</connection>
+			</view>
+			<view identifier="id-29666">
+				<name xml:lang="en">Motivation View (2)</name>
+				<node identifier="id-30020" elementRef="id-30081" xsi:type="Element" x="33" y="33" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30022" elementRef="id-30163" xsi:type="Element" x="433" y="33" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30024" elementRef="id-30165" xsi:type="Element" x="833" y="33" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30026" elementRef="id-30162" xsi:type="Element" x="633" y="33" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30028" elementRef="id-30164" xsi:type="Element" x="1033" y="33" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30030" elementRef="id-30161" xsi:type="Element" x="233" y="33" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30032" elementRef="id-30083" xsi:type="Element" x="33" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30034" elementRef="id-30084" xsi:type="Element" x="233" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30036" elementRef="id-30150" xsi:type="Element" x="833" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30038" elementRef="id-30154" xsi:type="Element" x="633" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30040" elementRef="id-30148" xsi:type="Element" x="1220" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30042" elementRef="id-30147" xsi:type="Element" x="1033" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30044" elementRef="id-30149" xsi:type="Element" x="433" y="167" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30046" elementRef="id-30153" xsi:type="Element" x="33" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30048" elementRef="id-30152" xsi:type="Element" x="433" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30050" elementRef="id-30085" xsi:type="Element" x="633" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30052" elementRef="id-30151" xsi:type="Element" x="833" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30054" elementRef="id-30088" xsi:type="Element" x="1033" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30056" elementRef="id-30087" xsi:type="Element" x="1233" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-30062" elementRef="id-30091" xsi:type="Element" x="233" y="300" w="133" h="53">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<connection identifier="id-30058" xsi:type="Relationship" relationshipRef="id-30080" source="id-30020" target="id-30034">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="100" y="60"/>
+					<targetAttachment x="293" y="193"/>
+				</connection>
+				<connection identifier="id-30060" xsi:type="Relationship" relationshipRef="id-30082" source="id-30020" target="id-30032">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="100" y="60"/>
+					<targetAttachment x="100" y="167"/>
+				</connection>
+				<connection identifier="id-30064" xsi:type="Relationship" relationshipRef="id-30092" source="id-30032" target="id-30062">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="100" y="193"/>
+					<targetAttachment x="300" y="327"/>
+				</connection>
+				<connection identifier="id-30066" xsi:type="Relationship" relationshipRef="id-30093" source="id-30032" target="id-30050">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="100" y="193"/>
+					<targetAttachment x="707" y="327"/>
+				</connection>
+				<connection identifier="id-30068" xsi:type="Relationship" relationshipRef="id-30094" source="id-30032" target="id-30056">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="100" y="193"/>
+					<targetAttachment x="1300" y="320"/>
+				</connection>
+				<connection identifier="id-30070" xsi:type="Relationship" relationshipRef="id-30095" source="id-30034" target="id-30054">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="300" y="193"/>
+					<targetAttachment x="1107" y="327"/>
+				</connection>
+			</view>
+			<view identifier="id-29669">
+				<name xml:lang="en">Component View - Data Ingestion</name>
+				<node identifier="id-29758" elementRef="id-30193" xsi:type="Element" x="67" y="233" w="800" h="333">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<node identifier="id-29760" elementRef="id-30257" xsi:type="Element" x="100" y="267" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29762" elementRef="id-30256" xsi:type="Element" x="100" y="367" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29764" elementRef="id-30264" xsi:type="Element" x="100" y="467" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29770" elementRef="id-30258" xsi:type="Element" x="333" y="267" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29772" elementRef="id-30213" xsi:type="Element" x="500" y="267" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29774" elementRef="id-30216" xsi:type="Element" x="667" y="267" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29776" elementRef="id-30262" xsi:type="Element" x="333" y="467" w="300" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29778" elementRef="id-30263" xsi:type="Element" x="667" y="467" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29780" elementRef="id-30254" xsi:type="Element" x="333" y="367" w="300" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29782" elementRef="id-30255" xsi:type="Element" x="667" y="367" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="184" g="231" b="252" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+				</node>
+				<node identifier="id-29794" elementRef="id-30284" xsi:type="Element" x="100" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="214" g="248" b="184" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29796" elementRef="id-30218" xsi:type="Element" x="300" y="33" w="533" h="133">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<node identifier="id-29798" elementRef="id-30272" xsi:type="Element" x="333" y="67" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="250" g="240" b="135" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29800" elementRef="id-30215" xsi:type="Element" x="667" y="67" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="250" g="240" b="135" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+					<node identifier="id-29802" elementRef="id-30212" xsi:type="Element" x="500" y="67" w="133" h="67">
+						<style lineWidth="1">
+							<fillColor r="250" g="240" b="135" a="100"/>
+							<lineColor r="0" g="0" b="0" a="100"/>
+							<font name="Arial" size="10" style="plain">
+								<color r="0" g="0" b="0" a="100"/>
+							</font>
+						</style>
+					</node>
+				</node>
+				<node identifier="id-29811" elementRef="id-30195" xsi:type="Element" x="67" y="633" w="800" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<connection identifier="id-29766" xsi:type="Relationship" relationshipRef="id-30274" source="id-29760" target="id-29762">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="300"/>
+					<targetAttachment x="167" y="400"/>
+				</connection>
+				<connection identifier="id-29768" xsi:type="Relationship" relationshipRef="id-30279" source="id-29762" target="id-29764">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="434"/>
+					<targetAttachment x="167" y="467"/>
+				</connection>
+				<connection identifier="id-29784" xsi:type="Relationship" relationshipRef="id-30273" source="id-29770" target="id-29780">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="400" y="300"/>
+					<targetAttachment x="400" y="393"/>
+				</connection>
+				<connection identifier="id-29786" xsi:type="Relationship" relationshipRef="id-30277" source="id-29772" target="id-29780">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="567" y="300"/>
+					<targetAttachment x="567" y="387"/>
+				</connection>
+				<connection identifier="id-29788" xsi:type="Relationship" relationshipRef="id-30278" source="id-29774" target="id-29782">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="733" y="300"/>
+					<targetAttachment x="733" y="400"/>
+				</connection>
+				<connection identifier="id-29790" xsi:type="Relationship" relationshipRef="id-30276" source="id-29780" target="id-29776">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="487" y="400"/>
+					<targetAttachment x="487" y="493"/>
+				</connection>
+				<connection identifier="id-29792" xsi:type="Relationship" relationshipRef="id-30280" source="id-29782" target="id-29778">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="733" y="400"/>
+					<targetAttachment x="733" y="487"/>
+				</connection>
+				<connection identifier="id-29676" xsi:type="Relationship" relationshipRef="id-30283" source="id-29794" target="id-29760">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="67"/>
+					<targetAttachment x="167" y="300"/>
+				</connection>
+				<connection identifier="id-29805" xsi:type="Relationship" relationshipRef="id-30271" source="id-29770" target="id-29798">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="400" y="300"/>
+					<targetAttachment x="400" y="100"/>
+				</connection>
+				<connection identifier="id-29807" xsi:type="Relationship" relationshipRef="id-30211" source="id-29802" target="id-29772">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="567" y="100"/>
+					<targetAttachment x="567" y="273"/>
+				</connection>
+				<connection identifier="id-29809" xsi:type="Relationship" relationshipRef="id-30214" source="id-29800" target="id-29774">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="733" y="100"/>
+					<targetAttachment x="733" y="293"/>
+				</connection>
+				<connection identifier="id-29813" xsi:type="Relationship" relationshipRef="id-30282" source="id-29764" target="id-29811">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="167" y="500"/>
+					<targetAttachment x="167" y="653"/>
+				</connection>
+				<connection identifier="id-29815" xsi:type="Relationship" relationshipRef="id-30275" source="id-29776" target="id-29811">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="487" y="500"/>
+					<targetAttachment x="487" y="660"/>
+				</connection>
+				<connection identifier="id-29817" xsi:type="Relationship" relationshipRef="id-30281" source="id-29778" target="id-29811">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="733" y="500"/>
+					<targetAttachment x="733" y="647"/>
+				</connection>
+			</view>
+			<view identifier="id-29672">
+				<name xml:lang="en">Cross-layer View - Data Ingestion</name>
+				<node identifier="id-29956" elementRef="id-30152" xsi:type="Element" x="133" y="233" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29958" elementRef="id-30072" xsi:type="Element" x="133" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29960" elementRef="id-30155" xsi:type="Element" x="300" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29962" elementRef="id-30074" xsi:type="Element" x="467" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29964" elementRef="id-30158" xsi:type="Element" x="633" y="33" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29966" elementRef="id-30188" xsi:type="Element" x="133" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="255" g="198" b="133" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29968" elementRef="id-30193" xsi:type="Element" x="533" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29970" elementRef="id-30160" xsi:type="Element" x="133" y="133" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="217" g="207" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29972" elementRef="id-30196" xsi:type="Element" x="333" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="250" g="240" b="135" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<node identifier="id-29988" elementRef="id-30195" xsi:type="Element" x="767" y="333" w="133" h="67">
+					<style lineWidth="1">
+						<fillColor r="184" g="231" b="252" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+				</node>
+				<connection identifier="id-29974" xsi:type="Relationship" relationshipRef="id-30192" source="id-29972" target="id-29966">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="400" y="367"/>
+					<targetAttachment x="200" y="367"/>
+				</connection>
+				<connection identifier="id-29976" xsi:type="Relationship" relationshipRef="id-30186" source="id-29958" target="id-29970">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="200" y="100"/>
+					<targetAttachment x="200" y="133"/>
+				</connection>
+				<connection identifier="id-29978" xsi:type="Relationship" relationshipRef="id-30177" source="id-29960" target="id-29970">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="367" y="100"/>
+					<bendpoint x="366" y="150"/>
+					<targetAttachment x="266" y="150"/>
+				</connection>
+				<connection identifier="id-29980" xsi:type="Relationship" relationshipRef="id-30175" source="id-29962" target="id-29970">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="534" y="100"/>
+					<bendpoint x="533" y="166"/>
+					<targetAttachment x="267" y="166"/>
+				</connection>
+				<connection identifier="id-29982" xsi:type="Relationship" relationshipRef="id-30176" source="id-29964" target="id-29970">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="700" y="100"/>
+					<bendpoint x="700" y="183"/>
+					<targetAttachment x="267" y="183"/>
+				</connection>
+				<connection identifier="id-29984" xsi:type="Relationship" relationshipRef="id-30189" source="id-29970" target="id-29956">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="200" y="167"/>
+					<targetAttachment x="200" y="260"/>
+				</connection>
+				<connection identifier="id-29986" xsi:type="Relationship" relationshipRef="id-30194" source="id-29972" target="id-29968">
+					<style lineWidth="1">
+						<fillColor r="0" g="0" b="0" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="467" y="367"/>
+					<targetAttachment x="533" y="367"/>
+				</connection>
+				<connection identifier="id-29990" xsi:type="Relationship" relationshipRef="id-30197" source="id-29968" target="id-29988">
+					<style lineWidth="1">
+						<fillColor r="255" g="255" b="255" a="100"/>
+						<lineColor r="0" g="0" b="0" a="100"/>
+						<font name="Arial" size="10" style="plain">
+							<color r="0" g="0" b="0" a="100"/>
+						</font>
+					</style>
+					<sourceAttachment x="600" y="367"/>
+					<targetAttachment x="807" y="367"/>
+				</connection>
+			</view>
+		</diagrams>
+	</views>
+</model>
