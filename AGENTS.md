@@ -37,48 +37,54 @@ docs/                     shared context: analysis, plan, decisions, reference d
 resources/                original inputs (PDFs, sample XML, baseline tool). Read-only.
   archimate-assessor_2.html          baseline tool as received (archimate-assessor_2_original.html is an identical copy)
   Arhchimateexample.xml              sample candidate model (ClimateIQ)
-part_a/                   Part A deliverable (code arrives from Phase 1)
-  src/                    modules: kb, rules catalogue, parser, checks, scoring, report, ui
-  tools/build.py          inlines src/ into one offline HTML; generates the relationship matrix
-  vendor/                 third-party data (Archi relationships.xml, jsPDF) with licence notices
-  tests/                  unit + regression tests and fixtures
-  dist/archimate-assessor.html   the built, distributable tool
+part_a/                   Part A deliverable
+  archimate-assessor.html THE TOOL: one self-contained, offline HTML file. Edit it directly; no build step.
+  tests/                  Node tests that load the HTML in jsdom (dev only; not needed to use the tool)
 .claude/skills/           step-by-step procedures (add a rule, change scoring, KB audit, release)
 ```
 
+### Inside `archimate-assessor.html`
+
+The tool stays one file, organised into clearly labelled blocks so data is separate from logic:
+
+| Block | What | Phase |
+|---|---|---|
+| `<style>` | All CSS | existing |
+| `// ===== ARCHIMATE KNOWLEDGE BASE` | Element types, layers, aspects | existing; rebuilt in P2 |
+| `<script type="application/json" id="relationship-matrix">` | ArchiMate 3.2 allowed relationships, from Archi `relationships.xml` (MIT; provenance and licence in the block's header comment) | P2 |
+| `<script type="application/json" id="rule-catalogue">` | **The rule catalogue**: every rule's id, source, severity, category, automation status | P2 |
+| `<script type="application/json" id="scoring-config">` | Weights, penalties, caps, rating scale, grade bands | P4 |
+| `// ===== PARSING / CHECKS ENGINE / SCORING` | Logic only; reads the blocks above, never hard-codes rule text or thresholds | existing; reworked P2–4 |
+| `// ===== UI / REPORT …` sections | Rendering, manual sheet, PDF | existing; reworked P5–6 |
+
 ## Golden rules
 
-1. **Every finding traces to a rule ID.** Rules live only in the rule catalogue (`part_a/src/rules.js`). Checks emit `{ruleId, evidence}` and never hard-code descriptions or severities.
+1. **Every finding traces to a rule ID.** Rules live only in the `rule-catalogue` JSON block of `part_a/archimate-assessor.html`. Checks emit `{ruleId, evidence}` and never hard-code descriptions or severities.
 2. **Never mark an unimplemented rule as PASS.** Rules carry `automation: automated | partial | manual`, and manual rules show "Manual review".
 3. **Classify views by structure, not by name.** Element types, the relationships drawn in the view, and the `viewpoint` attribute decide. The name is a weak hint at most. The exception is SebTreb `vws-001`, which is a naming rule by definition.
 4. **One scoring model.** The automated and manual scores share categories, weights and the `grade()` function from a single config. Change weights only via [docs/decisions.md](docs/decisions.md) plus the `change-scoring` skill.
-5. **Generated files are never hand-edited.** The relationship matrix is generated from `part_a/vendor/archi/relationships.xml` by `build.py`, and `dist/` is generated from `src/`.
+5. **Data blocks are data.** Change the relationship matrix only by re-importing Archi's `relationships.xml` (see the `kb-audit` skill) and updating the provenance comment. Never patch individual entries by hand.
 6. **Determinism.** The same XML and the same manual inputs always give the same scores. No randomness, no time-dependent logic in scoring.
-7. **Offline.** The built tool loads nothing from the network: no CDN, with jsPDF vendored.
+7. **One file, offline.** `archimate-assessor.html` must work by double-clicking, with no server, no network and no companion files. Third-party code (jsPDF, from Phase 6) is pasted inline with its licence header.
 8. **Copyright.** Don't commit extracted text from Open Group publications (`978940180512C_SMPL.pdf`, `n221p.pdf` are single-user licensed). Link to them and cite section numbers instead.
 9. **Keep context current.** Every phase or PR updates the status in `docs/plan.md`, adds any new decision to `docs/decisions.md`, and updates this file if conventions change.
 
 ## Commands
 
-Prerequisites: Python 3 (build, stdlib only) and Node 22+ (tests only). Run `npm install --prefix part_a` once.
+**Using the tool:** open `part_a/archimate-assessor.html` in a browser. Nothing to install.
+
+**Developing:** edit `part_a/archimate-assessor.html`, then run the tests. They need Node 22+; run `npm install --prefix part_a` once.
 
 | Command | What |
 |---|---|
-| `python3 part_a/tools/build.py` | Build `part_a/dist/archimate-assessor.html` from `part_a/src/` |
-| `python3 part_a/tools/build.py --check` | Fail if the committed dist is stale |
-| `npm test --prefix part_a` | Freshness check + all tests (`node:test`, jsdom) |
+| `npm test --prefix part_a` | Load the HTML in jsdom: baseline regression, determinism, full upload-pipeline smoke test |
 | `npm run baseline:update --prefix part_a` | Regenerate `tests/baseline/sample.json`. **Only for intended behaviour changes**; explain the diff in the commit. |
 
-**Workflow:** edit `part_a/src/` (never `dist/`), build, test, and commit the `src` and `dist` changes together.
-
-**Module layout:**
-- `src/index.html` is the page shell with `/*@@CSS@@*/` and `//@@JS@@` markers.
-- The JS modules share one global scope (no import/export), so their order in `build.py` `JS_MODULES` matters.
-- The engine modules (`kb.js`, `parser.js`, `checks.js`, `scoring.js`) must stay free of UI and DOM access, except `parseXML`'s `DOMParser`. That keeps them headlessly testable via `tests/helpers/engine.mjs`.
+Tests call the tool's global functions (`parseXML`, `runAllChecks`, `calculateScore`, `processFile`) through `tests/helpers/engine.mjs`. Keep the engine functions free of UI side effects so they stay testable that way.
 
 ## Conventions
 
-- Plain ES2020 JavaScript, no framework, no runtime dependencies beyond vendored jsPDF. 2-space indent.
+- Plain ES2020 JavaScript in the one HTML file. No framework, no build step, no runtime dependencies beyond inlined jsPDF. 2-space indent.
 - Rule IDs: SebTreb rules keep their source IDs (`elm-001`, `cnn-002`, …). Tool rules use `ARC-<AREA>-NNN` (ArchiMate), `VW-NNN` (view/completeness), `TRC-NNN` (traceability).
 - Commits: imperative summary, prefixed with the phase, e.g. `P2: Generate relationship matrix from Archi data`.
 - Branch: `feature/GYM-4127-part-a`.

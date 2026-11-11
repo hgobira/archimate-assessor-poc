@@ -7,4 +7,4 @@
 | [decisions.md](decisions.md) | Decision log: accepted, provisional and open items |
 | [reference/](reference/) | Digests of the source documents in `../resources/` |
 
-Generated later: `rule-catalogue.md` (Phase 2, from `part_a/src/rules.js`, never hand-edit) and `scoring-model.md` (Phase 4).
+Added later: `scoring-model.md` (Phase 4). The rule catalogue's source of truth is the `rule-catalogue` block in `part_a/archimate-assessor.html`, and the tool's Rule Checklist tab displays it.

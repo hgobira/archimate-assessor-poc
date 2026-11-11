@@ -1,36 +1,39 @@
-// Loads the tool's engine modules (plain scripts sharing one global scope, exactly as in
-// the built HTML) into an isolated VM context, so they can be tested headlessly.
+// Loads the single-file tool (part_a/archimate-assessor.html) in jsdom so its functions
+// (parseXML, runAllChecks, calculateScore, processFile, …) can be tested headlessly.
+// Nothing is built or extracted: the tests run the exact file assessors open.
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import vm from 'node:vm';
-import { JSDOM } from 'jsdom';
+import { JSDOM, VirtualConsole } from 'jsdom';
 
 export const PART_A = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const REPO = path.resolve(PART_A, '..');
+export const TOOL_HTML = path.join(PART_A, 'archimate-assessor.html');
 export const SAMPLE_XML = path.join(REPO, 'resources', 'Arhchimateexample.xml');
 
-// Engine modules in build order (see tools/build.py JS_MODULES). UI modules are excluded.
-const ENGINE_MODULES = ['kb.js', 'parser.js', 'checks.js', 'scoring.js'];
-
-export function loadEngine() {
-  const { window } = new JSDOM('');
-  const context = vm.createContext({ DOMParser: window.DOMParser, console });
-  for (const name of ENGINE_MODULES) {
-    const file = path.join(PART_A, 'src', name);
-    vm.runInContext(readFileSync(file, 'utf-8'), context, { filename: file });
-  }
-  return context; // function declarations (parseXML, runAllChecks, calculateScore, …) are globals here
+// Returns the tool's window; `errors` collects any script errors raised while loading/running.
+export function loadTool() {
+  const errors = [];
+  const virtualConsole = new VirtualConsole();
+  virtualConsole.on('jsdomError', (e) => errors.push(e.message));
+  const { window } = new JSDOM(readFileSync(TOOL_HTML, 'utf-8'), {
+    runScripts: 'dangerously',
+    pretendToBeVisual: true,
+    virtualConsole,
+  });
+  window.alerts = [];
+  window.alert = (msg) => window.alerts.push(String(msg));
+  return { window, errors };
 }
 
-// Plain-JSON round trip: strips VM-realm prototypes so deepStrictEqual compares values only.
+// Plain-JSON round trip: strips jsdom-realm prototypes so deepStrictEqual compares values only.
 export const plain = (v) => JSON.parse(JSON.stringify(v));
 
-// Full pipeline as app.js runs it: parse -> checks -> score.
-export function assess(engine, xmlText) {
-  const model = engine.parseXML(xmlText);
-  const issues = engine.runAllChecks(model);
-  const score = engine.calculateScore(issues, model.views);
+// Engine pipeline as the tool runs it: parse -> checks -> score.
+export function assess(window, xmlText) {
+  const model = window.parseXML(xmlText);
+  const issues = window.runAllChecks(model);
+  const score = window.calculateScore(issues, model.views);
   return plain({
     model: {
       name: model.modelName,

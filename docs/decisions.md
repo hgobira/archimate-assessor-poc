@@ -16,12 +16,13 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | D7 | Vendoring Archi `relationships.xml` (MIT) | Provisional | Hamza / org policy |
 | D8 | Assessment Level 1 / Level 2 distinction in the tool | Open | Meenakshi |
 | A1 | Portability: AGENTS.md + CLAUDE.md + docs/ + project skills | Accepted | Hamza |
-| A2 | Source split in `part_a/src` + `build.py` → single offline HTML | Accepted | Hamza |
+| A2 | ~~Source split in `part_a/src` + `build.py`~~ **Superseded by A8** | Superseded | Hamza |
 | A3 | Test runner: Node (via Homebrew) | Accepted | Hamza |
 | A4 | Proceed on D1–D5 recommended defaults, marked provisional | Accepted | Hamza |
 | A5 | Relationship validity from Archi's 3.2 matrix; element/layer list from the 3.2 Reference Cards | Accepted | Hamza |
 | A6 | Case-study profile and candidate role (EA/SA) drive expected views and scenario rows | Accepted | Hamza |
-| A7 | Tooling: built-in `node:test` + jsdom (dev only); modules stay plain scripts; `dist/` is committed | Accepted | Hamza |
+| A7 | Tests: built-in `node:test` + jsdom (dev only), loading the HTML file directly | Accepted | Hamza |
+| A8 | The tool is one hand-edited HTML file (`part_a/archimate-assessor.html`), with no build step; data held in labelled JSON blocks | Accepted | Hamza |
 
 ---
 
@@ -82,12 +83,12 @@ The overview doc shows "Archimate Assessment: Level 1 (Online) / Level 2 (Self S
 ## A1–A6 — Accepted 2026-11-11
 
 - **A1 Portability.** `AGENTS.md` holds the canonical shared context, since it's readable by any AI tool. `CLAUDE.md` imports it. Durable knowledge lives in `docs/` (readable without any AI tool) and procedures in `.claude/skills/`. Rejected: skill-only (on-demand, invisible to non-Claude users), CLAUDE.md-only (bloats every session, Claude-only), plugin (not needed for a single repo).
-- **A2 Structure.** Modules in `part_a/src/`. `build.py` (stdlib only) inlines them, plus the vendored jsPDF and the generated matrix, into `part_a/dist/archimate-assessor.html`. The deliverable stays one offline file.
+- **A2 Structure (superseded 2026-11-11 by A8).** Was: modules in `part_a/src/`, with `build.py` inlining them into `dist/`. It was implemented in commit `4a87b31` and reverted because it was judged too complex for the team to maintain.
 - **A3 Tests.** Node 22+ test runner, pure-logic modules tested headlessly, fixtures in `part_a/tests/fixtures/`.
 - **A4 Defaults.** Build on D1–D5 as above, all values in one scoring config.
 - **A5 Knowledgebase sources.** Relationships come from Archi's 3.2 matrix, element types and layers from the 3.2 Reference Cards (`resources/n221p.pdf`). Derivation rules and viewpoint definitions wait for the full 3.2 spec, and the entries that depend on them carry `verified: false`.
-- **A7 Tooling (Phase 1).**
-  - Tests use Node's built-in `node:test` runner and jsdom (pinned dev dependency). No Vitest or bundler; the fewer moving parts, the easier the handover.
-  - Modules stay plain scripts sharing one global scope, exactly as in the original file. Converting to ES modules would change how the single-file build works, so it's deferred unless needed.
-  - `dist/archimate-assessor.html` is committed because it is the deliverable assessors open. `build.py --check` in `npm test` stops it going stale.
+- **A7 Tests.** Node's built-in `node:test` runner and jsdom (pinned dev dependency). They load `part_a/archimate-assessor.html` as is and call its global functions. No Vitest, bundler or build. Tests are optional for *using* the tool and required for *changing* it.
+- **A8 One file, no build (2026-11-11).** The user asked for a single HTML file rather than a source tree plus a build script. The separation the ticket asks for ("rule catalogue in a structured block separate from check logic") is achieved *inside* the file: the rule catalogue, relationship matrix and scoring config are `<script type="application/json">` blocks, and the logic only reads them. Trade-offs accepted:
+  - It's a large file (the matrix adds about 60 KB).
+  - The relationship matrix is converted from Archi's XML once and pasted in, rather than regenerated on every build. The `kb-audit` skill documents how to refresh it.
 - **A6 Case-study profile.** Expected views, stakeholders and requirements come from a profile (ClimateIQ is the default), keyed by candidate role (EA/SA). This is because candidates may agree a different case study with the reviewer.
