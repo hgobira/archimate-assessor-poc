@@ -7,7 +7,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | 0 | Portable context: AGENTS.md, CLAUDE.md, docs/, reference digests, skill stubs | ✅ 2026-11-11 |
 | 1 | Tool at `part_a/archimate-assessor.html` (one file, no build) + baseline tests, with no change in behaviour | ✅ 2026-11-11 |
 | 2 | Rule catalogue + knowledgebase (3.2 Reference Cards, Archi relationship matrix) | ✅ 2026-11-11 |
-| 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ⏳ |
+| 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ✅ 2026-11-11 |
 | 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ⏳ |
 | 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ⏳ |
 | 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ⏳ |
@@ -65,7 +65,43 @@ Original steps:
 6. Add a test that every issue's `ruleId` exists in the catalogue.
 7. **Done when:** every issue has a catalogue ID, the rule checklist shows automation status, and the baseline diff is explained in the commit.
 
-## Phase 3 — Structural checks
+## Phase 3 — Structural checks ✅
+
+**Result** (all in `part_a/archimate-assessor.html`):
+
+- **VIEW CLASSIFIER section.** `classifyView()` returns `{type, crossLayer, confidence, reasons}` from:
+  - element-layer shares
+  - the hub node's degree
+  - service, passive and app-structure counts
+  - the layers joined by *drawn* relationships
+
+  The thresholds are documented in the section header. The name is used only when structure is inconclusive (marked "from name only"). Cross-layer is a property any view can have, so a component view can also count as cross-layer.
+  - On the sample, all 7 views get the type their authors intended.
+  - The ticket's example passes: a contextual view renamed "Overview" is still recognised.
+- **Rewritten on the classifier:**
+  - COMP-002 to COMP-005
+  - COMP-009, now "two cross-layer views", per the case-study checklist
+  - cnn-009 data-view detection
+  - the manual-tab insights
+  - the View Analysis "Detected Type" + "Why"
+- **ARC-USE-001 to 003 retired** (decision A10). They're replaced by **VW-002** (the name contradicts the content), which is the legitimate use of names.
+- **Geometry** (Open Exchange coordinates confirmed absolute; anchor points not stored, so these are `partial`):
+  - **cnn-001** rewritten: every segment, including the element ends. It finds the 5 diagonals in "Motivation View (2)".
+  - **cnn-002** crossings, approximated.
+  - **elm-006** container padding.
+  - elm-004 (grid) **stays manual**: the sample's coordinates follow no consistent grid.
+- **New model checks:**
+  - ARC-REL-003 Association overuse (threshold in the catalogue `params`; sample 38%)
+  - ARC-ELM-001 unnamed elements
+  - ARC-ELM-002 duplicate names
+  - VW-001 unconnected elements
+  - TRC-001 missing layer link in the Motivation→Strategy→Business→Application→Technology chain
+  - TRC-002 goals that don't trace into the architecture (sample: 2 of 7)
+- **Sample:** 14 findings, score 76. SebTreb is 0 because of the old penalty cap, which Phase 4 replaces.
+- **Tests:** 23 passing (`views.test.mjs` added).
+- **Deferred to Phase 5:** assessor override of a view's detected type. It needs the manual-tab UI.
+
+Original steps:
 
 1. View classifier using element mix, drawn cross-layer relationships, the `viewpoint` attribute and the name (weak hint only). It returns `{type, confidence, reasons[]}` and supports assessor override. Types:
    - Motivation, Strategy/Capability, Business

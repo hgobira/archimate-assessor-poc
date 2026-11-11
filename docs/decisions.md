@@ -24,6 +24,7 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | A7 | Tests: built-in `node:test` + jsdom (dev only), loading the HTML file directly | Accepted | Hamza |
 | A8 | The tool is one hand-edited HTML file (`part_a/archimate-assessor.html`), with no build step; data held in labelled JSON blocks | Accepted | Hamza |
 | A9 | Retired rule ids (never reuse): ARC-CL-001…004, ARC-STR-001, ARC-REL-001; replaced by ARC-REL-002 (3.2 matrix) | Accepted | Hamza |
+| A10 | Views classified by structure; ARC-USE-001…003 retired for VW-002; thresholds as documented in the VIEW CLASSIFIER section | Provisional | Hamza / assessors |
 
 ---
 
@@ -104,4 +105,8 @@ The overview doc shows "Archimate Assessment: Level 1 (Online) / Level 2 (Self S
   | ARC-REL-001 | Substring type test; the matrix decides |
 
   Also, elm-001's check could never fire (Label nodes carry no element reference) and was removed. elm-001 is now marked manual, because the XML has no figure-shape data.
+- **A10 Structural view classification (Phase 3, provisional).** A view's type comes from what it contains and what it draws, not its name. The thresholds (e.g. a contextual hub touching ≥75% of connections; Motivation ≥70%; cross-layer = drawn links across ≥3 layers) were calibrated on the one sample model, so assessors should sanity-check them on more submissions. Every classification shows its reasons in View Analysis, which makes this easy to check.
+  - **ARC-USE-001 to 003 retired.** They asked "does a view *named* X contain X elements?". This is replaced by **VW-002** "name contradicts content", which uses the name for what it legitimately is: a claim to verify.
+  - **elm-004 (grid) stays manual.** The coordinates in BizzDesign exports follow no consistent grid.
+  - **Assessor override** of a detected type is deferred to Phase 5.
 - **A6 Case-study profile.** Expected views, stakeholders and requirements come from a profile (ClimateIQ is the default), keyed by candidate role (EA/SA). This is because candidates may agree a different case study with the reviewer.

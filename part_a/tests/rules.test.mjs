@@ -19,7 +19,8 @@ test('catalogue: unique ids and valid fields', () => {
 });
 
 test('catalogue: retired ids are gone', () => {
-  for (const id of ['ARC-CL-001', 'ARC-CL-002', 'ARC-CL-003', 'ARC-CL-004', 'ARC-STR-001', 'ARC-REL-001']) {
+  for (const id of ['ARC-CL-001', 'ARC-CL-002', 'ARC-CL-003', 'ARC-CL-004', 'ARC-STR-001', 'ARC-REL-001',
+    'ARC-USE-001', 'ARC-USE-002', 'ARC-USE-003']) {
     assert.ok(!RULES.some((r) => r.id === id), `${id} should be retired`);
   }
 });

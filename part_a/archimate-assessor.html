@@ -1011,12 +1011,12 @@
     {"id":"elm-003","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"partial","description":"Elements at the same level should align horizontally and vertically"},
     {"id":"elm-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must be sized to align to the grid on all four sides"},
     {"id":"elm-005","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"partial","description":"Spacing between elements should be consistent"},
-    {"id":"elm-006","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Spacing between nested elements and their container must be consistent"},
+    {"id":"elm-006","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Spacing between nested elements and their container must be consistent"},
     {"id":"elm-007","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Data entity elements must be named in the singular"},
     {"id":"elm-008","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on non-container elements must be centred"},
     {"id":"elm-009","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on container elements should be at the top, centred, consistently placed"},
     {"id":"cnn-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must not run diagonally"},
-    {"id":"cnn-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connectors should not cross each other"},
+    {"id":"cnn-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors should not cross each other"},
     {"id":"cnn-003","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must have the minimum number of bends"},
     {"id":"cnn-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connectors must run parallel to element edges, equidistant from sandwiching elements"},
     {"id":"cnn-005","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should be on the horizontal part and centred"},
@@ -1035,9 +1035,15 @@
     {"id":"msc-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Grouping must not be used where a more appropriate element exists"},
 
     {"id":"ARC-REL-002","source":"ArchiMate 3.2 Appendix B (Archi relationships.xml v3.2)","severity":"MUST","category":"ArchiMate","rubric":"metamodel.relationships","automation":"automated","description":"Relationship type must be permitted by ArchiMate 3.2 between its source and target element types"},
-    {"id":"ARC-USE-001","source":"Review Guide: viewpoints","severity":"SHOULD","category":"ArchiMate","rubric":"viewpoints.selection","automation":"partial","description":"Motivation view should contain motivation elements"},
-    {"id":"ARC-USE-002","source":"Review Guide: viewpoints","severity":"MUST","category":"ArchiMate","rubric":"viewpoints.selection","automation":"partial","description":"Technology view must contain technology-layer elements"},
-    {"id":"ARC-USE-003","source":"Review Guide: cross-layer","severity":"MUST","category":"ArchiMate","rubric":"crosslayer.vertical","automation":"partial","description":"Cross-layer view must contain elements from at least 2 core layers"},
+    {"id":"ARC-REL-003","source":"Review Guide: meta-model (\"association instead of serving\")","severity":"SHOULD","category":"ArchiMate","rubric":"metamodel.relationships","automation":"partial","params":{"maxShare":0.3,"minRelationships":10},"description":"Association should not be used where a more specific relationship applies"},
+    {"id":"ARC-ELM-001","source":"Review Guide: clarity (\"mislabelled\")","severity":"SHOULD","category":"ArchiMate","rubric":"metamodel.elements","automation":"automated","description":"Elements should be named"},
+    {"id":"ARC-ELM-002","source":"Review Guide: consistency","severity":"SHOULD","category":"ArchiMate","rubric":"metamodel.elements","automation":"automated","description":"Element names should be unique within an element type"},
+
+    {"id":"VW-001","source":"Review Guide: clarity","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"automated","description":"Every element on a view should be connected or nested"},
+    {"id":"VW-002","source":"Review Guide: clarity (\"mislabelled\") + SebTreb vws-001","severity":"SHOULD","category":"ArchiMate","rubric":"viewpoints.selection","automation":"partial","description":"A view's name should match what its content shows"},
+
+    {"id":"TRC-001","source":"Review Guide: cross-layer alignment; case-study task","severity":"SHOULD","category":"CrossLayer","rubric":"crosslayer.vertical","automation":"automated","description":"Each layer in the chain Motivation → Strategy → Business → Application → Technology should be linked to the next"},
+    {"id":"TRC-002","source":"Review Guide prompt 1: traceability","severity":"SHOULD","category":"CrossLayer","rubric":"crosslayer.e2e","automation":"partial","description":"Each goal should trace into the architecture (strategy, business, application or technology)"},
 
     {"id":"COMP-001","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"At least 6 views are required"},
     {"id":"COMP-002","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A contextual view is required"},
@@ -1047,7 +1053,7 @@
     {"id":"COMP-006","source":"Review Guide: traceability","severity":"SHOULD","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"Model should include motivation elements (Goals, Drivers, Requirements)"},
     {"id":"COMP-007","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"Model must include technology-layer elements"},
     {"id":"COMP-008","source":"Review Guide: stakeholder fit","severity":"SHOULD","category":"Completeness","rubric":"viewpoints.stakeholder","automation":"automated","description":"Model should include business actors or roles"},
-    {"id":"COMP-009","source":"Case study checklist","severity":"MUST","category":"Assessment","rubric":"crosslayer.vertical","automation":"partial","description":"At least one view must span multiple layers"},
+    {"id":"COMP-009","source":"Case study checklist","severity":"MUST","category":"Assessment","rubric":"crosslayer.vertical","automation":"partial","description":"Two cross-layer views are expected (e.g. Capability → Application, Strategy → Technology)"},
     {"id":"COMP-010","source":"Review Guide: consistency","severity":"INFO","category":"Completeness","rubric":"metamodel.elements","automation":"automated","description":"Elements defined but not used in any view"}
   ]
 }
@@ -1312,10 +1318,165 @@ function parseXML(xmlText) {
   return { modelName, elements, relationships, views };
 }
 
+// ===================== VIEW CLASSIFIER =====================
+// Decides what a view IS from its structure, never from its name (the name is a fallback hint only
+// when structure is inconclusive). Returns { type, crossLayer, confidence, reasons[] }.
+//
+// Signals: share of elements per layer; app active-structure / passive / service counts;
+// the "hub" (node touching the most connections); layers joined by relationships DRAWN in the view.
+// Rules are tried in order; the first match wins:
+//   motivation      Motivation elements >= 70%
+//   strategy        Strategy elements >= 50%
+//   implementation  Implementation & Migration elements >= 50%
+//   technology      Technology elements >= 50%
+//   contextual      one hub touches >= 75% of >= 3 connections, <= 15 elements (system in its context)
+//   cross-layer     crossLayer (below) and no layer >= 70%
+//   logical-data    passive structure (data/business objects, artifacts, contracts) >= 50%
+//   logical-component  Application >= 50% with >= 2 application components/interfaces/collaborations
+//   conceptual      services/functions/processes >= 40% and no Technology elements
+//   business        Business elements >= 60%
+// crossLayer (a property, any type): drawn relationships join >= 3 layers, or join 2 layers
+// that each hold >= 30% of the elements with >= 2 such relationships.
+
+const VIEW_TYPE_LABELS = {
+  'motivation':'Motivation', 'strategy':'Strategy / Capability', 'implementation':'Implementation & Migration',
+  'technology':'Technology / Deployment', 'contextual':'Contextual', 'cross-layer':'Cross-layer',
+  'logical-data':'Logical Data / Information', 'logical-component':'Logical Component',
+  'conceptual':'Conceptual', 'business':'Business', 'other':'Unclassified',
+};
+// Name keywords: used only as a fallback hint and to detect name/content mismatch (VW-002).
+const VIEW_NAME_HINTS = [
+  ['contextual', /contextual|context/], ['conceptual', /conceptual/], ['cross-layer', /cross/],
+  ['motivation', /motivation|goal|driver/], ['strategy', /capabilit|strategy|value stream/],
+  ['technology', /technolog|\btech\b|deploy|infrastructure|physical/], ['logical-component', /component/],
+  ['logical-data', /\bdata\b|information/], ['implementation', /implementation|migration|roadmap|plateau/],
+];
+const PASSIVE_TYPES = ['DataObject','BusinessObject','Contract','Representation','Artifact'];
+const APP_ACTIVE_TYPES = ['ApplicationComponent','ApplicationInterface','ApplicationCollaboration'];
+const SERVICE_BEHAVIOUR = /(Service|Function|Process|Interaction)$/;
+
+// All view types the name points to, in VIEW_NAME_HINTS order (e.g. "Component View - Data Ingestion"
+// → logical-component, logical-data). The first is used as the fallback hint.
+function viewNameHints(name) {
+  const n = (name || '').toLowerCase();
+  return VIEW_NAME_HINTS.filter(([, re]) => re.test(n)).map(([t]) => t);
+}
+const viewNameHint = name => viewNameHints(name)[0] || null;
+
+function classifyView(view, elements, relationships) {
+  const nodeEl = n => elements[n.elemRef];
+  const els = view.nodes.filter(n => nodeEl(n) && nodeEl(n).layer !== 'Other').map(nodeEl);
+  const total = els.length;
+  const count = {}; els.forEach(e => { count[e.layer] = (count[e.layer] || 0) + 1; });
+  const share = l => total ? (count[l] || 0) / total : 0;
+  const pct = x => Math.round(x * 100) + '%';
+  const nOf = pred => els.filter(pred).length;
+
+  // Hub and layers joined by drawn relationships
+  const byNode = Object.fromEntries(view.nodes.map(n => [n.nodeId, n]));
+  const degree = {}; const joined = {}; let crossLinks = 0;
+  view.connections.forEach(c => {
+    degree[c.sourceRef] = (degree[c.sourceRef] || 0) + 1;
+    degree[c.targetRef] = (degree[c.targetRef] || 0) + 1;
+    const a = byNode[c.sourceRef] && nodeEl(byNode[c.sourceRef]);
+    const b = byNode[c.targetRef] && nodeEl(byNode[c.targetRef]);
+    if (a && b && a.layer !== b.layer && a.layer !== 'Other' && b.layer !== 'Other') {
+      joined[a.layer] = true; joined[b.layer] = true; crossLinks++;
+    }
+  });
+  const joinedLayers = Object.keys(joined);
+  const conns = view.connections.length;
+  const hubDeg = Math.max(0, ...Object.values(degree));
+  const hubId = Object.keys(degree).find(k => degree[k] === hubDeg);
+  const hubEl = hubId && byNode[hubId] && nodeEl(byNode[hubId]);
+  const maxShare = Math.max(0, ...Object.keys(count).map(share));
+
+  const crossLayer = joinedLayers.length >= 3 ||
+    (joinedLayers.length === 2 && crossLinks >= 2 && joinedLayers.every(l => share(l) >= 0.3));
+  const reasons = [];
+  const layerMix = Object.entries(count).sort((a, b) => b[1] - a[1]).map(([l, c]) => `${l} ${pct(c / total)}`).join(', ');
+  if (total) reasons.push(`Element mix: ${layerMix}`);
+  if (joinedLayers.length) reasons.push(`Drawn relationships join: ${joinedLayers.join(', ')}`);
+
+  let type = 'other';
+  if (share('Motivation') >= 0.7) type = 'motivation';
+  else if (share('Strategy') >= 0.5) type = 'strategy';
+  else if (share('Implementation') >= 0.5) type = 'implementation';
+  else if (share('Technology') >= 0.5) type = 'technology';
+  else if (conns >= 3 && total <= 15 && hubDeg / conns >= 0.75) {
+    type = 'contextual';
+    reasons.push(`Hub "${hubEl ? hubEl.name : '?'}" touches ${hubDeg} of ${conns} connections (system in context)`);
+  }
+  else if (crossLayer && maxShare < 0.7) type = 'cross-layer';
+  else if (total && nOf(e => PASSIVE_TYPES.includes(e.type)) / total >= 0.5) type = 'logical-data';
+  else if (share('Application') >= 0.5 && nOf(e => APP_ACTIVE_TYPES.includes(e.type)) >= 2) type = 'logical-component';
+  else if (total && nOf(e => SERVICE_BEHAVIOUR.test(e.type)) / total >= 0.4 && !count.Technology) {
+    type = 'conceptual';
+    reasons.push(`Services/functions ${pct(nOf(e => SERVICE_BEHAVIOUR.test(e.type)) / total)}, no technology`);
+  }
+  else if (share('Business') >= 0.6) type = 'business';
+
+  let confidence = type === 'other' ? 'none' : 'structural';
+  if (type === 'other') {
+    const hint = viewNameHint(view.name);
+    if (hint) { type = hint; confidence = 'name-only'; reasons.push(`Structure inconclusive; type taken from the view name`); }
+  }
+  if (crossLayer) reasons.push('Counts as a cross-layer view');
+  return { type, crossLayer, confidence, reasons };
+}
+
+// ===================== VIEW GEOMETRY =====================
+// Open Exchange coordinates are absolute (nested nodes included). Connections carry bendpoints
+// but no anchor points, so endpoints on element boxes are approximated.
+
+const box = n => ({ x1: n.x, y1: n.y, x2: n.x + n.w, y2: n.y + n.h });
+const overlap = (a1, a2, b1, b2) => Math.min(a2, b2) - Math.max(a1, b1) > 0;
+
+// A segment is necessarily diagonal when no horizontal or vertical line can join its two ends.
+function segmentMustBeDiagonal(p, q) {
+  const xr = e => e.box ? [e.box.x1, e.box.x2] : [e.pt.x, e.pt.x];
+  const yr = e => e.box ? [e.box.y1, e.box.y2] : [e.pt.y, e.pt.y];
+  const tol = 2;
+  const [px1, px2] = xr(p), [qx1, qx2] = xr(q), [py1, py2] = yr(p), [qy1, qy2] = yr(q);
+  const xMeet = Math.min(px2, qx2) - Math.max(px1, qx1) >= -tol;
+  const yMeet = Math.min(py2, qy2) - Math.max(py1, qy1) >= -tol;
+  return !xMeet && !yMeet;
+}
+
+// Approximate drawn polyline: element ends attach orthogonally where possible, else at the centre.
+function connectionPolyline(conn, byNode) {
+  const s = byNode[conn.sourceRef], t = byNode[conn.targetRef];
+  if (!s || !t) return null;
+  const sb = box(s), tb = box(t);
+  const clampTo = (b, p) => ({ x: Math.min(Math.max(p.x, b.x1), b.x2), y: Math.min(Math.max(p.y, b.y1), b.y2) });
+  const centre = b => ({ x: (b.x1 + b.x2) / 2, y: (b.y1 + b.y2) / 2 });
+  if (conn.bends.length) {
+    return [clampTo(sb, conn.bends[0]), ...conn.bends, clampTo(tb, conn.bends[conn.bends.length - 1])];
+  }
+  if (overlap(sb.x1, sb.x2, tb.x1, tb.x2)) {
+    const x = (Math.max(sb.x1, tb.x1) + Math.min(sb.x2, tb.x2)) / 2;
+    return sb.y2 <= tb.y1 ? [{ x, y: sb.y2 }, { x, y: tb.y1 }] : [{ x, y: sb.y1 }, { x, y: tb.y2 }];
+  }
+  if (overlap(sb.y1, sb.y2, tb.y1, tb.y2)) {
+    const y = (Math.max(sb.y1, tb.y1) + Math.min(sb.y2, tb.y2)) / 2;
+    return sb.x2 <= tb.x1 ? [{ x: sb.x2, y }, { x: tb.x1, y }] : [{ x: sb.x1, y }, { x: tb.x2, y }];
+  }
+  return [centre(sb), centre(tb)];
+}
+
+// Proper crossing of two segments (shared or touching end points do not count).
+function segmentsCross(a, b, c, d) {
+  const o = (p, q, r) => Math.sign((q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x));
+  return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0;
+}
+
 // ===================== CHECKS ENGINE =====================
 
 function runAllChecks(model) {
   const { elements, relationships, views } = model;
+
+  // Classify every view by structure (attached to the view for the UI and the checks below).
+  views.forEach(v => { v.classification = classifyView(v, elements, relationships); });
 
   // Build lookup: nodeId -> element
   const nodeElementMap = {};
@@ -1431,25 +1592,74 @@ function runAllChecks(model) {
     });
 
     // --- cnn-001: No diagonal connectors ---
+    // Every segment, including the first/last ones to the element boxes, is tested. A segment is
+    // flagged only if it MUST be diagonal (no shared x or y range), since anchor points are not stored.
+    const byNode = Object.fromEntries(view.nodes.map(n => [n.nodeId, n]));
+    const endName = id => nodeElementMap[id]?.name || '?';
     view.connections.forEach(conn => {
-      conn.bends.forEach((bend, i) => {
-        if (i === 0) return;
-        const prev = conn.bends[i-1];
-        const dx = Math.abs(bend.x - prev.x);
-        const dy = Math.abs(bend.y - prev.y);
-        if (dx > 5 && dy > 5) {
-          const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-          if (angle > 10 && angle < 80) {
-            const srcEl = elements[nodeElementMap[conn.sourceRef]?.id || ''];
-            allIssues.push({
-              ruleId: 'cnn-001',
-              viewId: vId, viewName: vName,
-              detail: `Diagonal connector detected (${Math.round(angle)}° angle) near bendpoint (${Math.round(bend.x)},${Math.round(bend.y)}).`
-            });
-          }
-        }
-      });
+      const s = byNode[conn.sourceRef], t = byNode[conn.targetRef];
+      if (!s || !t) return;
+      const pts = [{ box: box(s) }, ...conn.bends.map(pt => ({ pt })), { box: box(t) }];
+      const diagonal = pts.slice(1).some((q, i) => segmentMustBeDiagonal(pts[i], q));
+      if (diagonal) {
+        allIssues.push({
+          ruleId: 'cnn-001',
+          viewId: vId, viewName: vName,
+          detail: `Connector "${endName(conn.sourceRef)}" → "${endName(conn.targetRef)}" can only be drawn diagonally with its current ${conn.bends.length ? 'bendpoints' : 'positions (no bendpoints)'}.`
+        });
+      }
     });
+
+    // --- cnn-002: Connectors should not cross ---
+    const lines = view.connections.map(c => ({ c, pl: connectionPolyline(c, byNode) })).filter(x => x.pl);
+    const crossings = [];
+    for (let i = 0; i < lines.length; i++) for (let j = i + 1; j < lines.length; j++) {
+      const A = lines[i], B = lines[j];
+      const ends = [A.c.sourceRef, A.c.targetRef];
+      if (ends.includes(B.c.sourceRef) || ends.includes(B.c.targetRef)) continue;
+      const hit = A.pl.slice(1).some((p, a) => B.pl.slice(1).some((q, b) => segmentsCross(A.pl[a], p, B.pl[b], q)));
+      if (hit) crossings.push(`"${endName(A.c.sourceRef)}→${endName(A.c.targetRef)}" × "${endName(B.c.sourceRef)}→${endName(B.c.targetRef)}"`);
+    }
+    if (crossings.length) {
+      allIssues.push({
+        ruleId: 'cnn-002',
+        viewId: vId, viewName: vName,
+        detail: `${crossings.length} connector crossing(s), e.g. ${crossings.slice(0, 3).join('; ')}. Endpoints are approximated — confirm on the diagram.`
+      });
+    }
+
+    // --- elm-006: Consistent spacing between nested elements and their container ---
+    // Left, right and bottom margins of each container's children are compared (top holds the label).
+    const inconsistent = [];
+    view.nodes.forEach(p => {
+      const kids = view.nodes.filter(n => n.parentNode === p.nodeId);
+      if (!kids.length) return;
+      const left = Math.min(...kids.map(k => k.x)) - p.x;
+      const right = p.x + p.w - Math.max(...kids.map(k => k.x + k.w));
+      const bottom = p.y + p.h - Math.max(...kids.map(k => k.y + k.h));
+      const m = [left, right, bottom].map(Math.round);
+      if (Math.max(...m) - Math.min(...m) > 10) inconsistent.push(`"${nodeElementMap[p.nodeId]?.name || 'container'}" (left ${m[0]}, right ${m[1]}, bottom ${m[2]})`);
+    });
+    if (inconsistent.length) {
+      allIssues.push({
+        ruleId: 'elm-006',
+        viewId: vId, viewName: vName,
+        detail: `Uneven padding inside ${inconsistent.length} container(s): ${inconsistent.slice(0, 3).join('; ')}.`
+      });
+    }
+
+    // --- VW-001: Every element on a view should be connected or nested ---
+    const touched = new Set(view.connections.flatMap(c => [c.sourceRef, c.targetRef]));
+    const isolated = view.nodes.filter(n => nodeElementMap[n.nodeId] &&
+      conceptType(nodeElementMap[n.nodeId].type) !== 'Junction' &&
+      !touched.has(n.nodeId) && !n.parentNode && !view.nodes.some(k => k.parentNode === n.nodeId));
+    if (isolated.length) {
+      allIssues.push({
+        ruleId: 'VW-001',
+        viewId: vId, viewName: vName,
+        detail: `${isolated.length} element(s) with no relationship or nesting on this view: ${isolated.slice(0, 5).map(n => `"${nodeElementMap[n.nodeId].name}"`).join(', ')}.`
+      });
+    }
 
     // --- cnn-003: Minimum bends ---
     view.connections.forEach(conn => {
@@ -1481,10 +1691,8 @@ function runAllChecks(model) {
       }
     });
 
-    // --- cnn-008/009: Data association multiplicity ---
-    const dataViewKeywords = ['data', 'information', 'model'];
-    const isDataView = dataViewKeywords.some(k => vName.toLowerCase().includes(k));
-    if (isDataView) {
+    // --- cnn-009: Association labels in data views (data view = classified logical-data) ---
+    if (view.classification.type === 'logical-data') {
       view.connections.forEach(conn => {
         const rel = relationships[conn.relRef];
         if (!rel) return;
@@ -1523,60 +1731,116 @@ function runAllChecks(model) {
     inViews.forEach(v => allIssues.push({ ruleId: 'ARC-REL-002', viewId: v.id, viewName: v.name, detail }));
   });
 
-  // ===================== ARCHIMATE ELEMENT USAGE CHECKS =====================
+  // ===================== VIEW NAME vs CONTENT =====================
+  // VW-002: a view whose name claims one type but whose structure shows another (mislabelled view).
+  // Uses the name legitimately: the claim being checked IS the name.
 
   views.forEach(view => {
-    const vId = view.id;
-    const vName = view.name;
-
-    const vNameLower = view.name.toLowerCase();
-    const elementTypes = view.nodes.map(n => elements[n.elemRef]?.type).filter(Boolean);
-    const elementLayers = new Set(elementTypes.map(t => ELEMENT_LAYER[t]).filter(Boolean));
-
-    // --- Motivation view should contain motivation elements ---
-    if (vNameLower.includes('motivation') || vNameLower.includes('goal') || vNameLower.includes('driver')) {
-      const motivationTypes = ['Driver','Assessment','Goal','Outcome','Principle','Requirement','Constraint','Stakeholder'];
-      const hasMotivation = elementTypes.some(t => motivationTypes.includes(t));
-      if (!hasMotivation) {
-        allIssues.push({
-          ruleId: 'ARC-USE-001',
-          viewId: vId, viewName: vName,
-          detail: `View "${vName}" appears to be a motivation view but contains no Driver, Goal, Outcome, or Requirement elements.`
-        });
-      }
+    const hints = viewNameHints(view.name);
+    const claimed = hints[0];
+    const c = view.classification;
+    if (!claimed || c.confidence !== 'structural') return;
+    const matches = hints.some(h => h === c.type || (h === 'cross-layer' && c.crossLayer));
+    if (!matches) {
+      allIssues.push({
+        ruleId: 'VW-002',
+        viewId: view.id, viewName: view.name,
+        detail: `Name suggests a ${VIEW_TYPE_LABELS[claimed]} view, but its content reads as ${VIEW_TYPE_LABELS[c.type]} (${c.reasons[0] || 'no elements'}).`
+      });
     }
-
-    // --- Technology view should contain technology elements ---
-    if (vNameLower.includes('technology') || vNameLower.includes('infrastructure') || vNameLower.includes('deployment')) {
-      const hasTechElements = elementTypes.some(t => ARCHIMATE_LAYERS.Technology.includes(t));
-      if (!hasTechElements) {
-        allIssues.push({
-          ruleId: 'ARC-USE-002',
-          viewId: vId, viewName: vName,
-          detail: `View "${vName}" appears to be a technology view but contains no Node, Device, SystemSoftware, or TechnologyService elements.`
-        });
-      }
-    }
-
-    // --- Cross-layer view should have elements from 2+ layers ---
-    if (vNameLower.includes('cross') || vNameLower.includes('cross-layer')) {
-      const mainLayers = ['Business','Application','Technology'];
-      const presentMainLayers = mainLayers.filter(l => elementLayers.has(l));
-      if (presentMainLayers.length < 2) {
-        allIssues.push({
-          ruleId: 'ARC-USE-003',
-          viewId: vId, viewName: vName,
-          detail: `View "${vName}" only has elements from: ${[...elementLayers].join(', ') || 'none'}. Expected 2+ of Business/Application/Technology.`
-        });
-      }
-    }
-
   });
 
-  // ===================== COMPLETENESS CHECKS (Assessment Criteria) =====================
+  // ===================== MODEL QUALITY =====================
 
-  const allViewNames = views.map(v => v.name.toLowerCase());
+  const relList = Object.values(relationships);
+  const elList = Object.values(elements);
+
+  // ARC-REL-003: Association used where a specific relationship would say more
+  const assocRule = RULE_BY_ID['ARC-REL-003'].params;
+  const assocCount = relList.filter(r => r.type === 'Association').length;
+  if (relList.length >= assocRule.minRelationships && assocCount / relList.length > assocRule.maxShare) {
+    allIssues.push({
+      ruleId: 'ARC-REL-003',
+      viewId: 'model', viewName: 'Model Level',
+      detail: `${assocCount} of ${relList.length} relationships (${Math.round(assocCount / relList.length * 100)}%) are Associations; threshold ${Math.round(assocRule.maxShare * 100)}%. Prefer Serving, Realization, Assignment, Access, Flow or Triggering where they apply.`
+    });
+  }
+
+  // ARC-ELM-001: unnamed elements (junctions excluded)
+  const unnamed = elList.filter(e => !e.name && conceptType(e.type) !== 'Junction');
+  if (unnamed.length) {
+    allIssues.push({
+      ruleId: 'ARC-ELM-001',
+      viewId: 'model', viewName: 'Model Level',
+      detail: `${unnamed.length} unnamed element(s): ${unnamed.slice(0, 5).map(e => e.type).join(', ')}.`
+    });
+  }
+
+  // ARC-ELM-002: duplicate names within the same element type
+  const seen = {}; elList.forEach(e => { if (e.name) { const k = e.type + '|' + e.name.trim().toLowerCase(); (seen[k] = seen[k] || []).push(e); } });
+  const dups = Object.values(seen).filter(g => g.length > 1);
+  if (dups.length) {
+    allIssues.push({
+      ruleId: 'ARC-ELM-002',
+      viewId: 'model', viewName: 'Model Level',
+      detail: `${dups.length} duplicated name(s): ${dups.slice(0, 5).map(g => `"${g[0].name}" (${g[0].type} ×${g.length})`).join(', ')}.`
+    });
+  }
+
+  // ===================== TRACEABILITY =====================
+
+  // TRC-001: each adjacent pair of layers in the case-study chain must be joined by at least one relationship
+  const linked = new Set();
+  relList.forEach(r => {
+    const a = elements[r.source], b = elements[r.target];
+    if (a && b && a.layer !== b.layer) { linked.add(a.layer + '|' + b.layer); linked.add(b.layer + '|' + a.layer); }
+  });
+  const layerPresent = l => elList.some(e => e.layer === l);
+  const links = [
+    ['Motivation', ['Strategy', 'Business', 'Application', 'Technology'], 'Motivation (goals, requirements) to the architecture'],
+    ['Strategy', ['Business', 'Application'], 'Strategy (capabilities) to Business or Application'],
+    ['Business', ['Application'], 'Business to Application'],
+    ['Application', ['Technology'], 'Application to Technology'],
+  ];
+  links.forEach(([from, tos, label]) => {
+    if (!layerPresent(from)) {
+      allIssues.push({ ruleId: 'TRC-001', viewId: 'model', viewName: 'Model Level',
+        detail: `No ${from} elements, so the chain ${label} is missing.` });
+    } else if (!tos.some(to => linked.has(from + '|' + to))) {
+      allIssues.push({ ruleId: 'TRC-001', viewId: 'model', viewName: 'Model Level',
+        detail: `No relationship links ${label}.` });
+    }
+  });
+
+  // TRC-002: each Goal should reach a non-motivation element through motivation elements
+  // (e.g. Goal ← Requirement ← realized by a Service), i.e. it is traceable into the architecture.
+  const adj = {};
+  relList.forEach(r => { (adj[r.source] = adj[r.source] || []).push(r.target); (adj[r.target] = adj[r.target] || []).push(r.source); });
+  const untraced = elList.filter(e => e.type === 'Goal').filter(goal => {
+    const queue = [goal.id], visited = new Set(queue);
+    while (queue.length) {
+      for (const nxt of adj[queue.shift()] || []) {
+        if (visited.has(nxt) || !elements[nxt]) continue;
+        if (elements[nxt].layer !== 'Motivation') return false;
+        visited.add(nxt); queue.push(nxt);
+      }
+    }
+    return true;
+  });
+  if (untraced.length) {
+    allIssues.push({
+      ruleId: 'TRC-002',
+      viewId: 'model', viewName: 'Model Level',
+      detail: `${untraced.length} of ${elList.filter(e => e.type === 'Goal').length} goal(s) do not trace to any strategy, business, application or technology element: ${untraced.slice(0, 5).map(g => `"${g.name}"`).join(', ')}.`
+    });
+  }
+
+  // ===================== COMPLETENESS CHECKS (Assessment Criteria) =====================
+  // View types come from the structural classifier, not view names.
+
   const allElementTypes = new Set(Object.values(elements).map(e => e.type));
+  const viewsOfType = t => views.filter(v => v.classification.type === t);
+  const typeSummary = views.map(v => `"${v.name}" = ${VIEW_TYPE_LABELS[v.classification.type]}`).join('; ');
 
   // Check for minimum 6 views
   if (views.length < 6) {
@@ -1587,43 +1851,24 @@ function runAllChecks(model) {
     });
   }
 
-  // Check for contextual view
-  const hasContextual = allViewNames.some(n => n.includes('contextual'));
-  if (!hasContextual) {
-    allIssues.push({
-      ruleId: 'COMP-002',
-      viewId: 'model', viewName: 'Model Level',
-      detail: 'No view with "Contextual" in its name found. This is a mandatory view type.'
-    });
-  }
+  // Required view types (case-study checklist), recognised by structure
+  [['COMP-002', 'contextual', 'a contextual view (one system or service at the centre, linked to the actors and systems around it)'],
+   ['COMP-003', 'conceptual', 'a conceptual view (services and functions with their consumers, no technology)'],
+   ['COMP-004', 'technology', 'a technology view (mostly nodes, devices, system software, networks, artifacts)']]
+  .forEach(([ruleId, type, what]) => {
+    if (!viewsOfType(type).length) {
+      allIssues.push({ ruleId, viewId: 'model', viewName: 'Model Level',
+        detail: `No view has the structure of ${what}. Detected: ${typeSummary}.` });
+    }
+  });
 
-  // Check for conceptual view
-  const hasConceptual = allViewNames.some(n => n.includes('conceptual'));
-  if (!hasConceptual) {
-    allIssues.push({
-      ruleId: 'COMP-003',
-      viewId: 'model', viewName: 'Model Level',
-      detail: 'No view with "Conceptual" in its name found. This is a mandatory view type.'
-    });
-  }
-
-  // Check for technology view
-  const hasTechView = allViewNames.some(n => n.includes('technology') || n.includes('tech') || n.includes('infrastructure') || n.includes('deployment'));
-  if (!hasTechView) {
-    allIssues.push({
-      ruleId: 'COMP-004',
-      viewId: 'model', viewName: 'Model Level',
-      detail: 'No technology/infrastructure view found. Assessment requires at least one Technology view.'
-    });
-  }
-
-  // Check for cross-layer view
-  const hasCrossLayer = allViewNames.some(n => n.includes('cross') || n.includes('cross-layer'));
-  if (!hasCrossLayer) {
+  // Cross-layer views: COMP-005 needs one, COMP-009 needs two (case-study checklist)
+  const crossLayerViews = views.filter(v => v.classification.crossLayer);
+  if (!crossLayerViews.length) {
     allIssues.push({
       ruleId: 'COMP-005',
       viewId: 'model', viewName: 'Model Level',
-      detail: 'No cross-layer view found. Required: at least one cross-layer view (e.g., Business→Application→Technology).'
+      detail: 'No view draws relationships across layers (e.g. Business Service → Application Service → Technology).'
     });
   }
 
@@ -1659,17 +1904,11 @@ function runAllChecks(model) {
     });
   }
 
-  // --- Assessment criteria: 2 cross-role/cross-layer views ---
-  const crossLayerViews = views.filter(v =>
-    v.name.toLowerCase().includes('cross') ||
-    (v.nodes.some(n => ELEMENT_LAYER[elements[n.elemRef]?.type] === 'Business') &&
-     v.nodes.some(n => ELEMENT_LAYER[elements[n.elemRef]?.type] === 'Technology'))
-  );
-  if (crossLayerViews.length < 1) {
+  if (crossLayerViews.length === 1) {
     allIssues.push({
       ruleId: 'COMP-009',
       viewId: 'model', viewName: 'Model Level',
-      detail: 'No views found that span multiple layers (Business→Application→Technology).'
+      detail: `Only one cross-layer view ("${crossLayerViews[0].name}"); the case study asks for two (e.g. Capability→Application, Strategy→Technology).`
     });
   }
 
@@ -1776,7 +2015,7 @@ const MS_SECTIONS = [
     rows: [
       { id:'3a', label:'Minimum 6 views created (incl. contextual, conceptual, technology)', weight:8, sebtreb: 'COMP-001 / COMP-002 / COMP-003 / COMP-004' },
       { id:'3b', label:'Views address specific stakeholder concerns', weight:6, sebtreb: null },
-      { id:'3c', label:'Cross-layer views present (e.g. Capability to Application)', weight:5, sebtreb: 'COMP-005 / ARC-USE-003' },
+      { id:'3c', label:'Cross-layer views present (e.g. Capability to Application)', weight:5, sebtreb: 'COMP-005 / COMP-009 / TRC-001' },
       { id:'3d', label:'Appropriate viewpoint selection for architecture role (EA / SA)', weight:3, sebtreb: null },
       { id:'3e', label:'View names clearly indicate purpose and scope', weight:3, sebtreb: 'vws-001' },
     ]
@@ -1823,8 +2062,8 @@ function renderManualTab(model, issues, autoScore) {
   // Build insights text
   const insights = [];
   if (model.views.length < 6) insights.push(`Only <b>${model.views.length}</b> views found — minimum 6 required. Consider rating 3a as "Poor".`);
-  if (!model.views.some(v => v.name.toLowerCase().includes('contextual'))) insights.push('<b>Contextual</b> view missing — impacts criteria 3a.');
-  if (!model.views.some(v => v.name.toLowerCase().includes('conceptual'))) insights.push('<b>Conceptual</b> view missing — impacts criteria 3a.');
+  if (!model.views.some(v => v.classification?.type === 'contextual')) insights.push('No view has a <b>contextual</b> structure — impacts criteria 3a.');
+  if (!model.views.some(v => v.classification?.type === 'conceptual')) insights.push('No view has a <b>conceptual</b> structure — impacts criteria 3a.');
   if (sebTrebIssues.length > 0) {
     const ruleIds = [...new Set(sebTrebIssues.map(i => i.ruleId))].slice(0,6).join(', ');
     insights.push(`<b>${sebTrebIssues.length}</b> SebTreb violations: ${ruleIds}. Review Section 5 carefully.`);
@@ -3442,18 +3681,11 @@ function renderViewAnalysis(model, issues) {
     const sc2 = vis.filter(i => i.severity === 'SHOULD').length;
     const accentColor = mc > 0 ? 'var(--red)' : vis.length > 0 ? 'var(--amber)' : 'var(--green)';
 
-    // Determine view type
-    const n = view.name.toLowerCase();
-    const viewType = n.includes('contextual') ? 'Contextual'
-      : n.includes('conceptual') ? 'Conceptual'
-      : n.includes('logical') ? 'Logical'
-      : n.includes('physical') ? 'Physical'
-      : n.includes('tech') || n.includes('deploy') || n.includes('infra') ? 'Technology'
-      : n.includes('motivat') || n.includes('goal') || n.includes('driver') ? 'Motivation'
-      : n.includes('cross') ? 'Cross-Layer'
-      : n.includes('component') ? 'Component'
-      : n.includes('data') || n.includes('model') ? 'Data'
-      : 'Other';
+    // View type from the structural classifier (see VIEW CLASSIFIER)
+    const cls = view.classification || { type: 'other', crossLayer: false, confidence: 'none', reasons: [] };
+    const viewType = VIEW_TYPE_LABELS[cls.type] + (cls.crossLayer && cls.type !== 'cross-layer' ? ' + cross-layer' : '')
+      + (cls.confidence === 'name-only' ? ' (from name only)' : '');
+    const viewTypeWhy = escHtml(cls.reasons.join(' · '));
 
     // Layer coverage for this view
     const viewLayers = new Set(
@@ -3466,7 +3698,8 @@ function renderViewAnalysis(model, issues) {
         <span class="rag ${mc>0?'rag-red':vis.length>0?'rag-amber':'rag-green'}" style="font-size:10px">${mc>0?'RED':vis.length>0?'AMBER':'GREEN'}</span>
       </div>
       <div class="va-card-body">
-        <div class="va-stat-row"><span class="va-stat-label">View Type</span><span class="va-stat-val">${viewType}</span></div>
+        <div class="va-stat-row"><span class="va-stat-label">Detected Type</span><span class="va-stat-val" title="${viewTypeWhy}">${viewType}</span></div>
+        <div class="va-stat-row"><span class="va-stat-label">Why</span><span class="va-stat-val" style="font-size:11px;text-align:right">${viewTypeWhy || '—'}</span></div>
         <div class="va-stat-row"><span class="va-stat-label">Elements</span><span class="va-stat-val">${view.nodes.length}</span></div>
         <div class="va-stat-row"><span class="va-stat-label">Connections</span><span class="va-stat-val">${view.connections.length}</span></div>
         <div class="va-stat-row"><span class="va-stat-label">Layers Present</span><span class="va-stat-val" style="font-size:11px">${[...viewLayers].join(', ') || '—'}</span></div>
