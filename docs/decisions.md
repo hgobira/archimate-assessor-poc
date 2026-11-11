@@ -23,6 +23,7 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | A6 | Case-study profile and candidate role (EA/SA) drive expected views and scenario rows | Accepted | Hamza |
 | A7 | Tests: built-in `node:test` + jsdom (dev only), loading the HTML file directly | Accepted | Hamza |
 | A8 | The tool is one hand-edited HTML file (`part_a/archimate-assessor.html`), with no build step; data held in labelled JSON blocks | Accepted | Hamza |
+| A9 | Retired rule ids (never reuse): ARC-CL-001…004, ARC-STR-001, ARC-REL-001; replaced by ARC-REL-002 (3.2 matrix) | Accepted | Hamza |
 
 ---
 
@@ -91,4 +92,16 @@ The overview doc shows "Archimate Assessment: Level 1 (Online) / Level 2 (Self S
 - **A8 One file, no build (2026-11-11).** The user asked for a single HTML file rather than a source tree plus a build script. The separation the ticket asks for ("rule catalogue in a structured block separate from check logic") is achieved *inside* the file: the rule catalogue, relationship matrix and scoring config are `<script type="application/json">` blocks, and the logic only reads them. Trade-offs accepted:
   - It's a large file (the matrix adds about 60 KB).
   - The relationship matrix is converted from Archi's XML once and pasted in, rather than regenerated on every build. The `kb-audit` skill documents how to refresh it.
+- **A9 Retired rules (Phase 2, 2026-11-11).** All of these are replaced by **ARC-REL-002**, which checks each relationship against the full ArchiMate 3.2 matrix by element type:
+
+  | Id | Why retired |
+  |---|---|
+  | ARC-CL-001 | A layer-pair approximation. It produced all 4 MUST findings on the sample, and all 4 were false positives. |
+  | ARC-CL-002 | Duplicated by the matrix |
+  | ARC-CL-003 | **Contradicts 3.2**: technology may serve business |
+  | ARC-CL-004 | Duplicated by the matrix |
+  | ARC-STR-001 | Composition-by-layer approximation; the matrix decides |
+  | ARC-REL-001 | Substring type test; the matrix decides |
+
+  Also, elm-001's check could never fire (Label nodes carry no element reference) and was removed. elm-001 is now marked manual, because the XML has no figure-shape data.
 - **A6 Case-study profile.** Expected views, stakeholders and requirements come from a profile (ClimateIQ is the default), keyed by candidate role (EA/SA). This is because candidates may agree a different case study with the reviewer.

@@ -7,7 +7,7 @@ The Open Group texts are copyrighted and **single-user licensed**. Don't commit 
 | [resources/n221p.pdf](../../resources/n221p.pdf) | **ArchiMate 3.2 Reference Cards** (The Open Group N221, 2022, Personal PDF edition, 14 pp) | Authoritative 3.2 element list per layer, element definitions, relationship definitions and notation. **No** relationship tables, derivation rules or viewpoints. |
 | [resources/978940180512C_SMPL.pdf](../../resources/978940180512C_SMPL.pdf) | A 30-page **sample of the ArchiMate 3.1** specification (Van Haren) | Generic language structure only. Not 3.2, and no Appendix B. |
 | Full ArchiMate 3.2 spec | https://pubs.opengroup.org/architecture/archimate32-doc/ | **Pending** (2026-11-11). Needed for derivation rules (§5.7) and viewpoints (Appendix C). |
-| Archi `relationships.xml` (`version="3.2"`) | https://github.com/archimatetool/archi (MIT), via archi-online `tools/data/relationships.xml` | The allowed-relationship matrix per (source type, target type). Letter codes: a=access, c=composition, f=flow, g=aggregation, i=assignment, n=influence, o=association, r=realization, s=specialization, t=triggering, v=serving. |
+| Archi `relationships.xml` (`version="3.2"`) | https://github.com/archimatetool/archi (MIT), commit `6d236081d9460f063076dbb6225f8645c5f5a7a5` (2026-08-22). Same content as archi-online's copy. | The allowed-relationship matrix per (source type, target type), **embedded in the tool** as the `relationship-matrix` block. Letter codes: a=access, c=composition, f=flow, g=aggregation, i=assignment, n=influence, o=association, r=realization, s=specialization, t=triggering, v=serving. |
 
 ## 3.2 element types by layer (from the Reference Cards; layer membership only)
 

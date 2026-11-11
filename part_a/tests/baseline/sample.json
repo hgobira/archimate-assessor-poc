@@ -50,56 +50,20 @@
   },
   "issues": [
     {
-      "ruleId": "ARC-CL-001",
-      "category": "CrossLayer",
-      "severity": "MUST",
-      "viewId": "id-29654",
-      "viewName": "Conceptual View",
-      "description": "Invalid cross-layer relationship (Application→Business)",
-      "detail": "\"Data Distribution\" → \"Enterprise Client\" uses Flow which is not valid for Application→Business cross-layer. Valid: Serving, Realization, Assignment, Association, Influence, Access."
-    },
-    {
-      "ruleId": "ARC-CL-001",
-      "category": "CrossLayer",
-      "severity": "MUST",
-      "viewId": "id-29669",
-      "viewName": "Component View - Data Ingestion",
-      "description": "Invalid cross-layer relationship (Application→Business)",
-      "detail": "\"REST Pull Interface\" → \"Weather API\" uses Triggering which is not valid for Application→Business cross-layer. Valid: Serving, Realization, Assignment, Association, Influence, Access."
-    },
-    {
-      "ruleId": "ARC-CL-001",
-      "category": "CrossLayer",
-      "severity": "MUST",
-      "viewId": "id-29669",
-      "viewName": "Component View - Data Ingestion",
-      "description": "Invalid cross-layer relationship (Business→Application)",
-      "detail": "\"Weather API (Webhook)\" → \"Webhook Interface\" uses Triggering which is not valid for Business→Application cross-layer. Valid: Serving, Realization, Assignment, Association, Influence, Access."
-    },
-    {
-      "ruleId": "ARC-CL-001",
-      "category": "CrossLayer",
-      "severity": "MUST",
-      "viewId": "id-29669",
-      "viewName": "Component View - Data Ingestion",
-      "description": "Invalid cross-layer relationship (Business→Application)",
-      "detail": "\"Satellite Data Feed\" → \"Satellite Data Interface\" uses Triggering which is not valid for Business→Application cross-layer. Valid: Serving, Realization, Assignment, Association, Influence, Access."
-    },
-    {
       "ruleId": "COMP-010",
       "category": "Completeness",
       "severity": "INFO",
       "viewId": "model",
       "viewName": "Model Level",
-      "description": "Model contains elements not used in any view",
+      "description": "Elements defined but not used in any view",
       "detail": "7 elements defined but not appearing in any view — consider removing or including them."
     }
   ],
   "score": {
-    "total": 76,
+    "total": 100,
     "byCategory": {
       "Completeness": 100,
-      "CrossLayer": 4,
+      "CrossLayer": 100,
       "ArchiMate": 100,
       "SebTreb": 100,
       "Assessment": 100

@@ -5,7 +5,7 @@ description: Add, change or retire an assessment rule (SebTreb, ArchiMate validi
 
 # Add or change a rule
 
-> Status: **stub.** Usable from Phase 2, when the `rule-catalogue` block exists in `part_a/archimate-assessor.html`.
+> Status: **usable.** In the checks, push `{ ruleId, viewId, viewName, detail }`. `runAllChecks` passes every issue through `makeIssue()`, which fills in description, severity and category from the catalogue and throws on an unknown id. `tests/rules.test.mjs` also fails if a check emits an id that's missing from the catalogue.
 
 Everything is in one file: `part_a/archimate-assessor.html`.
 

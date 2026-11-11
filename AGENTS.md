@@ -50,9 +50,9 @@ The tool stays one file, organised into clearly labelled blocks so data is separ
 | Block | What | Phase |
 |---|---|---|
 | `<style>` | All CSS | existing |
-| `// ===== ARCHIMATE KNOWLEDGE BASE` | Element types, layers, aspects | existing; rebuilt in P2 |
-| `<script type="application/json" id="relationship-matrix">` | ArchiMate 3.2 allowed relationships, from Archi `relationships.xml` (MIT; provenance and licence in the block's header comment) | P2 |
-| `<script type="application/json" id="rule-catalogue">` | **The rule catalogue**: every rule's id, source, severity, category, automation status | P2 |
+| `<script type="application/json" id="rule-catalogue">` | **The rule catalogue**: every rule's id, source, severity, category, rubric subcategory, automation status | ✅ P2 |
+| `<script type="application/json" id="relationship-matrix">` | ArchiMate 3.2 allowed relationships, from Archi `relationships.xml` (MIT; provenance and licence in the block's header comment) | ✅ P2 |
+| `// ===== ARCHIMATE KNOWLEDGE BASE` | 3.2 element layers; `RULES`/`makeIssue()`/`ruleStatus()`; `isRelationshipAllowed()` | ✅ P2 |
 | `<script type="application/json" id="scoring-config">` | Weights, penalties, caps, rating scale, grade bands | P4 |
 | `// ===== PARSING / CHECKS ENGINE / SCORING` | Logic only; reads the blocks above, never hard-codes rule text or thresholds | existing; reworked P2–4 |
 | `// ===== UI / REPORT …` sections | Rendering, manual sheet, PDF | existing; reworked P5–6 |

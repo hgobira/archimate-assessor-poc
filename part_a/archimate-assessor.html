@@ -198,6 +198,7 @@
   .rag-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
   .rag-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
   .rag-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .rag-grey { background: var(--surface3); color: var(--text-dim); border: 1px solid var(--border); }
 
   /* Tabs */
   .tabs { display: flex; gap: 4px; margin-bottom: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 4px; box-shadow: 0 1px 4px rgba(15,36,97,0.06); }
@@ -996,71 +997,241 @@
   </div>
 </main>
 
+<!-- ===================== RULE CATALOGUE =====================
+     Single source of truth for every rule the tool reports. Checks emit only a rule id + evidence;
+     description, severity, category and automation status come from here.
+     automation: automated = fully checked; partial = heuristic, assessor should confirm; manual = not checkable
+     from the XML, shown as "Manual review". Retired ids (never reuse): see docs/decisions.md. -->
+<script type="application/json" id="rule-catalogue">
+{
+  "fields": "id | source | severity (MUST/SHOULD/INFO) | category (current score bucket) | rubric (Report Format subcategory, used from Phase 4) | automation (automated/partial/manual) | description",
+  "rules": [
+    {"id":"elm-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must use the rectangle notation"},
+    {"id":"elm-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Elements should be the same size"},
+    {"id":"elm-003","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"partial","description":"Elements at the same level should align horizontally and vertically"},
+    {"id":"elm-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must be sized to align to the grid on all four sides"},
+    {"id":"elm-005","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"partial","description":"Spacing between elements should be consistent"},
+    {"id":"elm-006","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Spacing between nested elements and their container must be consistent"},
+    {"id":"elm-007","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Data entity elements must be named in the singular"},
+    {"id":"elm-008","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on non-container elements must be centred"},
+    {"id":"elm-009","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on container elements should be at the top, centred, consistently placed"},
+    {"id":"cnn-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must not run diagonally"},
+    {"id":"cnn-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connectors should not cross each other"},
+    {"id":"cnn-003","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must have the minimum number of bends"},
+    {"id":"cnn-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connectors must run parallel to element edges, equidistant from sandwiching elements"},
+    {"id":"cnn-005","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should be on the horizontal part and centred"},
+    {"id":"cnn-006","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on vertical connectors must be rotated 90° anti-clockwise and centred"},
+    {"id":"cnn-007","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should not sit on a corner"},
+    {"id":"cnn-008","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Data view associations should show multiplicity"},
+    {"id":"cnn-009","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Data view association labels must meaningfully describe the relationship"},
+    {"id":"cnn-010","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"A single connector must attach to the centre of the source side"},
+    {"id":"cnn-011","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"A single connector must attach to the centre of the target side"},
+    {"id":"cnn-012","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Multiple connectors leaving the same side must be evenly spaced"},
+    {"id":"cnn-013","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Multiple connectors arriving at the same side must be evenly spaced"},
+    {"id":"vws-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"automated","description":"View names must indicate the diagram type (contextual/conceptual/logical/physical)"},
+    {"id":"msc-001","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"manual","description":"Note elements listing actions should be sized so actions do not wrap"},
+    {"id":"msc-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"manual","description":"Grouping should be used to reduce clutter where elements share a relationship"},
+    {"id":"msc-003","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"automated","description":"Grouped concepts must be nested, not connected to the Grouping by aggregation"},
+    {"id":"msc-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Grouping must not be used where a more appropriate element exists"},
+
+    {"id":"ARC-REL-002","source":"ArchiMate 3.2 Appendix B (Archi relationships.xml v3.2)","severity":"MUST","category":"ArchiMate","rubric":"metamodel.relationships","automation":"automated","description":"Relationship type must be permitted by ArchiMate 3.2 between its source and target element types"},
+    {"id":"ARC-USE-001","source":"Review Guide: viewpoints","severity":"SHOULD","category":"ArchiMate","rubric":"viewpoints.selection","automation":"partial","description":"Motivation view should contain motivation elements"},
+    {"id":"ARC-USE-002","source":"Review Guide: viewpoints","severity":"MUST","category":"ArchiMate","rubric":"viewpoints.selection","automation":"partial","description":"Technology view must contain technology-layer elements"},
+    {"id":"ARC-USE-003","source":"Review Guide: cross-layer","severity":"MUST","category":"ArchiMate","rubric":"crosslayer.vertical","automation":"partial","description":"Cross-layer view must contain elements from at least 2 core layers"},
+
+    {"id":"COMP-001","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"At least 6 views are required"},
+    {"id":"COMP-002","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A contextual view is required"},
+    {"id":"COMP-003","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A conceptual view is required"},
+    {"id":"COMP-004","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A technology view is required"},
+    {"id":"COMP-005","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"crosslayer.vertical","automation":"partial","description":"A cross-layer view is required"},
+    {"id":"COMP-006","source":"Review Guide: traceability","severity":"SHOULD","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"Model should include motivation elements (Goals, Drivers, Requirements)"},
+    {"id":"COMP-007","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"Model must include technology-layer elements"},
+    {"id":"COMP-008","source":"Review Guide: stakeholder fit","severity":"SHOULD","category":"Completeness","rubric":"viewpoints.stakeholder","automation":"automated","description":"Model should include business actors or roles"},
+    {"id":"COMP-009","source":"Case study checklist","severity":"MUST","category":"Assessment","rubric":"crosslayer.vertical","automation":"partial","description":"At least one view must span multiple layers"},
+    {"id":"COMP-010","source":"Review Guide: consistency","severity":"INFO","category":"Completeness","rubric":"metamodel.elements","automation":"automated","description":"Elements defined but not used in any view"}
+  ]
+}
+</script>
+
+<!-- ===================== RELATIONSHIP MATRIX (ArchiMate 3.2) =====================
+     Allowed relationships per (source element type, target element type). rows[source] is a comma-separated
+     list aligned to "types"; each entry holds the permitted relationship codes (see "codes").
+     Source: Archi relationships.xml version="3.2"
+       https://github.com/archimatetool/archi/blob/6d236081d9460f063076dbb6225f8645c5f5a7a5/com.archimatetool.model/model/relationships.xml
+       (retrieved 2026-11-11). Converted once; to refresh, follow the kb-audit skill. Do not hand-edit entries.
+The MIT License (MIT)
+
+Copyright (c) 2013-2026 Phillip Beauvoir, Jean-Baptiste Sarrodie, The Open Group
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script type="application/json" id="relationship-matrix">
+{
+  "version": "3.2",
+  "codes": {"a": "Access", "c": "Composition", "f": "Flow", "g": "Aggregation", "i": "Assignment", "n": "Influence", "o": "Association", "r": "Realization", "s": "Specialization", "t": "Triggering", "v": "Serving"},
+  "types": ["ApplicationCollaboration", "ApplicationComponent", "ApplicationEvent", "ApplicationFunction", "ApplicationInteraction", "ApplicationInterface", "ApplicationProcess", "ApplicationService", "Artifact", "Assessment", "BusinessActor", "BusinessCollaboration", "BusinessEvent", "BusinessFunction", "BusinessInteraction", "BusinessInterface", "BusinessObject", "BusinessProcess", "BusinessRole", "BusinessService", "Capability", "CommunicationNetwork", "Constraint", "Contract", "CourseOfAction", "DataObject", "Deliverable", "Device", "DistributionNetwork", "Driver", "Equipment", "Facility", "Gap", "Goal", "Grouping", "ImplementationEvent", "Junction", "Location", "Material", "Meaning", "Node", "Outcome", "Path", "Plateau", "Principle", "Product", "Relationship", "Representation", "Requirement", "Resource", "Stakeholder", "SystemSoftware", "TechnologyCollaboration", "TechnologyEvent", "TechnologyFunction", "TechnologyInteraction", "TechnologyInterface", "TechnologyProcess", "TechnologyService", "Value", "ValueStream", "WorkPackage"],
+  "rows": {
+    "ApplicationCollaboration": "cfgostv,fgortv,fiortv,fiortv,fiortv,cfgortv,fiortv,fiortv,ao,no,fotv,fotv,fortv,fortv,fortv,fortv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "ApplicationComponent": "fotv,cfgorstv,fiortv,fiortv,fiortv,cfgortv,fiortv,fiortv,ao,no,fotv,fotv,fortv,fortv,fortv,fortv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "ApplicationEvent": "fotv,fotv,cfgostv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fortv,fotv,fotv,fotv,ao,fotv,fotv,fotv,o,fotv,nor,ao,o,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,o,o",
+    "ApplicationFunction": "fotv,fotv,fotv,cfgostv,cfgotv,fotv,cfgotv,fortv,ao,no,fotv,fotv,fotv,fortv,fortv,fotv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "ApplicationInteraction": "fotv,fotv,fotv,cfgotv,cfgostv,fotv,cfgotv,fortv,ao,no,fotv,fotv,fotv,fortv,fortv,fotv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "ApplicationInterface": "fotv,fotv,fotv,fotv,fotv,cfgostv,fotv,fiotv,ao,no,fotv,fotv,fotv,fotv,fotv,fortv,ao,fotv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "ApplicationProcess": "fotv,fotv,fotv,cfgotv,cfgotv,fotv,cfgostv,fortv,ao,no,fotv,fotv,fotv,fortv,fortv,fotv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "ApplicationService": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,cfgostv,ao,no,fotv,fotv,fotv,fotv,fotv,fotv,ao,fotv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "Artifact": "or,or,or,or,or,or,or,or,cgors,no,o,o,or,or,or,or,or,or,o,or,or,o,nor,or,or,or,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,or,no,or,o,or,or,or,or,or,or,no,or,o",
+    "Assessment": "o,o,o,o,o,o,o,o,o,cgnos,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,no,cgnos,o,acfginorstv,o,o,no,o,no,o,o,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "BusinessActor": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,cfgostv,fotv,fiotv,fiotv,fiotv,cfgiotv,ao,fiotv,fiotv,fiortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,io,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,ino,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,io",
+    "BusinessCollaboration": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fgotv,cfgostv,fiotv,fiotv,fiotv,cfgiotv,ao,fiotv,fgiotv,fiortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,io,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,ino,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,io",
+    "BusinessEvent": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,cfgostv,fotv,fotv,fotv,ao,fotv,fotv,fotv,o,fotv,nor,ao,o,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,o,o",
+    "BusinessFunction": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fotv,cfgostv,cfgotv,fotv,ao,cfgotv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "BusinessInteraction": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fotv,cfgotv,cfgostv,fotv,ao,cfgotv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "BusinessInterface": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fotv,fotv,fotv,cfgostv,ao,fotv,fotv,fiotv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "BusinessObject": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,cgos,o,o,o,or,o,nor,cgos,or,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,or,no,o,o,o,o,o,o,o,o,no,or,o",
+    "BusinessProcess": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fotv,cfgotv,cfgotv,fotv,ao,cfgostv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "BusinessRole": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fiotv,fiotv,fiotv,cfgotv,ao,fiotv,cfgostv,fiortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,io,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,ino,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,io",
+    "BusinessService": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fotv,fotv,fotv,fotv,ao,fotv,fotv,cfgostv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,fotv,no,or,o",
+    "Capability": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,cfgostv,o,nor,o,fortv,o,o,o,o,no,o,o,o,nor,cfgnorstv,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,fotv,no,o,o,o,o,o,o,o,o,no,fotv,o",
+    "CommunicationNetwork": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fortv,fortv,fortv,fortv,fortv,fortv,ao,fortv,fortv,fortv,or,cfgostv,nor,ao,or,ao,o,fgortv,fotv,no,fortv,fortv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fortv,nor,fortv,o,nor,fotv,o,ao,nor,or,nor,fgiortv,fortv,fiortv,fiortv,fiortv,fgiortv,fiortv,fiortv,no,or,o",
+    "Constraint": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,cgnos,o,o,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,cgnos,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Contract": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,cgos,o,o,o,or,o,nor,cgos,or,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,or,no,o,o,o,o,o,o,o,o,no,or,o",
+    "CourseOfAction": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,fotv,o,nor,o,cfgostv,o,o,o,o,no,o,o,o,nor,cfgnorstv,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,fotv,no,o,o,o,o,o,o,o,o,no,fotv,o",
+    "DataObject": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,or,o,o,o,or,o,nor,or,or,cgos,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,or,no,o,o,o,o,o,o,o,o,no,or,o",
+    "Deliverable": "or,or,or,or,or,or,or,or,or,no,or,or,or,or,or,or,or,or,or,or,or,or,nor,or,or,or,cgos,or,or,no,or,or,o,nor,cgnors,o,acfginorstv,or,or,no,or,nor,or,or,nor,or,o,or,nor,or,nor,or,or,or,or,or,or,or,or,no,or,o",
+    "Device": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fotv,fotv,fortv,fortv,fortv,fortv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,cfgostv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,cfgiortv,fotv,fiortv,fiortv,fiortv,cfgiortv,fiortv,fiortv,no,or,o",
+    "DistributionNetwork": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fiortv,fiortv,fiortv,fiortv,fiortv,fiortv,ao,fiortv,fiortv,fiortv,or,fotv,nor,ao,or,ao,o,fgiortv,cfgostv,no,fgiortv,fgiortv,o,nor,acfginorstv,io,acfginorstv,fotv,aio,no,fgiortv,nor,fortv,o,nor,fotv,o,ao,nor,or,inor,fgiortv,fortv,fiortv,fiortv,fiortv,fgiortv,fiortv,fiortv,no,or,io",
+    "Driver": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,cgnos,o,o,o,no,cgnos,o,acfginorstv,o,o,no,o,no,o,o,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Equipment": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fotv,fotv,fortv,fortv,fortv,fortv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,cfgortv,fotv,no,cfgorstv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,aio,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,cfgiortv,fotv,fiortv,fiortv,fiortv,cfgiortv,fiortv,fiortv,no,or,o",
+    "Facility": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fiotv,fiotv,fiortv,fiortv,fiortv,fiortv,ao,fiortv,fiotv,fiortv,or,fotv,nor,ao,or,ao,o,cfgiortv,fotv,no,cfgiortv,cfgiostv,o,nor,acfginorstv,io,acfginorstv,fotv,aio,no,cfgiotv,nor,fotv,o,nor,fotv,o,ao,nor,or,ino,cfgiortv,fotv,fiortv,fiortv,fiortv,cfgiortv,fiortv,fiortv,no,or,io",
+    "Gap": "o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,cgos,o,cgos,o,acfginorstv,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o",
+    "Goal": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,cgnos,cgnos,o,acfginorstv,o,o,no,o,no,o,o,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Grouping": "cfgorstv,cfgorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgorstv,cfgiorstv,cfgiorstv,acgiors,cgnos,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,acgors,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgorstv,cgnors,acgors,cfgorstv,acgors,acgors,cfgiorstv,cfgorstv,cgnos,cfgiorstv,cfgiorstv,cgos,cgnors,acfginorstv,cfgiost,acfginorstv,cfgorstv,acgiors,cgnos,cfgiorstv,cgnors,cfgorstv,cfgorst,cgnors,cfgorstv,cgo,acgors,cgnors,cfgorstv,cginors,cfgiorstv,cfgorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,cfgiorstv,cgnos,cfgiorstv,cfgiost",
+    "ImplementationEvent": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,ao,o,o,no,o,o,o,no,acfgnost,cfgost,acfginorstv,o,o,no,o,no,o,fot,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,fot",
+    "Junction": "fortv,fortv,fiortv,fiortv,fiortv,fortv,fiortv,fiortv,aior,no,fiortv,fiortv,fiortv,fiortv,fiortv,fiortv,aor,fiortv,fiortv,fiortv,fiortv,fortv,nor,aor,fortv,aor,aor,fiortv,fortv,no,fiortv,fiortv,o,nor,afinortv,fiot,acfginorstv,fortv,aior,no,fiortv,nor,fortv,fort,nor,fortv,,aor,nor,fortv,inor,fiortv,fortv,fiortv,fiortv,fiortv,fiortv,fiortv,fiortv,no,fiortv,fiot",
+    "Location": "cfgortv,cfgortv,cfgiortv,cfgiortv,cfgiortv,cfgortv,cfgiortv,cfgiortv,acgio,cgno,cfgiortv,cfgiortv,cfgiortv,cfgiortv,cfgiortv,cfgiortv,acgo,cfgiortv,cfgiortv,cfgiortv,cgor,cfgotv,cgnor,acgo,cgor,acgo,cgo,cfgiortv,cfgotv,cgno,cfgiortv,cfgiortv,cgo,cgnor,acfginorstv,cgio,acfginorstv,cfgostv,acgio,cgno,cfgiortv,cgnor,cfgortv,cgo,cgnor,cfgotv,cgo,acgo,cgnor,cgor,cginor,cfgiortv,cfgortv,cfgiortv,cfgiortv,cfgiortv,cfgiortv,cfgiortv,cfgiortv,cgno,cgor,cgio",
+    "Material": "or,or,or,or,or,or,or,or,or,no,o,o,or,or,or,or,or,or,o,or,or,o,nor,or,or,or,o,or,o,no,or,o,o,nor,cgnors,o,acfginorstv,o,cgors,no,o,nor,o,o,nor,o,o,o,nor,or,no,or,o,or,or,or,or,or,or,no,or,o",
+    "Meaning": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,no,cgnos,o,acfginorstv,o,o,cgnos,o,no,o,o,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Node": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fiotv,fiotv,fiortv,fiortv,fiortv,fiortv,ao,fiortv,fiotv,fiortv,or,fotv,nor,ao,or,ao,o,cfgiortv,fotv,no,cfgiortv,cfgiotv,o,nor,acfginorstv,io,acfginorstv,fotv,aio,no,cfgiostv,nor,fotv,o,nor,fotv,o,ao,nor,or,ino,cfgiortv,fotv,fiortv,fiortv,fiortv,cfgiortv,fiortv,fiortv,no,or,io",
+    "Outcome": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,cgnos,o,o,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Path": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fiotv,fiotv,fiortv,fiortv,fiortv,fiortv,ao,fiortv,fiotv,fiortv,or,fotv,nor,ao,or,ao,o,fgiortv,fotv,no,fgiortv,fgiotv,o,nor,acfginorstv,io,acfginorstv,fotv,aio,no,fgiotv,nor,cfgostv,o,nor,fotv,o,ao,nor,or,ino,fgiortv,fgotv,fiortv,fiortv,fiortv,fgiortv,fiortv,fiortv,no,or,io",
+    "Plateau": "cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,no,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgnor,cgor,cgor,cgor,ao,cgor,cgor,no,cgor,cgor,o,cgnor,acfginorst,fot,acfginorstv,cgor,cgor,no,cgor,cgnor,cgor,cfgost,nor,cgor,cgo,cgor,cgnor,cgor,inor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,cgor,no,cgor,fot",
+    "Principle": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,cgnos,o,o,o,no,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Product": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,cfgortv,acgo,no,fotv,fotv,fortv,fortv,fortv,fortv,acgo,fortv,fotv,cfgortv,or,fotv,nor,acgo,or,acgo,o,fortv,fotv,no,fortv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,acgo,no,fotv,nor,fotv,o,nor,cfgostv,o,acgo,nor,or,no,fortv,fotv,fortv,fortv,fortv,fortv,fortv,cfgortv,no,or,o",
+    "Relationship": "o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,,o,o,o,o,o,o,o,o,o,,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o",
+    "Representation": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,or,o,o,o,or,o,nor,or,or,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,cgos,nor,or,no,o,o,o,o,o,o,o,o,no,or,o",
+    "Requirement": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,cgnos,o,o,o,o,o,o,no,o,o,o,nor,cgnors,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,cgnos,o,no,o,o,o,o,o,o,o,o,no,o,o",
+    "Resource": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,fiotv,o,nor,o,fortv,o,o,o,o,no,o,o,o,nor,cfginorstv,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,cfgostv,no,o,o,o,o,o,o,o,o,no,fiotv,o",
+    "Stakeholder": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,no,cgnos,o,acfginorstv,o,o,no,o,no,o,o,no,o,o,o,no,o,cgnos,o,o,o,o,o,o,o,o,no,o,o",
+    "SystemSoftware": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fotv,fotv,fortv,fortv,fortv,fortv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,cfgiorstv,fotv,fiortv,fiortv,fiortv,cfgiortv,fiortv,fiortv,no,or,o",
+    "TechnologyCollaboration": "fortv,fortv,fortv,fortv,fortv,fortv,fortv,fortv,aio,no,fiotv,fiotv,fiortv,fiortv,fiortv,fiortv,ao,fiortv,fiotv,fiortv,or,fotv,nor,ao,or,ao,o,fgiortv,fotv,no,fgiortv,fgiotv,o,nor,acfginorstv,io,acfginorstv,fotv,aio,no,fgiotv,nor,fotv,o,nor,fotv,o,ao,nor,or,ino,fgiortv,cfgostv,fiortv,fiortv,fiortv,cfgiortv,fiortv,fiortv,no,or,io",
+    "TechnologyEvent": "fotv,fotv,fortv,fotv,fotv,fotv,fotv,fotv,ao,no,fotv,fotv,fortv,fotv,fotv,fotv,ao,fotv,fotv,fotv,o,fotv,nor,ao,o,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,cfgostv,fotv,fotv,fotv,fotv,fotv,no,o,o",
+    "TechnologyFunction": "fotv,fotv,fotv,fortv,fortv,fotv,fortv,fortv,ao,no,fotv,fotv,fotv,fortv,fortv,fotv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,cfgostv,cfgotv,fotv,cfgotv,fortv,no,or,o",
+    "TechnologyInteraction": "fotv,fotv,fotv,fortv,fortv,fotv,fortv,fortv,ao,no,fotv,fotv,fotv,fortv,fortv,fotv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,cfgotv,cfgostv,fotv,cfgotv,fortv,no,or,o",
+    "TechnologyInterface": "fotv,fotv,fotv,fotv,fotv,fortv,fotv,fortv,ao,no,fotv,fotv,fotv,fotv,fotv,fortv,ao,fotv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfginorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,or,no,fotv,fotv,fotv,fotv,fotv,cfgostv,fotv,fiotv,no,or,o",
+    "TechnologyProcess": "fotv,fotv,fotv,fortv,fortv,fotv,fortv,fortv,ao,no,fotv,fotv,fotv,fortv,fortv,fotv,ao,fortv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,cfgotv,cfgotv,fotv,cfgostv,fortv,no,or,o",
+    "TechnologyService": "fotv,fotv,fotv,fotv,fotv,fotv,fotv,fortv,ao,no,fotv,fotv,fotv,fotv,fotv,fotv,ao,fotv,fotv,fortv,or,fotv,nor,ao,or,ao,o,fotv,fotv,no,fotv,fotv,o,nor,acfgnorstv,o,acfginorstv,fotv,ao,no,fotv,nor,fotv,o,nor,fotv,o,ao,nor,o,no,fotv,fotv,fotv,fotv,fotv,fotv,fotv,cfgostv,no,or,o",
+    "Value": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,no,o,o,o,no,cgnos,o,acfginorstv,o,o,no,o,no,o,o,no,o,o,o,no,o,no,o,o,o,o,o,o,o,o,cgnos,o,o",
+    "ValueStream": "o,o,o,o,o,o,o,o,o,no,o,o,o,o,o,o,o,o,o,o,fotv,o,nor,o,fortv,o,o,o,o,no,o,o,o,nor,cfgnorstv,o,acfginorstv,o,o,no,o,nor,o,o,nor,o,o,o,nor,fotv,no,o,o,o,o,o,o,o,o,no,cfgostv,o",
+    "WorkPackage": "or,or,or,or,or,or,or,or,or,no,or,or,or,or,or,or,or,or,or,or,or,or,nor,or,or,or,aor,or,or,no,or,or,o,nor,acfgnorst,fot,acfginorstv,or,or,no,or,nor,or,fort,nor,or,o,or,nor,or,nor,or,or,or,or,or,or,or,or,no,or,cfgost"
+  }
+}
+</script>
+
 <script>
 // ===================== ARCHIMATE KNOWLEDGE BASE =====================
+// Element types per layer: ArchiMate 3.2 (Reference Cards, resources/n221p.pdf).
+// Physical elements belong to the Technology layer in 3.2. "Other" = composite elements + junction.
 
 const ARCHIMATE_LAYERS = {
+  Motivation: ['Stakeholder','Driver','Assessment','Goal','Outcome','Principle',
+    'Requirement','Constraint','Meaning','Value'],
+  Strategy: ['Resource','Capability','ValueStream','CourseOfAction'],
   Business: ['BusinessActor','BusinessRole','BusinessCollaboration','BusinessInterface',
     'BusinessProcess','BusinessFunction','BusinessInteraction','BusinessEvent',
-    'BusinessService','BusinessObject','Contract','Representation','Product',
-    'BusinessObject','Value','Meaning','Driver','Assessment','Goal','Outcome',
-    'Principle','Requirement','Constraint'],
+    'BusinessService','BusinessObject','Contract','Representation','Product'],
   Application: ['ApplicationComponent','ApplicationCollaboration','ApplicationInterface',
-    'ApplicationProcess','ApplicationFunction','ApplicationInteraction','ApplicationEvent',
+    'ApplicationFunction','ApplicationInteraction','ApplicationProcess','ApplicationEvent',
     'ApplicationService','DataObject'],
   Technology: ['Node','Device','SystemSoftware','TechnologyCollaboration',
-    'TechnologyInterface','Path','CommunicationNetwork','TechnologyProcess',
-    'TechnologyFunction','TechnologyInteraction','TechnologyEvent','TechnologyService',
-    'Artifact'],
-  Motivation: ['Stakeholder','Driver','Assessment','Goal','Outcome','Principle',
-    'Requirement','Constraint','Value','Meaning'],
-  Strategy: ['Resource','Capability','CourseOfAction','ValueStream'],
-  Implementation: ['WorkPackage','Deliverable','ImplementationEvent','Gap','Plateau'],
-  Physical: ['Equipment','Facility','DistributionNetwork','Material'],
+    'TechnologyInterface','Path','CommunicationNetwork','TechnologyFunction',
+    'TechnologyProcess','TechnologyInteraction','TechnologyEvent','TechnologyService',
+    'Artifact','Equipment','Facility','DistributionNetwork','Material'],
+  Implementation: ['WorkPackage','Deliverable','ImplementationEvent','Plateau','Gap'],
+  Other: ['Grouping','Location','Junction'],
 };
 
-// For each element type, which layer it belongs to
 const ELEMENT_LAYER = {};
 Object.entries(ARCHIMATE_LAYERS).forEach(([layer, types]) => {
   types.forEach(t => { ELEMENT_LAYER[t] = layer; });
 });
 
-// Valid cross-layer relationships per ArchiMate 3.2
-// Key: "sourceLayer->targetLayer", value: allowed relationship types
-const VALID_CROSS_LAYER_RELS = {
-  'Business->Application': ['Serving', 'Realization', 'Assignment', 'Association', 'Influence', 'Access'],
-  'Application->Business': ['Serving', 'Realization', 'Assignment', 'Association', 'Influence', 'Access'],
-  'Application->Technology': ['Serving', 'Realization', 'Assignment', 'Association', 'Influence', 'Access'],
-  'Technology->Application': ['Serving', 'Realization', 'Assignment', 'Association', 'Influence', 'Access'],
-  'Business->Technology': ['Realization', 'Serving', 'Association', 'Influence'],
-  'Technology->Business': ['Serving', 'Association', 'Influence'],
-  'Motivation->Business': ['Influence', 'Association', 'Realization'],
-  'Motivation->Application': ['Influence', 'Association', 'Realization'],
-  'Motivation->Technology': ['Influence', 'Association', 'Realization'],
-  'Business->Motivation': ['Influence', 'Association'],
-  'Strategy->Business': ['Realization', 'Association', 'Influence'],
-  'Strategy->Application': ['Realization', 'Association', 'Influence'],
-  'Strategy->Technology': ['Realization', 'Association', 'Influence'],
-};
+// Open Exchange format names that differ from the ArchiMate concept name
+const EXCHANGE_TYPE_ALIASES = { AndJunction: 'Junction', OrJunction: 'Junction' };
+const conceptType = t => EXCHANGE_TYPE_ALIASES[t] || t;
 
-// Same-layer invalid relationships (structural violations)
-const INVALID_SAME_LAYER_RELS = {
-  // Business service should not be REALIZED by technology directly (must go via app layer)
-  // These are cross-layer skipping violations
-};
-
-// Relationships that go UPWARD (lower layer to higher) - should be Serving/Realization
-const UPWARD_SERVING = ['Serving', 'Realization'];
-
-// Data entity types that should be singular
+// Data entity types that should be singular (SebTreb elm-007)
 const DATA_TYPES = ['DataObject','BusinessObject','Artifact'];
 
-// Element types that can be containers (for nested spacing checks)
-const CONTAINER_TYPES = ['ApplicationComponent','Node','Grouping','Location','SystemSoftware','Device'];
+// ----- Rule catalogue (see <script id="rule-catalogue">) -----
+const RULES = JSON.parse(document.getElementById('rule-catalogue').textContent).rules;
+const RULE_BY_ID = Object.fromEntries(RULES.map(r => [r.id, r]));
 
-// ArchiMate relationship types
-const REL_TYPES = ['Composition','Aggregation','Assignment','Realization','Serving',
-  'Access','Influence','Triggering','Flow','Association','Specialization'];
+// Build an issue for a catalogue rule: checks supply only the rule id, location and evidence.
+function makeIssue(ruleId, viewId, viewName, detail) {
+  const rule = RULE_BY_ID[ruleId];
+  if (!rule) throw new Error(`Rule ${ruleId} is not in the rule catalogue`);
+  return { ruleId, category: rule.category, severity: rule.severity,
+    viewId, viewName, description: rule.description, detail };
+}
+
+// Checklist status of a rule given its issues. Manual rules are never reported as PASS.
+function ruleStatus(rule, ruleIssues) {
+  if (rule.automation === 'manual') return 'MANUAL';
+  if (!ruleIssues.length) return 'PASS';
+  return rule.severity === 'MUST' ? 'FAIL' : rule.severity === 'SHOULD' ? 'WARN' : 'INFO';
+}
+
+// ----- Relationship matrix (see <script id="relationship-matrix">) -----
+const REL_MATRIX = (() => {
+  const m = JSON.parse(document.getElementById('relationship-matrix').textContent);
+  const codeOf = Object.fromEntries(Object.entries(m.codes).map(([c, name]) => [name, c]));
+  const allowed = {};
+  m.types.forEach(src => {
+    const cells = m.rows[src].split(',');
+    allowed[src] = Object.fromEntries(m.types.map((tgt, i) => [tgt, cells[i]]));
+  });
+  return { allowed, codeOf, names: m.codes };
+})();
+
+// true / false, or null when a type is unknown to the matrix (not judged)
+function isRelationshipAllowed(srcType, tgtType, relType) {
+  const row = REL_MATRIX.allowed[conceptType(srcType)];
+  const cell = row && row[conceptType(tgtType)];
+  const code = REL_MATRIX.codeOf[relType];
+  if (cell === undefined || !code) return null;
+  return cell.includes(code);
+}
+
+function allowedRelationshipNames(srcType, tgtType) {
+  const cell = (REL_MATRIX.allowed[conceptType(srcType)] || {})[conceptType(tgtType)] || '';
+  return [...cell].map(c => REL_MATRIX.names[c]);
+}
 
 // ===================== PARSING =====================
 
@@ -1077,7 +1248,7 @@ function parseXML(xmlText) {
     const type = el.getAttribute('xsi:type') || el.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance','type');
     const nameEl = el.querySelector('name');
     const name = nameEl ? nameEl.textContent.trim() : '';
-    elements[id] = { id, type, name, layer: ELEMENT_LAYER[type] || 'Unknown' };
+    elements[id] = { id, type, name, layer: ELEMENT_LAYER[conceptType(type)] || 'Unknown' };
   });
 
   // Relationships
@@ -1174,29 +1345,13 @@ function runAllChecks(model) {
     const hasTechnology = nameLower.includes('technology') || nameLower.includes('tech') || nameLower.includes('deployment') || nameLower.includes('infrastructure');
     if (!hasContextual && !hasConceptual && !hasLogical && !hasPhysical && !hasMotivation && !hasComponent && !hasCrossLayer && !hasTechnology) {
       allIssues.push({
-        ruleId: 'vws-001', category: 'SebTreb', severity: 'MUST',
+        ruleId: 'vws-001',
         viewId: vId, viewName: vName,
-        description: 'View name must indicate type (contextual/conceptual/logical/physical/technology/etc)',
         detail: `View "${vName}" does not indicate diagram type.`
       });
     }
 
-    // --- elm-001: Rectangle notation ---
-    // Check via xsiType - non-rectangle indicator types
-    view.nodes.forEach(node => {
-      const el = elements[node.elemRef];
-      if (!el) return;
-      // Check if it's using a note type (these are allowed non-rectangles but we can flag)
-      // In XML, if xsiType is 'Label' or 'Container' it's a note-like element
-      if (node.xsiType === 'Label') {
-        allIssues.push({
-          ruleId: 'elm-001', category: 'SebTreb', severity: 'MUST',
-          viewId: vId, viewName: vName,
-          description: 'Elements MUST use rectangle notation',
-          detail: `Element "${el.name}" (${el.type}) uses non-rectangle notation.`
-        });
-      }
-    });
+    // elm-001 (rectangle notation) is manual: the exchange XML does not record figure shape.
 
     // --- elm-002 & elm-003: Element sizing and alignment ---
     const plainNodes = view.nodes.filter(n => !n.parentNode && n.w > 0 && n.h > 0 && elements[n.elemRef]);
@@ -1211,9 +1366,8 @@ function runAllChecks(model) {
       const sizeVariance = distinctW + distinctH;
       if (sizeVariance > 6) {
         allIssues.push({
-          ruleId: 'elm-002', category: 'SebTreb', severity: 'SHOULD',
+          ruleId: 'elm-002',
           viewId: vId, viewName: vName,
-          description: 'Elements SHOULD be the same size',
           detail: `${distinctW} distinct widths and ${distinctH} distinct heights found — high size variance.`
         });
       }
@@ -1226,9 +1380,8 @@ function runAllChecks(model) {
       const totalNodes = plainNodes.length;
       if (uniqueX > totalNodes * 0.85 && uniqueY > totalNodes * 0.85) {
         allIssues.push({
-          ruleId: 'elm-003', category: 'SebTreb', severity: 'SHOULD',
+          ruleId: 'elm-003',
           viewId: vId, viewName: vName,
-          description: 'Elements SHOULD align horizontally & vertically',
           detail: `Poor grid alignment detected: ${uniqueX} unique X positions, ${uniqueY} unique Y positions for ${totalNodes} elements.`
         });
       }
@@ -1247,9 +1400,8 @@ function runAllChecks(model) {
         const maxGap = Math.max(...xGaps);
         if (maxGap > minGap * 3 && maxGap > 40) {
           allIssues.push({
-            ruleId: 'elm-005', category: 'SebTreb', severity: 'SHOULD',
+            ruleId: 'elm-005',
             viewId: vId, viewName: vName,
-            description: 'Spacing between elements SHOULD be consistent',
             detail: `Inconsistent horizontal spacing — min gap: ${Math.round(minGap)}px, max gap: ${Math.round(maxGap)}px.`
           });
         }
@@ -1270,9 +1422,8 @@ function runAllChecks(model) {
           el.name.length > 4;
         if (isLikelyPlural) {
           allIssues.push({
-            ruleId: 'elm-007', category: 'SebTreb', severity: 'MUST',
+            ruleId: 'elm-007',
             viewId: vId, viewName: vName,
-            description: 'Data entity elements MUST be named in the singular',
             detail: `"${el.name}" (${el.type}) may be plural — data entities must use singular form.`
           });
         }
@@ -1291,9 +1442,8 @@ function runAllChecks(model) {
           if (angle > 10 && angle < 80) {
             const srcEl = elements[nodeElementMap[conn.sourceRef]?.id || ''];
             allIssues.push({
-              ruleId: 'cnn-001', category: 'SebTreb', severity: 'MUST',
+              ruleId: 'cnn-001',
               viewId: vId, viewName: vName,
-              description: 'Connectors MUST NOT run diagonally',
               detail: `Diagonal connector detected (${Math.round(angle)}° angle) near bendpoint (${Math.round(bend.x)},${Math.round(bend.y)}).`
             });
           }
@@ -1305,9 +1455,8 @@ function runAllChecks(model) {
     view.connections.forEach(conn => {
       if (conn.bends.length > 4) {
         allIssues.push({
-          ruleId: 'cnn-003', category: 'SebTreb', severity: 'MUST',
+          ruleId: 'cnn-003',
           viewId: vId, viewName: vName,
-          description: 'Connectors MUST have minimum number of bends',
           detail: `Connector has ${conn.bends.length} bends — this is likely more than necessary.`
         });
       }
@@ -1324,22 +1473,11 @@ function runAllChecks(model) {
         const targetNodeElem = elements[nodeElementMap[conn.targetRef]?.id || ''];
         if (targetNodeElem?.type === 'Grouping') {
           allIssues.push({
-            ruleId: 'msc-003', category: 'SebTreb', severity: 'MUST',
+            ruleId: 'msc-003',
             viewId: vId, viewName: vName,
-            description: 'Explicit aggregation to Grouping elements MUST NOT be used — nest instead',
             detail: `Aggregation relationship found pointing to Grouping element "${targetNodeElem.name}".`
           });
         }
-      }
-    });
-
-    // --- cnn-005/006: Connector label positioning (check if labels exist) ---
-    view.connections.forEach(conn => {
-      if (conn.label && conn.bends.length === 0) {
-        // Single straight connector with label — acceptable
-      } else if (conn.label && conn.bends.length > 0) {
-        // Label on bent connector — check if it might be on corner
-        // We flag this as advisory
       }
     });
 
@@ -1353,9 +1491,8 @@ function runAllChecks(model) {
         if (rel.type === 'Association') {
           if (!rel.name || rel.name.trim() === '') {
             allIssues.push({
-              ruleId: 'cnn-009', category: 'SebTreb', severity: 'MUST',
+              ruleId: 'cnn-009',
               viewId: vId, viewName: vName,
-              description: 'Association connectors in data views MUST have meaningful labels',
               detail: `Unlabelled Association connector between elements in data view "${vName}".`
             });
           }
@@ -1364,95 +1501,26 @@ function runAllChecks(model) {
     }
   });
 
-  // ===================== ARCHIMATE 3.2 STRUCTURAL CHECKS =====================
+  // ===================== ARCHIMATE 3.2 RELATIONSHIP VALIDITY =====================
+  // ARC-REL-002: every model relationship is checked against the 3.2 relationship matrix,
+  // reported once per view it appears in (or at model level if it is in no view).
+  // Relationships whose ends are relationships, or types unknown to the matrix, are not judged.
 
-  views.forEach(view => {
-    const vId = view.id;
-    const vName = view.name;
+  const relViews = {};
+  views.forEach(v => v.connections.forEach(c => {
+    if (c.relRef) (relViews[c.relRef] = relViews[c.relRef] || []).push(v);
+  }));
 
-    view.connections.forEach(conn => {
-      const rel = relationships[conn.relRef];
-      if (!rel) return;
-
-      const srcNodeEl = getNodeElement(conn.sourceRef, view, elements);
-      const tgtNodeEl = getNodeElement(conn.targetRef, view, elements);
-      if (!srcNodeEl || !tgtNodeEl) return;
-
-      const srcLayer = srcNodeEl.layer;
-      const tgtLayer = tgtNodeEl.layer;
-
-      // --- Cross-layer relationship validity ---
-      if (srcLayer !== tgtLayer && srcLayer !== 'Unknown' && tgtLayer !== 'Unknown' &&
-          srcLayer !== 'Motivation' && tgtLayer !== 'Motivation') {
-        const crossKey = `${srcLayer}->${tgtLayer}`;
-        const validRels = VALID_CROSS_LAYER_RELS[crossKey];
-        if (validRels && !validRels.includes(rel.type)) {
-          allIssues.push({
-            ruleId: 'ARC-CL-001', category: 'CrossLayer', severity: 'MUST',
-            viewId: vId, viewName: vName,
-            description: `Invalid cross-layer relationship (${srcLayer}→${tgtLayer})`,
-            detail: `"${srcNodeEl.name}" → "${tgtNodeEl.name}" uses ${rel.type} which is not valid for ${srcLayer}→${tgtLayer} cross-layer. Valid: ${validRels.join(', ')}.`
-          });
-        }
-      }
-
-      // --- Layer-skipping check ---
-      // Business should not directly realize Technology (must go via Application)
-      if (srcLayer === 'Business' && tgtLayer === 'Technology' && rel.type === 'Realization') {
-        allIssues.push({
-          ruleId: 'ARC-CL-002', category: 'CrossLayer', severity: 'SHOULD',
-          viewId: vId, viewName: vName,
-          description: 'Business→Technology Realization skips Application layer',
-          detail: `"${srcNodeEl.name}" (Business) directly realizes "${tgtNodeEl.name}" (Technology). Consider mediating via an Application element.`
-        });
-      }
-
-      // --- Upward serving check ---
-      // Technology serving Business is unusual — should be Application serving Business
-      if (srcLayer === 'Technology' && tgtLayer === 'Business' && rel.type === 'Serving') {
-        allIssues.push({
-          ruleId: 'ARC-CL-003', category: 'CrossLayer', severity: 'SHOULD',
-          viewId: vId, viewName: vName,
-          description: 'Technology layer directly serving Business layer',
-          detail: `"${srcNodeEl.name}" (Technology) serves "${tgtNodeEl.name}" (Business). Typically Technology serves Application which serves Business.`
-        });
-      }
-
-      // --- ArchiMate Composition/Aggregation rules ---
-      // Composition: parent MUST be same type (structural)
-      if (rel.type === 'Composition') {
-        if (srcLayer !== tgtLayer) {
-          allIssues.push({
-            ruleId: 'ARC-STR-001', category: 'ArchiMate', severity: 'MUST',
-            viewId: vId, viewName: vName,
-            description: 'Composition relationship must be within same layer',
-            detail: `Composition from "${srcNodeEl.name}" (${srcLayer}) to "${tgtNodeEl.name}" (${tgtLayer}) crosses layers — invalid.`
-          });
-        }
-      }
-
-      // --- Assignment rules ---
-      // Assignment: typically from active to behavioral structure
-      if (rel.type === 'Assignment') {
-        const activeTypes = ['BusinessActor','BusinessRole','ApplicationComponent','Node','Device','SystemSoftware'];
-        const behavioralTypes = ['BusinessProcess','BusinessFunction','BusinessInteraction',
-          'ApplicationProcess','ApplicationFunction','TechnologyProcess','TechnologyFunction',
-          'BusinessService','ApplicationService','TechnologyService'];
-        if (!activeTypes.includes(srcNodeEl.type) && !activeTypes.includes(tgtNodeEl.type)) {
-          // Both are non-active — this might be ok but check
-        }
-      }
-
-      // --- Serving direction (tech serves app serves business — upward) ---
-      if (rel.type === 'Serving') {
-        // Serving should go from lower to higher, or same layer
-        const layerOrder = { Technology: 1, Application: 2, Business: 3 };
-        const srcOrder = layerOrder[srcLayer];
-        const tgtOrder = layerOrder[tgtLayer];
-        // It's okay for Application to serve Business or Technology to serve Application
-        // Flag Technology serving Technology as fine
-      }
-    });
+  Object.values(relationships).forEach(rel => {
+    const src = elements[rel.source], tgt = elements[rel.target];
+    if (!src || !tgt) return;
+    if (isRelationshipAllowed(src.type, tgt.type, rel.type) !== false) return;
+    const allowed = allowedRelationshipNames(src.type, tgt.type);
+    const detail = `"${src.name}" (${src.type}) → ${rel.type} → "${tgt.name}" (${tgt.type}) is not permitted in ArchiMate 3.2. ` +
+      `Allowed: ${allowed.length ? allowed.join(', ') : 'none'}.`;
+    const inViews = relViews[rel.id] || [];
+    if (!inViews.length) allIssues.push({ ruleId: 'ARC-REL-002', viewId: 'model', viewName: 'Model Level', detail });
+    inViews.forEach(v => allIssues.push({ ruleId: 'ARC-REL-002', viewId: v.id, viewName: v.name, detail }));
   });
 
   // ===================== ARCHIMATE ELEMENT USAGE CHECKS =====================
@@ -1471,9 +1539,8 @@ function runAllChecks(model) {
       const hasMotivation = elementTypes.some(t => motivationTypes.includes(t));
       if (!hasMotivation) {
         allIssues.push({
-          ruleId: 'ARC-USE-001', category: 'ArchiMate', severity: 'SHOULD',
+          ruleId: 'ARC-USE-001',
           viewId: vId, viewName: vName,
-          description: 'Motivation view should contain motivation-layer elements',
           detail: `View "${vName}" appears to be a motivation view but contains no Driver, Goal, Outcome, or Requirement elements.`
         });
       }
@@ -1484,9 +1551,8 @@ function runAllChecks(model) {
       const hasTechElements = elementTypes.some(t => ARCHIMATE_LAYERS.Technology.includes(t));
       if (!hasTechElements) {
         allIssues.push({
-          ruleId: 'ARC-USE-002', category: 'ArchiMate', severity: 'MUST',
+          ruleId: 'ARC-USE-002',
           viewId: vId, viewName: vName,
-          description: 'Technology view must contain technology-layer elements',
           detail: `View "${vName}" appears to be a technology view but contains no Node, Device, SystemSoftware, or TechnologyService elements.`
         });
       }
@@ -1498,59 +1564,13 @@ function runAllChecks(model) {
       const presentMainLayers = mainLayers.filter(l => elementLayers.has(l));
       if (presentMainLayers.length < 2) {
         allIssues.push({
-          ruleId: 'ARC-USE-003', category: 'ArchiMate', severity: 'MUST',
+          ruleId: 'ARC-USE-003',
           viewId: vId, viewName: vName,
-          description: 'Cross-layer view must contain elements from at least 2 layers',
           detail: `View "${vName}" only has elements from: ${[...elementLayers].join(', ') || 'none'}. Expected 2+ of Business/Application/Technology.`
         });
       }
     }
 
-    // --- Check for Grouping element misuse ---
-    const groupingNodes = view.nodes.filter(n => elements[n.elemRef]?.type === 'Grouping');
-    groupingNodes.forEach(gNode => {
-      // Check if any of the same-level elements should be contained (msc-004)
-      // Could use a proper container element instead
-    });
-
-    // --- ApplicationService realized by ApplicationComponent check ---
-    // Services should be realized by components
-    view.connections.forEach(conn => {
-      const rel = relationships[conn.relRef];
-      if (!rel || rel.type !== 'Realization') return;
-      const srcEl = getNodeElement(conn.sourceRef, view, elements);
-      const tgtEl = getNodeElement(conn.targetRef, view, elements);
-      if (!srcEl || !tgtEl) return;
-      // Component realizes Service (correct direction)
-      if (srcEl.type.includes('Service') && tgtEl.type.includes('Component')) {
-        // Reversed: service should NOT realize component
-        allIssues.push({
-          ruleId: 'ARC-REL-001', category: 'ArchiMate', severity: 'MUST',
-          viewId: vId, viewName: vName,
-          description: 'Service realizing Component is incorrect — Component should realize Service',
-          detail: `"${srcEl.name}" (Service) → Realization → "${tgtEl.name}" (Component) — direction is reversed.`
-        });
-      }
-    });
-
-    // --- BusinessService to ApplicationService: Realization link ---
-    view.connections.forEach(conn => {
-      const rel = relationships[conn.relRef];
-      if (!rel) return;
-      const srcEl = getNodeElement(conn.sourceRef, view, elements);
-      const tgtEl = getNodeElement(conn.targetRef, view, elements);
-      if (!srcEl || !tgtEl) return;
-      if (srcEl.type === 'BusinessService' && tgtEl.type === 'ApplicationService') {
-        if (rel.type !== 'Realization' && rel.type !== 'Serving' && rel.type !== 'Association') {
-          allIssues.push({
-            ruleId: 'ARC-CL-004', category: 'CrossLayer', severity: 'SHOULD',
-            viewId: vId, viewName: vName,
-            description: 'BusinessService to ApplicationService should use Realization or Serving',
-            detail: `"${srcEl.name}" → "${tgtEl.name}" uses ${rel.type}. Expected Realization or Serving for this cross-layer pair.`
-          });
-        }
-      }
-    });
   });
 
   // ===================== COMPLETENESS CHECKS (Assessment Criteria) =====================
@@ -1561,9 +1581,8 @@ function runAllChecks(model) {
   // Check for minimum 6 views
   if (views.length < 6) {
     allIssues.push({
-      ruleId: 'COMP-001', category: 'Completeness', severity: 'MUST',
+      ruleId: 'COMP-001',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Assessment requires minimum 6 views',
       detail: `Only ${views.length} views found. Required: at least 6 (contextual, conceptual + 4 others).`
     });
   }
@@ -1572,9 +1591,8 @@ function runAllChecks(model) {
   const hasContextual = allViewNames.some(n => n.includes('contextual'));
   if (!hasContextual) {
     allIssues.push({
-      ruleId: 'COMP-002', category: 'Completeness', severity: 'MUST',
+      ruleId: 'COMP-002',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Contextual view is required',
       detail: 'No view with "Contextual" in its name found. This is a mandatory view type.'
     });
   }
@@ -1583,9 +1601,8 @@ function runAllChecks(model) {
   const hasConceptual = allViewNames.some(n => n.includes('conceptual'));
   if (!hasConceptual) {
     allIssues.push({
-      ruleId: 'COMP-003', category: 'Completeness', severity: 'MUST',
+      ruleId: 'COMP-003',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Conceptual view is required',
       detail: 'No view with "Conceptual" in its name found. This is a mandatory view type.'
     });
   }
@@ -1594,9 +1611,8 @@ function runAllChecks(model) {
   const hasTechView = allViewNames.some(n => n.includes('technology') || n.includes('tech') || n.includes('infrastructure') || n.includes('deployment'));
   if (!hasTechView) {
     allIssues.push({
-      ruleId: 'COMP-004', category: 'Completeness', severity: 'MUST',
+      ruleId: 'COMP-004',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Technology view is required',
       detail: 'No technology/infrastructure view found. Assessment requires at least one Technology view.'
     });
   }
@@ -1605,9 +1621,8 @@ function runAllChecks(model) {
   const hasCrossLayer = allViewNames.some(n => n.includes('cross') || n.includes('cross-layer'));
   if (!hasCrossLayer) {
     allIssues.push({
-      ruleId: 'COMP-005', category: 'Completeness', severity: 'MUST',
+      ruleId: 'COMP-005',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Cross-layer view is required',
       detail: 'No cross-layer view found. Required: at least one cross-layer view (e.g., Business→Application→Technology).'
     });
   }
@@ -1617,9 +1632,8 @@ function runAllChecks(model) {
   const hasMotivation = motivationTypes.some(t => allElementTypes.has(t));
   if (!hasMotivation) {
     allIssues.push({
-      ruleId: 'COMP-006', category: 'Completeness', severity: 'SHOULD',
+      ruleId: 'COMP-006',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Model should include motivation elements (Goals, Drivers, Requirements)',
       detail: 'No Driver, Goal, Outcome, or Requirement elements found in the model.'
     });
   }
@@ -1629,9 +1643,8 @@ function runAllChecks(model) {
   const hasTechElements = techTypes.some(t => allElementTypes.has(t));
   if (!hasTechElements) {
     allIssues.push({
-      ruleId: 'COMP-007', category: 'Completeness', severity: 'MUST',
+      ruleId: 'COMP-007',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Model must include technology layer elements',
       detail: 'No Node, Device, SystemSoftware, or TechnologyService elements found.'
     });
   }
@@ -1640,9 +1653,8 @@ function runAllChecks(model) {
   const hasBusinessActors = allElementTypes.has('BusinessActor') || allElementTypes.has('BusinessRole');
   if (!hasBusinessActors) {
     allIssues.push({
-      ruleId: 'COMP-008', category: 'Completeness', severity: 'SHOULD',
+      ruleId: 'COMP-008',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Model should include business actors or roles',
       detail: 'No BusinessActor or BusinessRole elements found. Stakeholders should be modelled.'
     });
   }
@@ -1655,9 +1667,8 @@ function runAllChecks(model) {
   );
   if (crossLayerViews.length < 1) {
     allIssues.push({
-      ruleId: 'COMP-009', category: 'Assessment', severity: 'MUST',
+      ruleId: 'COMP-009',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Assessment requires cross-layer views demonstrating layer connectivity',
       detail: 'No views found that span multiple layers (Business→Application→Technology).'
     });
   }
@@ -1668,14 +1679,14 @@ function runAllChecks(model) {
   const orphanedCount = Object.keys(elements).filter(id => !allNodeRefs.has(id)).length;
   if (orphanedCount > 5) {
     allIssues.push({
-      ruleId: 'COMP-010', category: 'Completeness', severity: 'INFO',
+      ruleId: 'COMP-010',
       viewId: 'model', viewName: 'Model Level',
-      description: 'Model contains elements not used in any view',
       detail: `${orphanedCount} elements defined but not appearing in any view — consider removing or including them.`
     });
   }
 
-  return allIssues;
+  // Description, severity and category come from the rule catalogue only.
+  return allIssues.map(i => makeIssue(i.ruleId, i.viewId, i.viewName, i.detail));
 }
 
 function getNodeElement(nodeId, view, elements) {
@@ -1747,7 +1758,7 @@ const MS_SECTIONS = [
     rows: [
       { id:'1a', label:'Valid ArchiMate element types used correctly', weight:10, sebtreb: null },
       { id:'1b', label:'Appropriate layer assignment (Business / Application / Technology)', weight:8, sebtreb: null },
-      { id:'1c', label:'Valid relationship types and semantics', weight:7, sebtreb: null },
+      { id:'1c', label:'Valid relationship types and semantics', weight:7, sebtreb: 'ARC-REL-002' },
       { id:'1d', label:'Cross-layer connections present and valid', weight:5, sebtreb: null },
     ]
   },
@@ -1773,8 +1784,8 @@ const MS_SECTIONS = [
   {
     id: 'crosslayer', label: '4. Cross-layer Alignment', pct: 25,
     rows: [
-      { id:'4a', label:'Business goals traced to application services', weight:8, sebtreb: 'ARC-CL-001 / ARC-CL-004' },
-      { id:'4b', label:'Application services realized by technology components', weight:7, sebtreb: 'ARC-CL-002 / ARC-CL-003' },
+      { id:'4a', label:'Business goals traced to application services', weight:8, sebtreb: null },
+      { id:'4b', label:'Application services realized by technology components', weight:7, sebtreb: null },
       { id:'4c', label:'Motivation elements connected to strategy and business layers', weight:5, sebtreb: null },
       { id:'4d', label:'Coherent architecture narrative from drivers to implementation', weight:5, sebtreb: null },
     ]
@@ -2358,66 +2369,14 @@ function renderRulesTab(model, issues) {
     issuesByRule[i.ruleId].push(i);
   });
 
-  const ALL_RULES = [
-    // SebTreb
-    { id: 'elm-001', cat: 'SebTreb', sev: 'MUST', desc: 'Elements must use rectangle notation' },
-    { id: 'elm-002', cat: 'SebTreb', sev: 'SHOULD', desc: 'Elements should be the same size' },
-    { id: 'elm-003', cat: 'SebTreb', sev: 'SHOULD', desc: 'Elements should align horizontally & vertically' },
-    { id: 'elm-004', cat: 'SebTreb', sev: 'MUST', desc: 'Elements must be resized to align to grid on all four sides' },
-    { id: 'elm-005', cat: 'SebTreb', sev: 'SHOULD', desc: 'Spacing between elements should be consistent' },
-    { id: 'elm-006', cat: 'SebTreb', sev: 'MUST', desc: 'Spacing between nested elements must be consistent' },
-    { id: 'elm-007', cat: 'SebTreb', sev: 'MUST', desc: 'Data entity elements must be named in the singular' },
-    { id: 'elm-008', cat: 'SebTreb', sev: 'MUST', desc: 'Labels on non-parent elements must be centred' },
-    { id: 'elm-009', cat: 'SebTreb', sev: 'SHOULD', desc: 'Labels on parent elements should be at top, centred' },
-    { id: 'cnn-001', cat: 'SebTreb', sev: 'MUST', desc: 'Connectors must not run diagonally' },
-    { id: 'cnn-002', cat: 'SebTreb', sev: 'SHOULD', desc: 'Connectors should not cross over each other' },
-    { id: 'cnn-003', cat: 'SebTreb', sev: 'MUST', desc: 'Connectors must have minimum number of bends' },
-    { id: 'cnn-004', cat: 'SebTreb', sev: 'MUST', desc: 'Connectors must run parallel to element edges' },
-    { id: 'cnn-005', cat: 'SebTreb', sev: 'SHOULD', desc: 'Labels should be on horizontal part of connector' },
-    { id: 'cnn-006', cat: 'SebTreb', sev: 'MUST', desc: 'Vertical connector labels must be rotated 90° anti-clockwise' },
-    { id: 'cnn-007', cat: 'SebTreb', sev: 'SHOULD', desc: 'Connector labels should not be on the corner' },
-    { id: 'cnn-008', cat: 'SebTreb', sev: 'SHOULD', desc: 'Data view association connectors should show multiplicity' },
-    { id: 'cnn-009', cat: 'SebTreb', sev: 'MUST', desc: 'Data view association labels must be meaningful' },
-    { id: 'cnn-010', cat: 'SebTreb', sev: 'MUST', desc: 'Single connector must attach to centre of source element' },
-    { id: 'cnn-011', cat: 'SebTreb', sev: 'MUST', desc: 'Single connector must attach to centre of target element' },
-    { id: 'cnn-012', cat: 'SebTreb', sev: 'MUST', desc: 'Multiple connectors from same side must be evenly spaced' },
-    { id: 'cnn-013', cat: 'SebTreb', sev: 'MUST', desc: 'Multiple connectors to same side must be evenly spaced' },
-    { id: 'vws-001', cat: 'SebTreb', sev: 'MUST', desc: 'Views must be named to indicate contextual/conceptual/logical/physical type' },
-    { id: 'msc-001', cat: 'SebTreb', sev: 'SHOULD', desc: 'Note elements should be sized so actions do not wrap' },
-    { id: 'msc-002', cat: 'SebTreb', sev: 'SHOULD', desc: 'Grouping element should be used to reduce visual clutter' },
-    { id: 'msc-003', cat: 'SebTreb', sev: 'MUST', desc: 'Grouped concepts must be nested — not connected by aggregation' },
-    { id: 'msc-004', cat: 'SebTreb', sev: 'MUST', desc: 'Grouping must not be used when a more appropriate element exists' },
-    // ArchiMate
-    { id: 'ARC-STR-001', cat: 'ArchiMate', sev: 'MUST', desc: 'Composition must be within same layer' },
-    { id: 'ARC-REL-001', cat: 'ArchiMate', sev: 'MUST', desc: 'Service must not realize Component (direction reversed)' },
-    { id: 'ARC-USE-001', cat: 'ArchiMate', sev: 'SHOULD', desc: 'Motivation view should contain motivation elements' },
-    { id: 'ARC-USE-002', cat: 'ArchiMate', sev: 'MUST', desc: 'Technology view must contain technology elements' },
-    { id: 'ARC-USE-003', cat: 'ArchiMate', sev: 'MUST', desc: 'Cross-layer view must span at least 2 layers' },
-    // Cross-layer
-    { id: 'ARC-CL-001', cat: 'CrossLayer', sev: 'MUST', desc: 'Cross-layer relationships must use valid types per ArchiMate 3.2' },
-    { id: 'ARC-CL-002', cat: 'CrossLayer', sev: 'SHOULD', desc: 'Business→Technology realization should not skip Application layer' },
-    { id: 'ARC-CL-003', cat: 'CrossLayer', sev: 'SHOULD', desc: 'Technology should not directly serve Business (mediate via Application)' },
-    { id: 'ARC-CL-004', cat: 'CrossLayer', sev: 'SHOULD', desc: 'BusinessService to ApplicationService should use Realization or Serving' },
-    // Completeness
-    { id: 'COMP-001', cat: 'Completeness', sev: 'MUST', desc: 'Minimum 6 views required' },
-    { id: 'COMP-002', cat: 'Completeness', sev: 'MUST', desc: 'Contextual view required' },
-    { id: 'COMP-003', cat: 'Completeness', sev: 'MUST', desc: 'Conceptual view required' },
-    { id: 'COMP-004', cat: 'Completeness', sev: 'MUST', desc: 'Technology view required' },
-    { id: 'COMP-005', cat: 'Completeness', sev: 'MUST', desc: 'Cross-layer view required' },
-    { id: 'COMP-006', cat: 'Completeness', sev: 'SHOULD', desc: 'Motivation elements (Goals, Drivers, Requirements) should be present' },
-    { id: 'COMP-007', cat: 'Completeness', sev: 'MUST', desc: 'Technology layer elements must be present' },
-    { id: 'COMP-008', cat: 'Completeness', sev: 'SHOULD', desc: 'Business actors or roles should be present' },
-    { id: 'COMP-009', cat: 'Assessment', sev: 'MUST', desc: 'Assessment requires cross-layer views (EA/SA criteria)' },
-    { id: 'COMP-010', cat: 'Completeness', sev: 'INFO', desc: 'Orphaned elements not used in any view' },
-  ];
-
   let html = `
     <div class="panel">
       <div class="legend">
         <span class="legend-item"><span class="rag rag-green">PASS</span> Rule satisfied</span>
         <span class="legend-item"><span class="rag rag-amber">WARN</span> Issue found (SHOULD)</span>
         <span class="legend-item"><span class="rag rag-red">FAIL</span> Issue found (MUST)</span>
-        <span class="legend-item"><span class="rag rag-green">N/A</span> Not applicable</span>
+        <span class="legend-item"><span class="rag rag-grey">MANUAL</span> Not checkable from the XML — assessor to review</span>
+        <span class="legend-item"><span class="rag rag-grey">~</span> Heuristic check — assessor to confirm</span>
       </div>
       <div class="check-row header">
         <span>Status</span><span>Rule ID</span><span>Description</span><span>Details</span><span>Severity</span>
@@ -2425,9 +2384,9 @@ function renderRulesTab(model, issues) {
   `;
 
   const grouped = {};
-  ALL_RULES.forEach(r => {
-    if (!grouped[r.cat]) grouped[r.cat] = [];
-    grouped[r.cat].push(r);
+  RULES.forEach(r => {
+    if (!grouped[r.category]) grouped[r.category] = [];
+    grouped[r.category].push(r);
   });
 
   // Category headers within rules table
@@ -2436,6 +2395,7 @@ function renderRulesTab(model, issues) {
 
   catOrder.forEach(cat => {
     const rules = grouped[cat] || [];
+    if (!rules.length) return;
     html += `<div class="check-row" style="background:var(--surface3);padding:8px 20px;">
       <span></span>
       <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);grid-column:2/-1">${catLabels[cat]}</span>
@@ -2443,32 +2403,20 @@ function renderRulesTab(model, issues) {
 
     rules.forEach(rule => {
       const ruleIssues = issuesByRule[rule.id] || [];
-      let status, statusClass;
-
-      if (ruleIssues.length === 0) {
-        // Check if it's applicable
-        status = 'PASS';
-        statusClass = 'rag-green';
-      } else {
-        if (rule.sev === 'MUST') {
-          status = 'FAIL';
-          statusClass = 'rag-red';
-        } else {
-          status = 'WARN';
-          statusClass = 'rag-amber';
-        }
-      }
+      const status = ruleStatus(rule, ruleIssues);
+      const statusClass = { PASS:'rag-green', FAIL:'rag-red', WARN:'rag-amber' }[status] || 'rag-grey';
 
       const affectedViews = ruleIssues.length > 0
         ? [...new Set(ruleIssues.map(i => i.viewName))].map(v => `<span class="view-tag">${escHtml(v)}</span>`).join('')
         : '<span style="color:var(--text-faint);font-size:11px">—</span>';
+      const heuristic = rule.automation === 'partial' ? ' <span title="Heuristic check — assessor to confirm">~</span>' : '';
 
       html += `<div class="check-row">
         <span class="rag ${statusClass}">${status}</span>
-        <span class="rule-id">${rule.id}</span>
-        <div class="check-desc">${escHtml(rule.desc)}</div>
+        <span class="rule-id">${rule.id}${heuristic}</span>
+        <div class="check-desc">${escHtml(rule.description)}</div>
         <div>${affectedViews}</div>
-        <span class="rag ${getSeverityRag(rule.sev)}">${rule.sev}</span>
+        <span class="rag ${getSeverityRag(rule.severity)}">${rule.severity}</span>
       </div>`;
     });
   });
@@ -2930,41 +2878,15 @@ function renderPDF(data) {
   doc.setFillColor(...LGBG); doc.setDrawColor(...BORDER); doc.setLineWidth(0.2);
   doc.rect(ML, y-3, UW, 7, 'FD');
   doc.setFontSize(7.5); doc.setFont('helvetica','bold');
-  doc.setTextColor(79,205,139); doc.text('PASS  Rule satisfied', ML+5, y+1);
-  doc.setTextColor(255,79,106); doc.text('FAIL  Critical violation (MUST)', ML+60, y+1);
-  doc.setTextColor(255,184,79); doc.text('WARN  Advisory issue (SHOULD)', ML+120, y+1);
+  doc.setTextColor(79,205,139); doc.text('PASS  Rule satisfied', ML+3, y+1);
+  doc.setTextColor(255,79,106); doc.text('FAIL  Violation (MUST)', ML+42, y+1);
+  doc.setTextColor(255,184,79); doc.text('WARN  Advisory (SHOULD)', ML+86, y+1);
+  doc.setTextColor(...TLIGHT); doc.text('MANUAL  Assessor to review', ML+132, y+1);
   y += 10;
 
-  const ALL_RULES2 = [
-    ['SebTreb','elm-001','MUST','Elements must use rectangle notation'],
-    ['SebTreb','elm-002','SHOULD','Elements should be same size'],
-    ['SebTreb','elm-003','SHOULD','Elements should align horizontally & vertically'],
-    ['SebTreb','elm-005','SHOULD','Spacing between elements should be consistent'],
-    ['SebTreb','elm-007','MUST','Data entities must be named in singular'],
-    ['SebTreb','cnn-001','MUST','Connectors must not run diagonally'],
-    ['SebTreb','cnn-003','MUST','Connectors must have minimum bends'],
-    ['SebTreb','msc-003','MUST','Grouped concepts must be nested, not aggregated'],
-    ['SebTreb','vws-001','MUST','Views must indicate diagram type in name'],
-    ['ArchiMate','ARC-STR-001','MUST','Composition must be within same layer'],
-    ['ArchiMate','ARC-REL-001','MUST','Service must not realize Component'],
-    ['ArchiMate','ARC-USE-001','SHOULD','Motivation view should have motivation elements'],
-    ['ArchiMate','ARC-USE-002','MUST','Technology view must have technology elements'],
-    ['ArchiMate','ARC-USE-003','MUST','Cross-layer view must span 2+ layers'],
-    ['CrossLayer','ARC-CL-001','MUST','Cross-layer relationships must use valid types'],
-    ['CrossLayer','ARC-CL-002','SHOULD','Business-Technology should not skip Application'],
-    ['CrossLayer','ARC-CL-003','SHOULD','Technology should not directly serve Business'],
-    ['CrossLayer','ARC-CL-004','SHOULD','BusinessService to AppService: Realization/Serving'],
-    ['Completeness','COMP-001','MUST','Minimum 6 views required'],
-    ['Completeness','COMP-002','MUST','Contextual view required'],
-    ['Completeness','COMP-003','MUST','Conceptual view required'],
-    ['Completeness','COMP-004','MUST','Technology view required'],
-    ['Completeness','COMP-005','MUST','Cross-layer view required'],
-    ['Completeness','COMP-006','SHOULD','Motivation elements should be present'],
-    ['Completeness','COMP-007','MUST','Technology layer elements must be present'],
-    ['Completeness','COMP-008','SHOULD','Business actors or roles should be present'],
-    ['Assessment','COMP-009','MUST','Cross-layer views required (assessment criteria)'],
-    ['Assessment','COMP-010','INFO','Orphaned elements not in any view'],
-  ];
+  // From the rule catalogue: [category, id, severity, description, rule]
+  const ALL_RULES2 = RULES.map(r => [r.category, r.id, r.severity,
+    r.description.length > 52 ? r.description.slice(0, 50) + '…' : r.description, r]);
   const byRuleIssue = {};
   data.issues.forEach(i => { (byRuleIssue[i.ruleId]=byRuleIssue[i.ruleId]||[]).push(i); });
 
@@ -2981,6 +2903,7 @@ function renderPDF(data) {
   ALL_RULES2.forEach(r => { (rbc2[r[0]]=rbc2[r[0]]||[]).push(r); });
 
   catOrder3.forEach(cat => {
+    if (!(rbc2[cat]||[]).length) return;
     checkY(12);
     const cc = CAT_RGB[cat]||BLUE;
     doc.setFillColor(240,242,248); doc.setDrawColor(...BORDER); doc.setLineWidth(0.2);
@@ -2992,10 +2915,8 @@ function renderPDF(data) {
 
     (rbc2[cat]||[]).forEach((r, idx) => {
       const ri = byRuleIssue[r[1]]||[];
-      let status, stc;
-      if(!ri.length){status='PASS';stc=[79,205,139];}
-      else if(r[2]==='MUST'){status='FAIL';stc=[255,79,106];}
-      else{status='WARN';stc=[255,184,79];}
+      const status = ruleStatus(r[4], ri);
+      const stc = { PASS:[79,205,139], FAIL:[255,79,106], WARN:[255,184,79] }[status] || TLIGHT;
       const sevc = r[2]==='MUST'?[255,79,106]:r[2]==='SHOULD'?[255,184,79]:TLIGHT;
       const aff = ri.length ? [...new Set(ri.map(i=>i.viewName))].join(', ') : '—';
       checkY(8);

@@ -6,7 +6,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 |---|---|---|
 | 0 | Portable context: AGENTS.md, CLAUDE.md, docs/, reference digests, skill stubs | ✅ 2026-11-11 |
 | 1 | Tool at `part_a/archimate-assessor.html` (one file, no build) + baseline tests, with no change in behaviour | ✅ 2026-11-11 |
-| 2 | Rule catalogue + knowledgebase (3.2 Reference Cards, Archi relationship matrix) | ⏳ |
+| 2 | Rule catalogue + knowledgebase (3.2 Reference Cards, Archi relationship matrix) | ✅ 2026-11-11 |
 | 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ⏳ |
 | 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ⏳ |
 | 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ⏳ |
@@ -30,9 +30,25 @@ Each phase ends by updating this table, [decisions.md](decisions.md) and, if con
   A deliberate regression was confirmed to fail them.
 - Remaining network loads: the Google Fonts `@import` (falls back to system fonts offline) and jsPDF from CDN. Both are removed in Phase 6.
 
-## Phase 2 — Rule catalogue and knowledgebase
+## Phase 2 — Rule catalogue and knowledgebase ✅
 
-All changes are inside `part_a/archimate-assessor.html`.
+**Result** (all inside `part_a/archimate-assessor.html`):
+- **`rule-catalogue` JSON block.** It holds 41 rules, each with source, severity, category, rubric subcategory and automation status.
+  - Checks emit only `{ruleId, viewId, viewName, detail}`. `makeIssue()` fills in the rest from the catalogue and throws on an unknown id.
+  - The UI rules tab and the PDF checklist both read the catalogue. Their two hard-coded copies are gone.
+- **`relationship-matrix` JSON block.** It is converted from Archi `relationships.xml` v3.2 at upstream commit `6d23608` (MIT notice included), 18 KB, round-trip verified for all 3,844 type pairs.
+  - The new rule **ARC-REL-002** checks every model relationship against it.
+- **Knowledge base:** the 3.2 element layers (Physical inside Technology; Grouping, Location and Junction under "Other"), and the exchange-format junction aliases.
+- **Retired:**
+  - ARC-CL-001 to ARC-CL-004, ARC-STR-001, ARC-REL-001 (see decisions A9)
+  - the never-firing elm-001 check
+  - the layer-pair table and dead code
+- **Checklist:** manual rules show **MANUAL** and heuristic ones are marked `~`. On the sample: 22 PASS, 1 INFO, 18 MANUAL.
+- **Baseline change.** Sample score 76 → **100**: the 4 false ARC-CL-001 findings are gone.
+  - ⚠ 100 isn't a meaningful score yet. The real gaps (diagonal connectors, layout, traceability) are only detected from Phase 3, and the CrossLayer category has no rules until Phase 4 redefines the categories.
+- **Tests:** 13 passing, including a fixture that ARC-REL-002 must flag correctly.
+
+Original steps:
 
 1. Add a `<script type="application/json" id="rule-catalogue">` block. One entry per rule:
    `{id, source, specRef, severity, category, subcategory, automation, description, rationale, verified}`
