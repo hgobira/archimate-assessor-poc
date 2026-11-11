@@ -12,67 +12,73 @@ The STS ArchiMate assessment checks how architects model in ArchiMate 3.2.
 
 The tool is a **single, offline HTML file** that parses the XML, runs rule checks, scores, takes the manual scores, and produces the PDF.
 
-- **Part A** (Jira **GYM-4127**, in progress) refines the existing rule-based HTML tool:
-  - an accurate knowledgebase
+- **Part A** (Jira **GYM-4127**): **delivered** on branch `feature/GYM-4127-part-a`. It refines the existing rule-based tool:
+  - a 3.2 knowledgebase
   - a traceable rule catalogue
   - structural (not name-based) checks
-  - transparent deterministic scoring
+  - transparent deterministic scoring (Replit model)
   - a working combined PDF
-- **Part B** (LLM assistance for judgement questions) has no requirements yet. Don't build for it, but don't block it.
+
+  Status per requirement: [docs/requirements-analysis.md § Delivery status](docs/requirements-analysis.md#delivery-status).
+- **Part B** (LLM assistance for judgement questions) has no requirements yet. Don't build for it, but don't block it. The manual-only subcategories and the reviewer prompts are where LLM help would fit.
 
 ## Start here
 
 | Read | For |
 |---|---|
-| [docs/requirements-analysis.md](docs/requirements-analysis.md) | What GYM-4127 asks, what's wrong with the current tool (with line refs), and what we're building |
-| [docs/plan.md](docs/plan.md) | Phased delivery plan and **current status** |
-| [docs/decisions.md](docs/decisions.md) | Accepted decisions and open questions; check here before changing scoring, weights or grades |
+| [docs/requirements-analysis.md](docs/requirements-analysis.md) | What GYM-4127 asks, the audit of the original tool, and the delivery status |
+| [docs/decisions.md](docs/decisions.md) | Accepted decisions and **open questions** (D5, D6, D8–D11). Check here before changing scoring. |
+| [docs/scoring-model.md](docs/scoring-model.md) | How scores are calculated, with a worked example |
+| [docs/plan.md](docs/plan.md) | Phase-by-phase record of what was built and why |
+| [CHANGELOG.md](CHANGELOG.md) | What changed versus the original tool |
 | [docs/reference/](docs/reference/) | Markdown digests of every PDF/DOCX in `resources/`. Use these instead of re-parsing the PDFs. |
 
 ## Repo layout
 
-```
+```text
 AGENTS.md / CLAUDE.md     agent + engineer context (this file is canonical)
-docs/                     shared context: analysis, plan, decisions, reference digests
-resources/                original inputs (PDFs, sample XML, baseline tool). Read-only.
-  archimate-assessor_2.html          baseline tool as received (archimate-assessor_2_original.html is an identical copy)
-  Arhchimateexample.xml              sample candidate model (ClimateIQ)
-part_a/                   Part A deliverable
+CHANGELOG.md              changes versus the original tool
+docs/                     analysis, decisions, scoring model, plan, reference digests
+resources/                original inputs (PDFs, sample XML, original tool). Read-only.
+  archimate-assessor_2.html          original tool as received (archimate-assessor_2_original.html is an identical copy)
+  Arhchimateexample.xml              sample candidate model (ClimateIQ, BizzDesign export)
+part_a/
   archimate-assessor.html THE TOOL: one self-contained, offline HTML file. Edit it directly; no build step.
-  tests/                  Node tests that load the HTML in jsdom (dev only; not needed to use the tool)
-.claude/skills/           step-by-step procedures (add a rule, change scoring, KB audit, release)
+  tests/                  Node tests that load the HTML in jsdom. Dev only; planned to be removed after delivery.
+.claude/skills/           procedures: add-rule, change-scoring, kb-audit, build-release
 ```
 
-### Inside `archimate-assessor.html`
+### Inside `archimate-assessor.html` (in file order)
 
-The tool stays one file, organised into clearly labelled blocks so data is separate from logic:
-
-| Block | What | Phase |
-|---|---|---|
-| `<style>` | All CSS | existing |
-| `<script type="application/json" id="rule-catalogue">` | **The rule catalogue**: every rule's id, source, severity, category, rubric subcategory, automation status | ✅ P2 |
-| `<script type="application/json" id="relationship-matrix">` | ArchiMate 3.2 allowed relationships, from Archi `relationships.xml` (MIT; provenance and licence in the block's header comment) | ✅ P2 |
-| `<script type="application/json" id="case-study-profile">` | Case study: expected views per role (EA/SA), stakeholders, requirements. Replace it for a reviewer-agreed case study. | ✅ P5 |
-| `// ===== MANUAL SCORESHEET` | `MANUAL` state (all assessor input) + `ANALYSIS` (role, view overrides); `manualReadiness()`; `reanalyse()` re-runs checks without losing input | ✅ P5 |
-| `// ===== ARCHIMATE KNOWLEDGE BASE` | 3.2 element layers; `RULES`/`makeIssue()`/`ruleStatus()`; `isRelationshipAllowed()` | ✅ P2 |
-| `// ===== VIEW CLASSIFIER` / `VIEW GEOMETRY` | `classifyView()` (type from structure, with reasons); diagonal/crossing geometry helpers | ✅ P3 |
-| `<script type="application/json" id="scoring-config">` | Weights, penalties, caps, rating scale, grade bands, RAG thresholds ([docs/scoring-model.md](docs/scoring-model.md)) | ✅ P4 |
-| `// ===== PARSING / CHECKS ENGINE / SCORING` | Logic only; reads the blocks above, never hard-codes rule text or thresholds | existing; reworked P2–4 |
-| jsPDF 2.5.1 `<script>` (inlined, MIT) | PDF library, unmodified. Do not edit. | ✅ P6 |
-| `// ===== REPORT GENERATION (PDF)` | `generateReport()` (blocked until `manualReadiness()` is empty), `buildReportPdf()` in the Report Format order, `pdfText()` | ✅ P6 |
-| `// ===== UI …` sections | Tabs and rendering | existing |
+| Block | What |
+|---|---|
+| `<style>` | All CSS |
+| `<script type="application/json" id="rule-catalogue">` | **The rule catalogue**: id, source, severity, rubric subcategory, automation status, description |
+| `<script type="application/json" id="relationship-matrix">` | ArchiMate 3.2 allowed relationships from Archi `relationships.xml` (MIT; provenance and licence in the header comment) |
+| `<script type="application/json" id="scoring-config">` | Categories, weights, penalties, caps, rating scale, grade bands, RAG, pass mark, outcomes, Review Guide descriptors and prompts |
+| `<script type="application/json" id="case-study-profile">` | Expected views per role (EA/SA), stakeholders, requirements. Replace it for a reviewer-agreed case study. |
+| jsPDF 2.5.1 `<script>` | PDF library, inlined unmodified (MIT). Do not edit. |
+| `// ===== ARCHIMATE KNOWLEDGE BASE` | 3.2 element layers; `RULES`, `makeIssue()`, `ruleStatus()`; `isRelationshipAllowed()` |
+| `// ===== PARSING` | `parseXML()`: Open Exchange → model |
+| `// ===== VIEW CLASSIFIER` / `VIEW GEOMETRY` | `classifyView()` (type from structure, with reasons); diagonal and crossing helpers |
+| `// ===== CASE-STUDY PROFILE` | `matchExpectedViews()` |
+| `// ===== CHECKS ENGINE` | `runAllChecks(model, {role, overrides})`: logic only; reads the blocks above |
+| `// ===== SCORING` | `calculateScore()` (with breakdown), `manualScore()`, `combinedScore()`, `grade()`, `rag()` |
+| `// ===== MANUAL SCORESHEET` | `MANUAL` state (all assessor input) and `ANALYSIS` (role, view overrides); `manualReadiness()` |
+| `// ===== REPORT GENERATION (PDF)` | `generateReport()` (blocked until ready), `buildReportPdf()` in the Report Format order, `pdfText()` |
+| `// ===== FILE HANDLING` and UI sections | Upload, `renderAll()`, `reanalyse()`, tabs |
 
 ## Golden rules
 
-1. **Every finding traces to a rule ID.** Rules live only in the `rule-catalogue` JSON block of `part_a/archimate-assessor.html`. Checks emit `{ruleId, evidence}` and never hard-code descriptions or severities.
-2. **Never mark an unimplemented rule as PASS.** Rules carry `automation: automated | partial | manual`, and manual rules show "Manual review".
-3. **Classify views by structure, not by name.** Element types, the relationships drawn in the view, and the `viewpoint` attribute decide. The name is a weak hint at most. The exception is SebTreb `vws-001`, which is a naming rule by definition.
-4. **One scoring model.** The automated and manual scores share categories, weights and the `grade()` function from a single config. Change weights only via [docs/decisions.md](docs/decisions.md) plus the `change-scoring` skill.
-5. **Data blocks are data.** Change the relationship matrix only by re-importing Archi's `relationships.xml` (see the `kb-audit` skill) and updating the provenance comment. Never patch individual entries by hand.
+1. **Every finding traces to a rule ID.** Rules live only in the `rule-catalogue` block. Checks emit `{ruleId, viewId, viewName, detail}` and never hard-code descriptions or severities.
+2. **Never mark an unimplemented rule as PASS.** Rules carry `automation: automated | partial | manual`, and manual rules show "MANUAL".
+3. **Classify views by structure, not by name.** Element types, the relationships drawn in the view, and the `viewpoint` attribute decide. The name is a fallback hint, and the claim VW-002 checks. The exception is SebTreb `vws-001`, which is a naming rule by definition.
+4. **One scoring model.** The automated and manual scores share categories, weights and `grade()` from the `scoring-config` block. Change it only via [docs/decisions.md](docs/decisions.md) plus the `change-scoring` skill.
+5. **Data blocks are data.** Change the relationship matrix only by re-importing Archi's `relationships.xml` (`kb-audit` skill) and updating the provenance comment. Never patch individual entries by hand.
 6. **Determinism.** The same XML and the same manual inputs always give the same scores. No randomness, no time-dependent logic in scoring.
-7. **One file, offline.** `archimate-assessor.html` must work by double-clicking, with no server, no network and no companion files. Third-party code (jsPDF, from Phase 6) is pasted inline with its licence header.
+7. **One file, offline.** `archimate-assessor.html` must work by double-clicking, with no server, no network and no companion files. Third-party code is pasted inline with its licence header.
 8. **Copyright.** Don't commit extracted text from Open Group publications (`978940180512C_SMPL.pdf`, `n221p.pdf` are single-user licensed). Link to them and cite section numbers instead.
-9. **Keep context current.** Every phase or PR updates the status in `docs/plan.md`, adds any new decision to `docs/decisions.md`, and updates this file if conventions change.
+9. **Keep context current.** Every change updates [docs/decisions.md](docs/decisions.md) if it decides something, [CHANGELOG.md](CHANGELOG.md) if it changes behaviour, and this file if conventions change.
 
 ## Commands
 
@@ -82,14 +88,13 @@ The tool stays one file, organised into clearly labelled blocks so data is separ
 
 | Command | What |
 |---|---|
-| `npm test --prefix part_a` | Load the HTML in jsdom: baseline regression, determinism, full upload-pipeline smoke test |
+| `npm test --prefix part_a` | All tests (`node:test` + jsdom): baseline regression, rules and matrix, classifier, scoring, manual sheet, PDF, fixtures, smoke |
 | `npm run baseline:update --prefix part_a` | Regenerate `tests/baseline/sample.json`. **Only for intended behaviour changes**; explain the diff in the commit. |
 
-Tests call the tool's global functions (`parseXML`, `runAllChecks`, `calculateScore`, `processFile`) through `tests/helpers/engine.mjs`. Keep the engine functions free of UI side effects so they stay testable that way.
+Tests call the tool's global functions (`parseXML`, `runAllChecks`, `calculateScore`, `manualScore`, `buildReportPdf`, `processFile`…) through `tests/helpers/engine.mjs`. Keep the engine functions free of UI side effects so they stay testable that way.
 
 ## Conventions
 
 - Plain ES2020 JavaScript in the one HTML file. No framework, no build step, no runtime dependencies beyond inlined jsPDF. 2-space indent.
-- Rule IDs: SebTreb rules keep their source IDs (`elm-001`, `cnn-002`, …). Tool rules use `ARC-<AREA>-NNN` (ArchiMate), `VW-NNN` (view/completeness), `TRC-NNN` (traceability).
-- Commits: imperative summary, prefixed with the phase, e.g. `P2: Generate relationship matrix from Archi data`.
-- Branch: `feature/GYM-4127-part-a`.
+- Rule IDs: SebTreb rules keep their source IDs (`elm-001`, `cnn-002`, …). Tool rules use `ARC-<AREA>-NNN` (ArchiMate), `VW-NNN` (views), `COMP-NNN` (completeness), `TRC-NNN` (traceability). Retired IDs are never reused (decisions A9, A10).
+- Commits: imperative summary, prefixed with the phase or area, e.g. `P2: Generate relationship matrix from Archi data`.

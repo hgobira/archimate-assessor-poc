@@ -4,7 +4,32 @@ The source requirements are in [README.md](../README.md) and [part_a/README.md](
 The baseline tool audited here is [resources/archimate-assessor_2.html](../resources/archimate-assessor_2.html); line references below point into it.
 Analysis date: 2026-11-11.
 
-## Summary
+## Delivery status
+
+GYM-4127 / Part A is delivered on `feature/GYM-4127-part-a`. The tool is [part_a/archimate-assessor.html](../part_a/archimate-assessor.html); changes are listed in [CHANGELOG.md](../CHANGELOG.md).
+
+| Requirement (ticket wording) | Status | Where |
+|---|---|---|
+| Input and parsing: works well | ✅ Kept; nested coordinates and junction aliases handled | PARSING |
+| Audit the knowledgebase against ArchiMate 3.2 | ✅ Partly: 3.2 element layers (Reference Cards); 3.2 relationship matrix (Archi). ⚠ Derivation rules and viewpoint definitions wait for the full 3.2 spec (`kb-audit` skill). | KNOWLEDGE BASE, `relationship-matrix` |
+| Rule catalogue in a structured block, every issue traceable to a rule ID | ✅ 46 rules; checks emit IDs only; a test fails on an untraceable ID | `rule-catalogue` |
+| Replace brittle checks; look at structure, not names ("Overview" example) | ✅ Structural view classifier with reasons and override; the "Overview" test passes | VIEW CLASSIFIER |
+| Scoring model: categories, weights, severity penalties, caps | ✅ Replit categories and weights; MUST/SHOULD penalties; per-rule and per-subcategory caps | `scoring-config`, [scoring-model.md](scoring-model.md) |
+| Deterministic, transparent breakdown | ✅ Determinism test; breakdown table in the UI and the PDF | SCORING |
+| Same grading rules for automated and manual (Replit) | ✅ One `grade()`; shared categories; Replit scale and bands | SCORING |
+| One PDF: cover, automated findings, manual scores, narrative, combined score and grade, signatures | ✅ Offline, Report Format order, blocked until complete | REPORT GENERATION |
+
+**Open questions for Meenakshi** (details in [decisions.md](decisions.md)):
+- D10: the subcategory split of the Replit weights
+- D9: penalty sizes
+- D5: coverage shown as "Confidence"
+- D6: the 60% pass mark
+- D8: assessment levels
+- D11: how to treat near-empty models
+
+Also: confirm the interim Replit choice for D1–D3, and check the classifier thresholds (A10) on more submissions.
+
+## Summary (analysis of the original tool, before the work)
 
 | Area | Ticket says | Finding |
 |---|---|---|
@@ -141,5 +166,5 @@ So the current tool penalises valid modelling heavily and misses real style viol
 |---|---|---|
 | 3.2 element types/layers | `resources/n221p.pdf` (3.2 Reference Cards) | Available |
 | 3.2 relationship matrix | Archi `relationships.xml` v3.2 (MIT) | Available, to vendor (D7) |
-| Derivation rules, viewpoint definitions | Full ArchiMate 3.2 spec | **Pending.** Dependent rules marked `verified: false` |
+| Derivation rules, viewpoint definitions | Full ArchiMate 3.2 spec | **Pending.** No current rule depends on them; the `kb-audit` skill lists what to check when the spec arrives |
 | Rubric, report layout, scoring reference | `docs/reference/*` | Available; conflicts logged in D1–D3 |

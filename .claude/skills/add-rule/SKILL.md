@@ -16,10 +16,10 @@ Everything is in one file: `part_a/archimate-assessor.html`.
 
    No source means it's not a rule. Raise it in `docs/decisions.md` instead.
 2. **Add the catalogue entry** in the `<script type="application/json" id="rule-catalogue">` block:
-   `{id, source, specRef, severity: MUST|SHOULD|INFO, category, subcategory, automation: automated|partial|manual, description, rationale, verified}`.
+   `{id, source, severity: MUST|SHOULD|INFO, rubric: "category.subcategory", automation: automated|partial|manual, description}` (+ optional `params` for thresholds).
    - IDs: keep SebTreb IDs as they are; otherwise `ARC-<AREA>-NNN`, `VW-NNN`, `TRC-NNN`.
    - Never reuse a retired ID.
-   - `category` and `subcategory` must exist in the `scoring-config` block.
+   - `rubric` must name a subcategory in the `scoring-config` block (a test checks this).
 3. **Implement the check** in the CHECKS ENGINE section. Emit only `{ruleId, viewId?, elementIds?, evidence}`.
    - Don't put description text or severity in the check.
    - **Don't infer a view's type from its name.** Use the view classifier.

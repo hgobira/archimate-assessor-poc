@@ -1,4 +1,6 @@
-> **Start here:** [AGENTS.md](AGENTS.md) has the project context, layout and rules. [docs/plan.md](docs/plan.md) has status, and [docs/decisions.md](docs/decisions.md) has the open questions.
+> **The tool:** [part_a/archimate-assessor.html](part_a/archimate-assessor.html). Open it in a browser; it works offline with nothing to install.
+>
+> **Start here:** [AGENTS.md](AGENTS.md) (context, layout, rules) · [CHANGELOG.md](CHANGELOG.md) (what changed) · [docs/requirements-analysis.md](docs/requirements-analysis.md#delivery-status) (delivery status) · [docs/decisions.md](docs/decisions.md) (open questions)
 
 # Requirements
 

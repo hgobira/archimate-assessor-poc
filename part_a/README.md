@@ -1,3 +1,15 @@
+# Part A — ArchiMate Assessor (GYM-4127)
+
+**Use:** open [archimate-assessor.html](archimate-assessor.html) in a browser, then:
+1. Load a BizzDesign Open Exchange XML.
+2. Review the automated findings.
+3. Complete the Manual Assessment tab.
+4. Click **Generate Report PDF**.
+
+**Develop:** see [../AGENTS.md](../AGENTS.md). Tests: `npm install --prefix part_a && npm test --prefix part_a`.
+
+---
+
 # Requirements
 
 ## [GYM-4127] Jira Description

@@ -12,7 +12,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ✅ 2026-11-11 |
 | 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ✅ 2026-11-11 |
 | 7 | Tests: unit, regression, renamed-view fixture, Report Format arithmetic, Archi fixtures | ✅ 2026-11-11 |
-| 8 | Handover: docs final, skills final, CHANGELOG, PR | ⏳ |
+| 8 | Handover: docs final, skills final, CHANGELOG, PR | ✅ 2026-11-11 |
 
 Each phase ends by updating this table, [decisions.md](decisions.md) and, if conventions changed, [AGENTS.md](../AGENTS.md). Then commit.
 
@@ -216,6 +216,16 @@ Original plan:
 
 Unit tests for checks, classifier and scoring. Regression tests on the sample XML. The renamed-view fixture. A test that the Report Format example arithmetic (manual 72.5, automated 88, combined 80.25) reproduces. Archi exchange fixtures.
 
-## Phase 8 — Handover
+## Phase 8 — Handover ✅
+
+**Result:**
+- AGENTS.md rewritten as the final handover: status, file map in file order, golden rules.
+- CHANGELOG.md added.
+- requirements-analysis.md: delivery status per requirement, plus the open questions.
+- READMEs point to the tool.
+- All four skills marked usable.
+- PR opened from `feature/GYM-4127-part-a`. The tests stay until the PR is accepted, then can be removed (user preference: lean).
+
+Original plan:
 
 Final docs and skills, CHANGELOG, and a PR describing the changes, with links into `docs/`.
