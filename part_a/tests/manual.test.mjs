@@ -39,7 +39,7 @@ test('assessor override changes the type and keeps the evidence', () => {
 test('suggested rating, outcome and readiness', () => {
   assert.equal(w.suggestedRating(100), 'Outstanding');
   assert.equal(w.suggestedRating(80), 'Good');
-  assert.equal(w.suggestedRating(45), 'Adequate');
+  assert.equal(w.suggestedRating(45), 'Below Average');
   assert.equal(w.suggestedOutcome(60, 1), 'Pass');
   assert.equal(w.suggestedOutcome(59.9, 1), 'Improvement plan required');
   assert.equal(w.suggestedOutcome(59.9, 2), 'Fail');
@@ -50,7 +50,7 @@ test('suggested rating, outcome and readiness', () => {
   m.signatures.assessor.name = 'B';
   for (const c of w.eval('SCORING').categories) for (const s of c.subcategories) m.ratings[`${c.id}.${s.id}`] = 'Good';
   assert.deepEqual(Array.from(w.manualReadiness(m)), []);
-  assert.equal(w.manualScore(m.ratings), 75);
+  assert.equal(w.manualScore(m.ratings), 80);
 });
 
 test('UI: 12 rows; role change re-analyses without losing input', async () => {

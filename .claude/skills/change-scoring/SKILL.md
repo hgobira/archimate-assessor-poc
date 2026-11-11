@@ -15,6 +15,6 @@ description: Change the archimate-assessor scoring model — category or subcate
    - The automated and manual scores use the same categories and the same `grade()`.
    - Scores are clamped to 0–100.
    - Output is deterministic.
-4. **Run the tests:** `npm test --prefix part_a`. The Report Format arithmetic test (manual 72.5, combined 80.25) must still pass unless the decision changes it on purpose. Update the baseline with `npm run baseline:update --prefix part_a` and explain each delta.
+4. **Run the tests:** `npm test --prefix part_a`. `scoring.test.mjs` pins the current weights, scale and Replit's worked example (Good on weight 10 = 8.0). Update those assertions deliberately when a decision changes them. Update the baseline with `npm run baseline:update --prefix part_a` and explain each delta.
 5. **Update [docs/scoring-model.md](../../../docs/scoring-model.md):** the worked example and the tables.
 6. Commit as `P<n>: Scoring — <decision ID> <summary>`.

@@ -177,22 +177,22 @@
     }
   ],
   "score": {
-    "total": 88.7,
-    "earned": 66.5,
-    "possible": 75,
-    "coverage": 75,
+    "total": 84.6,
+    "earned": 66,
+    "possible": 78,
+    "coverage": 78,
     "byCategory": {
       "metamodel": 90,
       "scenario": 100,
       "viewpoints": 100,
       "crosslayer": 95,
-      "clarity": 40
+      "clarity": 37
     },
     "breakdown": [
       {
         "id": "metamodel",
         "label": "Meta-model & Relationships",
-        "weight": 30,
+        "weight": 25,
         "subs": [
           {
             "id": "metamodel.elements",
@@ -251,7 +251,7 @@
           {
             "id": "metamodel.layers",
             "label": "Layer correctness",
-            "weight": 10,
+            "weight": 5,
             "assessable": false,
             "rules": [],
             "hits": [],
@@ -306,12 +306,12 @@
       {
         "id": "viewpoints",
         "label": "Viewpoints & Stakeholder Relevance",
-        "weight": 25,
+        "weight": 20,
         "subs": [
           {
             "id": "viewpoints.selection",
             "label": "Appropriate viewpoint selection",
-            "weight": 15,
+            "weight": 12,
             "assessable": true,
             "rules": [
               "VW-002",
@@ -324,12 +324,12 @@
             "rawPenaltyPct": 0,
             "appliedPenaltyPct": 0,
             "capped": false,
-            "score": 15
+            "score": 12
           },
           {
             "id": "viewpoints.stakeholder",
             "label": "Stakeholder alignment",
-            "weight": 10,
+            "weight": 8,
             "assessable": true,
             "rules": [
               "COMP-008"
@@ -338,22 +338,22 @@
             "rawPenaltyPct": 0,
             "appliedPenaltyPct": 0,
             "capped": false,
-            "score": 10
+            "score": 8
           }
         ],
-        "earned": 25,
-        "max": 25,
+        "earned": 20,
+        "max": 20,
         "pct": 100
       },
       {
         "id": "crosslayer",
         "label": "Cross-layer Alignment",
-        "weight": 15,
+        "weight": 20,
         "subs": [
           {
             "id": "crosslayer.vertical",
             "label": "Vertical traceability",
-            "weight": 5,
+            "weight": 7,
             "assessable": true,
             "rules": [
               "TRC-001",
@@ -364,12 +364,12 @@
             "rawPenaltyPct": 0,
             "appliedPenaltyPct": 0,
             "capped": false,
-            "score": 5
+            "score": 7
           },
           {
             "id": "crosslayer.horizontal",
             "label": "Horizontal alignment",
-            "weight": 5,
+            "weight": 7,
             "assessable": false,
             "rules": [],
             "hits": [],
@@ -381,7 +381,7 @@
           {
             "id": "crosslayer.e2e",
             "label": "End-to-end clarity",
-            "weight": 5,
+            "weight": 6,
             "assessable": true,
             "rules": [
               "TRC-002"
@@ -398,22 +398,22 @@
             "rawPenaltyPct": 10,
             "appliedPenaltyPct": 10,
             "capped": false,
-            "score": 4.5
+            "score": 5.4
           }
         ],
-        "earned": 9.5,
-        "max": 10,
+        "earned": 12.4,
+        "max": 13,
         "pct": 95
       },
       {
         "id": "clarity",
         "label": "SebTreb Visual Clarity",
-        "weight": 10,
+        "weight": 15,
         "subs": [
           {
             "id": "clarity.layout",
             "label": "Layout and organisation",
-            "weight": 5,
+            "weight": 7,
             "assessable": true,
             "rules": [
               "elm-003",
@@ -434,12 +434,12 @@
             "rawPenaltyPct": 20,
             "appliedPenaltyPct": 20,
             "capped": false,
-            "score": 4
+            "score": 5.6
           },
           {
             "id": "clarity.sebtreb",
             "label": "SebTreb rules compliance",
-            "weight": 5,
+            "weight": 8,
             "assessable": true,
             "rules": [
               "elm-001",
@@ -495,9 +495,9 @@
             "score": 0
           }
         ],
-        "earned": 4,
-        "max": 10,
-        "pct": 40
+        "earned": 5.6,
+        "max": 15,
+        "pct": 37
       }
     ]
   }

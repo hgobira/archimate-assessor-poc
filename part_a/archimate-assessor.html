@@ -1161,53 +1161,54 @@ SOFTWARE.
 </script>
 
 <!-- ===================== SCORING CONFIG =====================
-     One scoring model for automated AND manual scores (decisions D1-D3, D5; provisional until confirmed).
-     categories/subcategories: Report Format weights (total 100). Rules map to a subcategory via "rubric".
+     One scoring model for automated AND manual scores. Category weights, rating scale and grade bands follow
+     the Replit scorer (decisions D1-D3, accepted for now); subcategory split is provisional (D10).
+     Rules map to a subcategory via "rubric".
      Automated scoring, per subcategory:
        penalty % = sum over rules of severityPenaltyPct[severity] x min(occurrences, perRuleMaxOccurrences)
        capped at 100% of the subcategory, so a subcategory never goes below 0
        score = weight x (1 - penalty%)
      Subcategories with no automated/partial rule are "manual only" and excluded from the automated score.
      Automated total = earned / assessable points; confidence = assessable points / 100 (rubric coverage).
-     Manual: rating % x subcategory weight. Combined = mean(automated, manual). One grade() and rag() for all. -->
+     Manual: rating % x subcategory weight (Replit: rating/5 x weight). Combined = mean(automated, manual). One grade() and rag() for all. -->
 <script type="application/json" id="scoring-config">
 {
   "categories": [
-    {"id":"metamodel","label":"Meta-model & Relationships","weight":30,
+    {"id":"metamodel","label":"Meta-model & Relationships","weight":25,
      "descriptors":{"poor":"Incorrect or invalid elements, layers and relationships; no cross-layer connections","average":"Mostly correct elements, minor relationship mistakes (e.g. association instead of serving); mostly valid cross-layer connections","outstanding":"Precise application of the metamodel, relationships and valid cross-layer connections"},
      "subcategories":[
       {"id":"elements","label":"Correct use of ArchiMate elements","weight":10,"prompts":["Is each element the right type for what it represents?","Is specialisation used correctly where used?"]},
       {"id":"relationships","label":"Valid relationships","weight":10,"prompts":["Are all relationships valid and the most specific available (e.g. Serving rather than Association)?","Are derivations applied correctly?"]},
-      {"id":"layers","label":"Layer correctness","weight":10,"prompts":["Are all elements in their appropriate layer? (prompt 3)","Is notation used consistently across views? (prompt 8)"]}]},
+      {"id":"layers","label":"Layer correctness","weight":5,"prompts":["Are all elements in their appropriate layer? (prompt 3)","Is notation used consistently across views? (prompt 8)"]}]},
     {"id":"scenario","label":"Scenario Interpretation & Completeness","weight":20,
      "descriptors":{"poor":"Misinterprets or ignores key elements of the scenario","average":"Captures the main elements but does not reflect the details correctly","outstanding":"Fully covers all scenario details, including dependencies, triggers and constraints"},
      "subcategories":[
       {"id":"coverage","label":"Coverage of case study requirements","weight":10,"prompts":["Is the scenario covered from strategy to deployment without major omissions? (prompt 2)","Check against the case-study requirements listed above."]},
       {"id":"accuracy","label":"Accuracy of interpretation","weight":10,"prompts":["Are dependencies, triggers and constraints from the case study reflected correctly?"]}]},
-    {"id":"viewpoints","label":"Viewpoints & Stakeholder Relevance","weight":25,
+    {"id":"viewpoints","label":"Viewpoints & Stakeholder Relevance","weight":20,
      "descriptors":{"poor":"Inappropriate views for the architect role","average":"Viewpoints are acceptable but not the best fit","outstanding":"Most effective viewpoints to communicate"},
      "subcategories":[
-      {"id":"selection","label":"Appropriate viewpoint selection","weight":15,"prompts":["Are the viewpoints right for the purpose and the role (layered, application collaboration, motivation…)? (prompt 7)"]},
-      {"id":"stakeholder","label":"Stakeholder alignment","weight":10,"prompts":["Does each view address a stated stakeholder concern and communicate to that audience? (prompt 4)"]}]},
-    {"id":"crosslayer","label":"Cross-layer Alignment","weight":15,
+      {"id":"selection","label":"Appropriate viewpoint selection","weight":12,"prompts":["Are the viewpoints right for the purpose and the role (layered, application collaboration, motivation…)? (prompt 7)"]},
+      {"id":"stakeholder","label":"Stakeholder alignment","weight":8,"prompts":["Does each view address a stated stakeholder concern and communicate to that audience? (prompt 4)"]}]},
+    {"id":"crosslayer","label":"Cross-layer Alignment","weight":20,
      "descriptors":{"poor":"Weak or missing cross-layer connections","average":"Basic traceability is present","outstanding":"Strong end-to-end traceability with clear vertical and horizontal alignment"},
      "subcategories":[
-      {"id":"vertical","label":"Vertical traceability","weight":5,"prompts":["Can each business goal be traced to capabilities, services and technical components? (prompt 1)"]},
-      {"id":"horizontal","label":"Horizontal alignment","weight":5,"prompts":["Is there visible alignment between business processes, application services and technology components? (prompt 6)"]},
-      {"id":"e2e","label":"End-to-end clarity","weight":5,"prompts":["Is the path Motivation → Strategy → Business → Application → Technology → Implementation clear?","Is baseline-to-target architecture shown where relevant?"]}]},
-    {"id":"clarity","label":"SebTreb Visual Clarity","weight":10,
+      {"id":"vertical","label":"Vertical traceability","weight":7,"prompts":["Can each business goal be traced to capabilities, services and technical components? (prompt 1)"]},
+      {"id":"horizontal","label":"Horizontal alignment","weight":7,"prompts":["Is there visible alignment between business processes, application services and technology components? (prompt 6)"]},
+      {"id":"e2e","label":"End-to-end clarity","weight":6,"prompts":["Is the path Motivation → Strategy → Business → Application → Technology → Implementation clear?","Is baseline-to-target architecture shown where relevant?"]}]},
+    {"id":"clarity","label":"SebTreb Visual Clarity","weight":15,
      "descriptors":{"poor":"Disorganised: mislabelled, cluttered; annotations or legends missing","average":"Understandable but needs effort to interpret; visuals adequate but not optimised","outstanding":"Clearly defined, well labelled, logically organised; annotations, legends and notes complete"},
      "subcategories":[
-      {"id":"layout","label":"Layout and organisation","weight":5,"prompts":["Readable, logically organised, no overlapping or ambiguous relationships? (prompt 5)","Are annotations, legends and notes complete?"]},
-      {"id":"sebtreb","label":"SebTreb rules compliance","weight":5,"prompts":["Record violated SebTreb rule ids with the views they occur in (e.g. cnn-002 on Cross-layer view). Manual-review rules are listed in the Rule Checklist."]}]}
+      {"id":"layout","label":"Layout and organisation","weight":7,"prompts":["Readable, logically organised, no overlapping or ambiguous relationships? (prompt 5)","Are annotations, legends and notes complete?"]},
+      {"id":"sebtreb","label":"SebTreb rules compliance","weight":8,"prompts":["Record violated SebTreb rule ids with the views they occur in (e.g. cnn-002 on Cross-layer view). Manual-review rules are listed in the Rule Checklist."]}]}
   ],
   "passMark": 60,
   "outcomes": ["Pass", "Improvement plan required", "Fail"],
   "severityPenaltyPct": {"MUST": 25, "SHOULD": 10, "INFO": 0},
   "perRuleMaxOccurrences": 3,
   "ratingScale": [
-    {"label":"Missing","pct":0}, {"label":"Poor","pct":25}, {"label":"Adequate","pct":50},
-    {"label":"Good","pct":75}, {"label":"Outstanding","pct":100}],
+    {"label":"Missing","pct":0}, {"label":"Poor","pct":20}, {"label":"Below Average","pct":40},
+    {"label":"Adequate","pct":60}, {"label":"Good","pct":80}, {"label":"Outstanding","pct":100}],
   "grades": [{"min":80,"label":"Outstanding"}, {"min":60,"label":"Average"}, {"min":0,"label":"Poor"}],
   "rag": {"green":70, "amber":40},
   "combined": "mean"
@@ -2154,7 +2155,7 @@ function freshManualState() {
 let MANUAL = freshManualState();
 let ANALYSIS = { role: '', overrides: {} };   // assessor settings that change the automated analysis
 
-const RATING_CLASS = { Missing: 'rated-missing', Poor: 'rated-poor', Adequate: 'rated-adequate', Good: 'rated-good', Outstanding: 'rated-outstanding' };
+const RATING_CLASS = { Missing: 'rated-missing', Poor: 'rated-poor', 'Below Average': 'rated-poor', Adequate: 'rated-adequate', Good: 'rated-good', Outstanding: 'rated-outstanding' };
 const RUBRIC_SUBS = () => SCORING.categories.flatMap(c => c.subcategories.map(s => ({ key: `${c.id}.${s.id}`, cat: c, sub: s })));
 
 // Nearest rating label to an automated subcategory percentage (shown as a reference, as in Replit).

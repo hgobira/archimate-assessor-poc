@@ -31,19 +31,15 @@ test('one grade() for every score (Replit bands, D3)', () => {
   assert.equal(w.gradeFromScore(85), w.grade(85), 'legacy name delegates');
 });
 
-test('Report Format worked example: manual 72.5, combined 80.25', () => {
-  const ratings = {
-    'metamodel.elements': 'Outstanding', 'metamodel.relationships': 'Good', 'metamodel.layers': 'Good',
-    'scenario.coverage': 'Good', 'scenario.accuracy': 'Good',
-    'viewpoints.selection': 'Outstanding', 'viewpoints.stakeholder': 'Adequate',
-    'crosslayer.vertical': 'Adequate', 'crosslayer.horizontal': 'Good', 'crosslayer.e2e': 'Poor',
-    'clarity.layout': 'Good', 'clarity.sebtreb': 'Poor',
-  };
-  const manual = w.manualScore(ratings);
-  assert.equal(manual, 72.5);
-  assert.equal(w.combinedScore(88, manual), 80.25);
-  // NB: the Report Format labels 80.25 "Average"; Replit bands (D3) give Outstanding — open question.
-  assert.equal(w.grade(80.25), 'Outstanding');
+test('Replit scoring (D1-D3 accepted): weights, 0-5 scale, combined mean', () => {
+  assert.deepEqual(Array.from(SCORING.categories, (c) => c.weight), [25, 20, 20, 20, 15]);
+  assert.deepEqual(Array.from(SCORING.ratingScale, (r) => r.pct), [0, 20, 40, 60, 80, 100]);
+  // Replit worked example: rating 4 (Good) on a weight-10 subcategory = 8.0 points
+  assert.equal(w.manualScore({ 'metamodel.elements': 'Good' }), 8);
+  const all = (label) => Object.fromEntries(SCORING.categories.flatMap((c) => c.subcategories.map((s) => [`${c.id}.${s.id}`, label])));
+  assert.equal(w.manualScore(all('Good')), 80);
+  assert.equal(w.manualScore(all('Below Average')), 40);
+  assert.equal(w.combinedScore(88, 72.5), 80.25);
 });
 
 test('penalties: per-rule occurrence cap and subcategory floor at 0', () => {
@@ -60,15 +56,15 @@ test('penalties: per-rule occurrence cap and subcategory floor at 0', () => {
 test('subcategories with no automated rule are manual-only and excluded', () => {
   const manualOnly = Array.from(score.breakdown.flatMap((c) => c.subs).filter((s) => !s.assessable), (s) => s.id).sort();
   assert.deepEqual(manualOnly, ['crosslayer.horizontal', 'metamodel.layers', 'scenario.accuracy']);
-  assert.equal(score.possible, 75);
-  assert.equal(score.coverage, 75);
+  assert.equal(score.possible, 78);
+  assert.equal(score.coverage, 78);
 });
 
 test('breakdown adds up to the total shown', () => {
   const subsEarned = score.breakdown.flatMap((c) => c.subs).filter((s) => s.assessable).reduce((t, s) => t + s.score, 0);
   assert.equal(Math.round(subsEarned * 10) / 10, score.earned);
   assert.equal(score.total, Math.round(score.earned / score.possible * 1000) / 10);
-  assert.equal(score.total, 88.7);
+  assert.equal(score.total, 84.6);
 });
 
 test('a clean model scores 100 on everything assessable', () => {

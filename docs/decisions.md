@@ -7,9 +7,10 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 
 | ID | Decision | Status | Owner |
 |---|---|---|---|
-| D1 | Scoring category weights: Report Format model (30/20/25/15/10) | Provisional | Meenakshi |
-| D2 | Manual rating scale: 0/25/50/75/100 | Provisional | Meenakshi |
-| D3 | Grade bands: Replit (≥80 Outstanding, ≥60 Average, else Poor) | Provisional | Meenakshi |
+| D1 | Scoring category weights: **Replit** (25/20/20/20/15) | Accepted (interim, 2026-11-11) | Hamza; confirm with Meenakshi |
+| D2 | Manual rating scale: **Replit** 0–5 (0/20/40/60/80/100) | Accepted (interim, 2026-11-11) | Hamza; confirm with Meenakshi |
+| D3 | Grade bands: **Replit** (≥80 Outstanding, ≥60 Average, else Poor) | Accepted (interim, 2026-11-11) | Hamza; confirm with Meenakshi |
+| D10 | Subcategory split of the Replit category weights (Replit doc does not list its subcategories) | Provisional | Hamza / Meenakshi |
 | D4 | Signature roles: Assessor / Reviewer / Candidate acknowledgement | Provisional | Meenakshi |
 | D5 | Meaning of automated "Confidence": rubric coverage (implemented: 75% on the sample) | Provisional | Meenakshi |
 | D9 | Penalty sizes: MUST −25%, SHOULD −10% of a subcategory, max 3 occurrences per rule; manual-only subcategories excluded from the automated score | Provisional | Meenakshi |
@@ -29,7 +30,9 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 
 ---
 
-## D1 — Category weights (Provisional)
+## D1 — Category weights (Accepted, interim: Replit)
+
+**2026-11-11:** Hamza chose the **Replit** weights (25/20/20/20/15) "for now". The analysis below records the options considered.
 
 The sources disagree:
 
@@ -53,14 +56,32 @@ The sources disagree:
 
 **To confirm:** the Review Guide gives Cross-layer 25 (and so totals 110). Is 15 the intended value?
 
-## D2 — Rating scale (Provisional)
+## D2 — Rating scale (Accepted, interim: Replit)
+
+**2026-11-11:** Hamza chose the **Replit** 0–5 scale: Missing 0, Poor 20, Below Average 40, Adequate 60, Good 80, Outstanding 100. As a result, the Report Format example (72.5 / 80.25) no longer reproduces.
 
 Replit uses 0–5, in 20% steps. The Report Format example and the current tool use Missing 0 / Poor 25 / Adequate 50 / Good 75 / Outstanding 100. The example's numbers only work with 25% steps: Good on a weight of 5 gives 3.8 (3.75), and Poor gives 1.3 (1.25). **Choice:** 25% steps.
 
-## D3 — Grade bands (Provisional)
+## D3 — Grade bands (Accepted, interim: Replit)
+
+**2026-11-11:** Hamza confirmed the Replit bands. The Report Format example's "Average" at 80.25 is treated as an error in that document.
 
 The ticket says to follow Replit: `≥80 Outstanding, ≥60 Average, else Poor`. The same `grade()` applies to the automated, manual and combined scores. RAG colours (≥70 green, ≥40 amber) are a separate display concern.
 **Conflict to confirm:** the Report Format example grades **80.25% as "Average"**, which contradicts ≥80. Either the example is wrong or the threshold is >80 or ≥85.
+
+## D10 — Subcategory weights (Provisional)
+
+The Replit doc gives the category weights and a 20-row (4 × 5) sheet but does not list the subcategories. We keep the 12 Report Format rows and split each Replit category weight across them:
+
+| Category (weight) | Split |
+|---|---|
+| Meta-model & Relationships (25) | Elements 10 · Relationships 10 · Layers 5 |
+| Scenario (20) | Coverage 10 · Accuracy 10 |
+| Viewpoints & Stakeholder (20) | Selection 12 · Stakeholder 8 |
+| Cross-layer (20) | Vertical 7 · Horizontal 7 · End-to-end 6 |
+| SebTreb Visual Clarity (15) | Layout 7 · SebTreb compliance 8 |
+
+Proportional to the Report Format split where possible, rounded to whole points. Change it only in the `scoring-config` block.
 
 ## D4 — Signature roles (Provisional)
 

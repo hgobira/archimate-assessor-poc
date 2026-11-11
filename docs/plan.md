@@ -127,10 +127,10 @@ Original steps:
   - Rules map to subcategories via `rubric`, so the old category buckets (and the catalogue's duplicated `category` field) are gone.
 - **`calculateScore()`** returns `{total, earned, possible, coverage, byCategory, breakdown}`.
   - Subcategories with no automated check are excluded, not given free marks.
-  - Sample: 66.5 / 75 = **88.7%**, coverage 75%.
+  - Sample: 66.5 / 75 = 88.7% under the Phase 4 weights. Under the Replit weights adopted later the same day: **66 / 78 = 84.6%**, coverage 78% (D1–D3).
 - **One `grade()`, `rag()`, `combinedScore()` and `manualScore()`.** Every inline threshold or grade copy in the UI and PDF now delegates to them: 9 local category maps and 6 threshold copies removed.
 - **Detailed Report:** a new "Automated Score Breakdown" table showing rule → occurrences → penalty → cap → score.
-- **Tests:** 31 passing. `scoring.test.mjs` reproduces the Report Format arithmetic (72.5 → 80.25) and checks both caps.
+- **Tests:** 31 passing. `scoring.test.mjs` checks both caps. After the switch to Replit (D1–D3) it checks Replit's worked example instead of the Report Format arithmetic.
 - **Not yet:** the manual scoresheet still uses its own 110% rows. Phase 5 rebuilds it on `SCORING` + `manualScore()`.
 
 Original steps:
