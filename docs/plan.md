@@ -9,7 +9,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | 2 | Rule catalogue + knowledgebase (3.2 Reference Cards, Archi relationship matrix) | ✅ 2026-11-11 |
 | 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ✅ 2026-11-11 |
 | 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ✅ 2026-11-11 |
-| 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ⏳ |
+| 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ✅ 2026-11-11 |
 | 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ⏳ |
 | 7 | Tests: unit, regression, renamed-view fixture, Report Format arithmetic, Archi fixtures | ⏳ |
 | 8 | Handover: docs final, skills final, CHANGELOG, PR | ⏳ |
@@ -140,7 +140,23 @@ Original steps:
 - A breakdown table in the UI and the PDF: rule → occurrences → penalty → cap applied → category score → total.
 - One `grade()` / `rag()` used everywhere. Document it in `docs/scoring-model.md` with a worked example.
 
-## Phase 5 — Manual scoresheet
+## Phase 5 — Manual scoresheet ✅
+
+**Result:**
+- **Manual sheet rebuilt from `SCORING`.** It has 12 rows totalling 100, with the Review Guide descriptors on each category and its reviewer prompts on each row (plus the rubric items that had no row).
+  - Each row shows the **automated reference** (suggested rating, %, rule ids), as in Replit. Totals come from `manualScore()`, `combinedScore()` and `grade()`.
+- **`MANUAL` state object.** The sheet renders from it and inputs write to it via `msSet()`. `reanalyse()` re-runs the checks when the role or a view override changes, without losing input.
+- **`case-study-profile` JSON block.** ClimateIQ by default: expected views per role, stakeholders, requirements.
+  - **VW-003** flags missing expected views for the chosen role. A matching rule means one view can't count twice.
+  - Sample: SA is missing "Logical Data Model"; EA is missing "Business Information Model".
+- **View Analysis: assessor override** of a detected type. The structural evidence is kept in the reasons.
+- **Outcome and attempt**, with a suggestion: Pass at ≥ `passMark` (60, D6 provisional); otherwise an improvement plan on attempt 1, Fail on re-review.
+- **Signatures:** Assessor / Reviewer / Candidate acknowledgement, each with name and date (D4).
+- **`manualReadiness()`:** Replit's finalisation rules, shown live on the sheet. Phase 6 blocks the PDF on it.
+- **One shared form:** the report dialog prefills from the manual sheet.
+- **Tests:** 36 passing (`manual.test.mjs` added).
+
+Original steps:
 
 - Built from the same category and subcategory model (totals 100), with the automated rating shown beside each manual dropdown.
 - Case-study profile and role (EA/SA) feed the scenario rows and expected views.

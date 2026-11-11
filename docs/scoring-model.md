@@ -38,6 +38,20 @@ A subcategory with no automated or partial rule is **manual only**. It is exclud
 
 Check: the Report Format example (manual 72.5, automated 88) reproduces as combined **80.25**, which `grade()` gives as Outstanding. The example document says "Average", which is open question D3.
 
+## Validation against the sources (2026-11-11)
+
+| Item | Assessment & Review Guide | Replit solution doc | Tool | Status |
+|---|---|---|---|---|
+| Category weights | 30/20/25/**25**/10 (= 110) | 25/20/20/20/15 | 30/20/25/**15**/10 (Report Format) | D1 open. Only cross-layer differs from the Guide. |
+| Rating scale | Poor / Average / Outstanding descriptors | 0–5 in 20% steps (incl. Below Average) | 0/25/50/75/100 | D2 open. The Report Format arithmetic needs 25% steps. |
+| Rows | 5 areas with criteria | 4 subcategories × 5 = 20 | 12 (Report Format) | Matches the target report |
+| Combined / grade | — | mean; ≥80 / ≥60 | Same, one `grade()` | ✓ (D3: the Report Format example labels 80.25 "Average") |
+| Automated rating beside each manual rating | — | Yes, read-only | Yes: suggested rating + % + rule ids | ✓ |
+| Finalisation | — | All ratings, candidate fields, ≥1 signature | `manualReadiness()`: same, plus role, outcome | ✓ (enforced on the PDF in Phase 6) |
+| Descriptors and reviewer prompts | Per area / prompts 1–8 | — | Shown on every section and row | ✓ |
+| Rubric items without a row | Derivation and specialisation; baseline→target; annotations and legends | — | Listed as prompts on the relevant rows | ✓ |
+| "Insufficient views" penalty | — | 6 views expected | COMP-001 (MUST) | ✓ |
+
 ## Worked example: sample model (`resources/Arhchimateexample.xml`)
 
 | Subcategory | Findings → deduction | Score |

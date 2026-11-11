@@ -52,6 +52,8 @@ The tool stays one file, organised into clearly labelled blocks so data is separ
 | `<style>` | All CSS | existing |
 | `<script type="application/json" id="rule-catalogue">` | **The rule catalogue**: every rule's id, source, severity, category, rubric subcategory, automation status | ✅ P2 |
 | `<script type="application/json" id="relationship-matrix">` | ArchiMate 3.2 allowed relationships, from Archi `relationships.xml` (MIT; provenance and licence in the block's header comment) | ✅ P2 |
+| `<script type="application/json" id="case-study-profile">` | Case study: expected views per role (EA/SA), stakeholders, requirements. Replace it for a reviewer-agreed case study. | ✅ P5 |
+| `// ===== MANUAL SCORESHEET` | `MANUAL` state (all assessor input) + `ANALYSIS` (role, view overrides); `manualReadiness()`; `reanalyse()` re-runs checks without losing input | ✅ P5 |
 | `// ===== ARCHIMATE KNOWLEDGE BASE` | 3.2 element layers; `RULES`/`makeIssue()`/`ruleStatus()`; `isRelationshipAllowed()` | ✅ P2 |
 | `// ===== VIEW CLASSIFIER` / `VIEW GEOMETRY` | `classifyView()` (type from structure, with reasons); diagonal/crossing geometry helpers | ✅ P3 |
 | `<script type="application/json" id="scoring-config">` | Weights, penalties, caps, rating scale, grade bands, RAG thresholds ([docs/scoring-model.md](docs/scoring-model.md)) | ✅ P4 |

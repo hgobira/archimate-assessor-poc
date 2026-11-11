@@ -315,6 +315,7 @@
             "assessable": true,
             "rules": [
               "VW-002",
+              "VW-003",
               "COMP-002",
               "COMP-003",
               "COMP-004"

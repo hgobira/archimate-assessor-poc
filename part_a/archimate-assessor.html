@@ -1041,6 +1041,7 @@
 
     {"id":"VW-001","source":"Review Guide: clarity","severity":"SHOULD","rubric":"clarity.layout","automation":"automated","description":"Every element on a view should be connected or nested"},
     {"id":"VW-002","source":"Review Guide: clarity (\"mislabelled\") + SebTreb vws-001","severity":"SHOULD","rubric":"viewpoints.selection","automation":"partial","description":"A view's name should match what its content shows"},
+    {"id":"VW-003","source":"Case study: expected views per role (EA / SA)","severity":"SHOULD","rubric":"viewpoints.selection","automation":"partial","description":"Views expected for the candidate's role should be present"},
 
     {"id":"TRC-001","source":"Review Guide: cross-layer alignment; case-study task","severity":"SHOULD","rubric":"crosslayer.vertical","automation":"automated","description":"Each layer in the chain Motivation → Strategy → Business → Application → Technology should be linked to the next"},
     {"id":"TRC-002","source":"Review Guide prompt 1: traceability","severity":"SHOULD","rubric":"crosslayer.e2e","automation":"partial","description":"Each goal should trace into the architecture (strategy, business, application or technology)"},
@@ -1172,24 +1173,36 @@ SOFTWARE.
 <script type="application/json" id="scoring-config">
 {
   "categories": [
-    {"id":"metamodel","label":"Meta-model & Relationships","weight":30,"subcategories":[
-      {"id":"elements","label":"Correct use of ArchiMate elements","weight":10},
-      {"id":"relationships","label":"Valid relationships","weight":10},
-      {"id":"layers","label":"Layer correctness","weight":10}]},
-    {"id":"scenario","label":"Scenario Interpretation & Completeness","weight":20,"subcategories":[
-      {"id":"coverage","label":"Coverage of case study requirements","weight":10},
-      {"id":"accuracy","label":"Accuracy of interpretation","weight":10}]},
-    {"id":"viewpoints","label":"Viewpoints & Stakeholder Relevance","weight":25,"subcategories":[
-      {"id":"selection","label":"Appropriate viewpoint selection","weight":15},
-      {"id":"stakeholder","label":"Stakeholder alignment","weight":10}]},
-    {"id":"crosslayer","label":"Cross-layer Alignment","weight":15,"subcategories":[
-      {"id":"vertical","label":"Vertical traceability","weight":5},
-      {"id":"horizontal","label":"Horizontal alignment","weight":5},
-      {"id":"e2e","label":"End-to-end clarity","weight":5}]},
-    {"id":"clarity","label":"SebTreb Visual Clarity","weight":10,"subcategories":[
-      {"id":"layout","label":"Layout and organisation","weight":5},
-      {"id":"sebtreb","label":"SebTreb rules compliance","weight":5}]}
+    {"id":"metamodel","label":"Meta-model & Relationships","weight":30,
+     "descriptors":{"poor":"Incorrect or invalid elements, layers and relationships; no cross-layer connections","average":"Mostly correct elements, minor relationship mistakes (e.g. association instead of serving); mostly valid cross-layer connections","outstanding":"Precise application of the metamodel, relationships and valid cross-layer connections"},
+     "subcategories":[
+      {"id":"elements","label":"Correct use of ArchiMate elements","weight":10,"prompts":["Is each element the right type for what it represents?","Is specialisation used correctly where used?"]},
+      {"id":"relationships","label":"Valid relationships","weight":10,"prompts":["Are all relationships valid and the most specific available (e.g. Serving rather than Association)?","Are derivations applied correctly?"]},
+      {"id":"layers","label":"Layer correctness","weight":10,"prompts":["Are all elements in their appropriate layer? (prompt 3)","Is notation used consistently across views? (prompt 8)"]}]},
+    {"id":"scenario","label":"Scenario Interpretation & Completeness","weight":20,
+     "descriptors":{"poor":"Misinterprets or ignores key elements of the scenario","average":"Captures the main elements but does not reflect the details correctly","outstanding":"Fully covers all scenario details, including dependencies, triggers and constraints"},
+     "subcategories":[
+      {"id":"coverage","label":"Coverage of case study requirements","weight":10,"prompts":["Is the scenario covered from strategy to deployment without major omissions? (prompt 2)","Check against the case-study requirements listed above."]},
+      {"id":"accuracy","label":"Accuracy of interpretation","weight":10,"prompts":["Are dependencies, triggers and constraints from the case study reflected correctly?"]}]},
+    {"id":"viewpoints","label":"Viewpoints & Stakeholder Relevance","weight":25,
+     "descriptors":{"poor":"Inappropriate views for the architect role","average":"Viewpoints are acceptable but not the best fit","outstanding":"Most effective viewpoints to communicate"},
+     "subcategories":[
+      {"id":"selection","label":"Appropriate viewpoint selection","weight":15,"prompts":["Are the viewpoints right for the purpose and the role (layered, application collaboration, motivation…)? (prompt 7)"]},
+      {"id":"stakeholder","label":"Stakeholder alignment","weight":10,"prompts":["Does each view address a stated stakeholder concern and communicate to that audience? (prompt 4)"]}]},
+    {"id":"crosslayer","label":"Cross-layer Alignment","weight":15,
+     "descriptors":{"poor":"Weak or missing cross-layer connections","average":"Basic traceability is present","outstanding":"Strong end-to-end traceability with clear vertical and horizontal alignment"},
+     "subcategories":[
+      {"id":"vertical","label":"Vertical traceability","weight":5,"prompts":["Can each business goal be traced to capabilities, services and technical components? (prompt 1)"]},
+      {"id":"horizontal","label":"Horizontal alignment","weight":5,"prompts":["Is there visible alignment between business processes, application services and technology components? (prompt 6)"]},
+      {"id":"e2e","label":"End-to-end clarity","weight":5,"prompts":["Is the path Motivation → Strategy → Business → Application → Technology → Implementation clear?","Is baseline-to-target architecture shown where relevant?"]}]},
+    {"id":"clarity","label":"SebTreb Visual Clarity","weight":10,
+     "descriptors":{"poor":"Disorganised: mislabelled, cluttered; annotations or legends missing","average":"Understandable but needs effort to interpret; visuals adequate but not optimised","outstanding":"Clearly defined, well labelled, logically organised; annotations, legends and notes complete"},
+     "subcategories":[
+      {"id":"layout","label":"Layout and organisation","weight":5,"prompts":["Readable, logically organised, no overlapping or ambiguous relationships? (prompt 5)","Are annotations, legends and notes complete?"]},
+      {"id":"sebtreb","label":"SebTreb rules compliance","weight":5,"prompts":["Record violated SebTreb rule ids with the views they occur in (e.g. cnn-002 on Cross-layer view). Manual-review rules are listed in the Rule Checklist."]}]}
   ],
+  "passMark": 60,
+  "outcomes": ["Pass", "Improvement plan required", "Fail"],
   "severityPenaltyPct": {"MUST": 25, "SHOULD": 10, "INFO": 0},
   "perRuleMaxOccurrences": 3,
   "ratingScale": [
@@ -1198,6 +1211,46 @@ SOFTWARE.
   "grades": [{"min":80,"label":"Outstanding"}, {"min":60,"label":"Average"}, {"min":0,"label":"Poor"}],
   "rag": {"green":70, "amber":40},
   "combined": "mean"
+}
+</script>
+
+<!-- ===================== CASE-STUDY PROFILE =====================
+     What this assessment expects of the candidate. Default: the standard ClimateIQ case study
+     (docs/reference/case-study.md). For a case study agreed with the reviewer, replace this block.
+     expectedViews: each needs its OWN view whose detected type is one of "types" (VIEW CLASSIFIER types). -->
+<script type="application/json" id="case-study-profile">
+{
+  "name": "ClimateIQ – Weather Aggregation Platform (standard case study)",
+  "roles": {
+    "EA": {"label": "Enterprise Architect", "expectedViews": [
+      {"name": "Goals and Objectives view", "types": ["motivation", "strategy"]},
+      {"name": "Business Contextual view", "types": ["contextual"]},
+      {"name": "Business Conceptual view", "types": ["conceptual", "business"]},
+      {"name": "Business Information Model view", "types": ["logical-data"]},
+      {"name": "Logical Services view", "types": ["conceptual", "logical-component"]}]},
+    "SA": {"label": "Solutions Architect", "expectedViews": [
+      {"name": "Service Contextual view", "types": ["contextual"]},
+      {"name": "Service Conceptual view", "types": ["conceptual"]},
+      {"name": "Logical Data Model view", "types": ["logical-data"]},
+      {"name": "Logical Component view", "types": ["logical-component"]},
+      {"name": "Deployment or Infrastructure view", "types": ["technology"]}]}
+  },
+  "stakeholders": ["Chief Technology Officer (CTO)", "Product Managers", "Enterprise Clients", "Platform Engineers", "Data Scientists", "Developers / Integration Partners"],
+  "requirements": [
+    "FR1 Ingest structured and unstructured weather data from 50+ sources (Must)",
+    "FR2 Normalise, enrich and validate incoming data (Must)",
+    "FR3 Secure, documented REST/WebSocket APIs with OpenAPI (Must)",
+    "FR4 AI-based predictions and alerts (Should)",
+    "FR5 Interactive dashboard portal (Should)",
+    "FR6 Event/alert subscription via queue or webhook (Could)",
+    "FR7 Operational monitoring dashboards (Must)",
+    "NFR1 Elastic scaling for peak loads (Must)",
+    "NFR2 GDPR / ISO 27001 compliance (Must)",
+    "NFR3 99.95% availability (Must)",
+    "NFR4 OAuth2, TLS, RBAC (Must)",
+    "NFR5 Container orchestration and CI/CD (Should)",
+    "NFR6 API response under 200 ms (Should)"
+  ]
 }
 </script>
 
@@ -1513,13 +1566,47 @@ function segmentsCross(a, b, c, d) {
   return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0;
 }
 
-// ===================== CHECKS ENGINE =====================
+// ===================== CASE-STUDY PROFILE =====================
 
-function runAllChecks(model) {
+const CASE_STUDY = JSON.parse(document.getElementById('case-study-profile').textContent);
+
+// Match each expected view of a role to its own model view of an accepted type (maximum
+// bipartite matching, so one view cannot satisfy two expectations). Returns [{expected, view|null}].
+function matchExpectedViews(views, role) {
+  const expected = (CASE_STUDY.roles[role] || {}).expectedViews || [];
+  const viewFor = new Array(expected.length).fill(null), expFor = new Map();
+  const tryAssign = (e, seen) => {
+    for (const v of views) {
+      if (!expected[e].types.includes(v.classification.type) || seen.has(v.id)) continue;
+      seen.add(v.id);
+      if (!expFor.has(v.id) || tryAssign(expFor.get(v.id), seen)) {
+        expFor.set(v.id, e); viewFor[e] = v; return true;
+      }
+    }
+    return false;
+  };
+  expected.forEach((_, e) => tryAssign(e, new Set()));
+  expected.forEach((_, e) => { if (viewFor[e] && expFor.get(viewFor[e].id) !== e) viewFor[e] = null; });
+  return expected.map((exp, e) => ({ expected: exp, view: viewFor[e] }));
+}
+
+// ===================== CHECKS ENGINE =====================
+// settings: { role: 'EA'|'SA'|'', overrides: { viewId: type } }  (assessor choices; optional)
+
+function runAllChecks(model, settings = {}) {
   const { elements, relationships, views } = model;
+  const overrides = settings.overrides || {};
 
   // Classify every view by structure (attached to the view for the UI and the checks below).
-  views.forEach(v => { v.classification = classifyView(v, elements, relationships); });
+  // An assessor override replaces the type but keeps the structural evidence in the reasons.
+  views.forEach(v => {
+    const c = classifyView(v, elements, relationships);
+    if (overrides[v.id] && overrides[v.id] !== c.type) {
+      c.reasons.unshift(`Set by assessor (structure suggested ${VIEW_TYPE_LABELS[c.type]})`);
+      c.type = overrides[v.id]; c.confidence = 'assessor';
+    }
+    v.classification = c;
+  });
 
   // Build lookup: nodeId -> element
   const nodeElementMap = {};
@@ -1947,6 +2034,17 @@ function runAllChecks(model) {
     });
   }
 
+  // VW-003: views the case study expects for the candidate's role (only once a role is chosen)
+  if (CASE_STUDY.roles[settings.role]) {
+    matchExpectedViews(views, settings.role).filter(m => !m.view).forEach(m => {
+      allIssues.push({
+        ruleId: 'VW-003',
+        viewId: 'model', viewName: 'Model Level',
+        detail: `${CASE_STUDY.roles[settings.role].label}: no view found for the expected "${m.expected.name}" (needs its own ${m.expected.types.map(t => VIEW_TYPE_LABELS[t]).join(' or ')} view).`
+      });
+    });
+  }
+
   if (crossLayerViews.length === 1) {
     allIssues.push({
       ruleId: 'COMP-009',
@@ -2044,222 +2142,225 @@ function calculateScore(issues) {
 }
 
 // ===================== MANUAL SCORESHEET =====================
+// Built from SCORING (the same categories and weights as the automated score) and kept in the
+// MANUAL state object, so re-analysis (role change, view-type override) never loses the assessor's input.
 
-// Scoresheet schema: sections with criteria rows
-const MS_SECTIONS = [
-  {
-    id: 'metamodel', label: '1. Meta-model & Relationships', pct: 30,
-    rows: [
-      { id:'1a', label:'Valid ArchiMate element types used correctly', weight:10, sebtreb: null },
-      { id:'1b', label:'Appropriate layer assignment (Business / Application / Technology)', weight:8, sebtreb: null },
-      { id:'1c', label:'Valid relationship types and semantics', weight:7, sebtreb: 'ARC-REL-002' },
-      { id:'1d', label:'Cross-layer connections present and valid', weight:5, sebtreb: null },
-    ]
-  },
-  {
-    id: 'completeness', label: '2. Scenario Interpretation & Completeness', pct: 20,
-    rows: [
-      { id:'2a', label:'Weather domain concepts covered (APIs, sensors, analytics, alerts)', weight:8, sebtreb: null },
-      { id:'2b', label:'Key stakeholders represented (CTO, Developers, Data Scientists, Enterprise Clients)', weight:5, sebtreb: null },
-      { id:'2c', label:'Business requirements captured (scalability, real-time, compliance)', weight:4, sebtreb: null },
-      { id:'2d', label:'Technology components aligned with modernisation goals', weight:3, sebtreb: null },
-    ]
-  },
-  {
-    id: 'viewpoints', label: '3. Viewpoints & Stakeholder Relevance', pct: 25,
-    rows: [
-      { id:'3a', label:'Minimum 6 views created (incl. contextual, conceptual, technology)', weight:8, sebtreb: 'COMP-001 / COMP-002 / COMP-003 / COMP-004' },
-      { id:'3b', label:'Views address specific stakeholder concerns', weight:6, sebtreb: null },
-      { id:'3c', label:'Cross-layer views present (e.g. Capability to Application)', weight:5, sebtreb: 'COMP-005 / COMP-009 / TRC-001' },
-      { id:'3d', label:'Appropriate viewpoint selection for architecture role (EA / SA)', weight:3, sebtreb: null },
-      { id:'3e', label:'View names clearly indicate purpose and scope', weight:3, sebtreb: 'vws-001' },
-    ]
-  },
-  {
-    id: 'crosslayer', label: '4. Cross-layer Alignment', pct: 25,
-    rows: [
-      { id:'4a', label:'Business goals traced to application services', weight:8, sebtreb: null },
-      { id:'4b', label:'Application services realized by technology components', weight:7, sebtreb: null },
-      { id:'4c', label:'Motivation elements connected to strategy and business layers', weight:5, sebtreb: null },
-      { id:'4d', label:'Coherent architecture narrative from drivers to implementation', weight:5, sebtreb: null },
-    ]
-  },
-  {
-    id: 'clarity', label: '5. Visual Clarity & SebTreb Compliance', pct: 10,
-    rows: [
-      { id:'5a', label:'SebTreb rules compliance — element notation, sizing, alignment', weight:4, sebtreb: 'elm-001 / elm-002 / elm-003 / elm-005 / elm-007' },
-      { id:'5b', label:'Connector routing — no diagonals, minimum bends, centred attachment', weight:2, sebtreb: 'cnn-001 / cnn-003 / cnn-010 / cnn-011' },
-      { id:'5c', label:'Labels positioned correctly (elements & connectors)', weight:2, sebtreb: 'elm-008 / elm-009 / cnn-005 / cnn-006' },
-      { id:'5d', label:'Grouping used appropriately; no explicit aggregation to Grouping', weight:1, sebtreb: 'msc-002 / msc-003 / msc-004' },
-      { id:'5e', label:'Overall visual clarity and readability', weight:1, sebtreb: null },
-    ]
-  },
-];
+const todayISO = () => new Date().toISOString().split('T')[0];
+function freshManualState() {
+  return { candidate: '', role: '', assessor: '', date: todayISO(), attempt: 1, outcome: '',
+    ratings: {}, comments: {}, narrative: { strengths: '', improvements: '', recommendations: '' },
+    signatures: { assessor: { name: '', date: '' }, reviewer: { name: '', date: '' }, candidate: { name: '', date: '' } } };
+}
+let MANUAL = freshManualState();
+let ANALYSIS = { role: '', overrides: {} };   // assessor settings that change the automated analysis
 
-const MS_RATINGS = [
-  { value: '',    label: '— Select —' },
-  { value: '0',   label: 'Missing (0%)' },
-  { value: '25',  label: 'Poor (25%)' },
-  { value: '50',  label: 'Adequate (50%)' },
-  { value: '75',  label: 'Good (75%)' },
-  { value: '100', label: 'Outstanding (100%)' },
-];
+const RATING_CLASS = { Missing: 'rated-missing', Poor: 'rated-poor', Adequate: 'rated-adequate', Good: 'rated-good', Outstanding: 'rated-outstanding' };
+const RUBRIC_SUBS = () => SCORING.categories.flatMap(c => c.subcategories.map(s => ({ key: `${c.id}.${s.id}`, cat: c, sub: s })));
 
-const MS_RATED_CLASSES = { '': '', '0':'rated-missing', '25':'rated-poor', '50':'rated-adequate', '75':'rated-good', '100':'rated-outstanding' };
+// Nearest rating label to an automated subcategory percentage (shown as a reference, as in Replit).
+function suggestedRating(pct) {
+  return SCORING.ratingScale.reduce((best, r) => Math.abs(r.pct - pct) < Math.abs(best.pct - pct) ? r : best).label;
+}
+
+// Outcome suggestion (pass mark provisional, D6): pass at/above the pass mark; otherwise an
+// improvement plan on a first attempt, fail on a re-review.
+function suggestedOutcome(combined, attempt) {
+  if (combined >= SCORING.passMark) return 'Pass';
+  return attempt > 1 ? 'Fail' : 'Improvement plan required';
+}
+
+// What still blocks a final report (Replit finalisation rules). Empty array = ready.
+function manualReadiness(m = MANUAL) {
+  const missing = [];
+  if (!m.candidate.trim()) missing.push('Candidate name');
+  if (!m.role) missing.push('Architecture role');
+  if (!m.assessor.trim()) missing.push('Assessor name');
+  if (!m.date) missing.push('Assessment date');
+  const unrated = RUBRIC_SUBS().filter(s => !m.ratings[s.key]);
+  if (unrated.length) missing.push(`${unrated.length} of ${RUBRIC_SUBS().length} ratings (${unrated.slice(0, 3).map(s => s.sub.label).join(', ')}${unrated.length > 3 ? '…' : ''})`);
+  if (!m.outcome) missing.push('Outcome');
+  if (!m.signatures.assessor.name.trim()) missing.push('Assessor signature (name)');
+  return missing;
+}
+
+// Inputs carry data-path="a/b/c" into MANUAL (keys may contain dots, e.g. ratings/metamodel.elements).
+function msSet(el) {
+  const path = el.dataset.path.split('/');
+  let o = MANUAL;
+  path.slice(0, -1).forEach(k => { o = o[k]; });
+  o[path[path.length - 1]] = el.type === 'number' ? Math.max(1, parseInt(el.value, 10) || 1) : el.value;
+  if (el.classList.contains('ms-select')) el.className = 'ms-select ' + (RATING_CLASS[el.value] || '');
+  if (el.dataset.path === 'role') { ANALYSIS.role = el.value; reanalyse(); return; }
+  msRecalc();
+}
+
+function msRecalc() {
+  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  const pctOf = Object.fromEntries(SCORING.ratingScale.map(r => [r.label, r.pct]));
+  SCORING.categories.forEach(cat => {
+    let catPts = 0;
+    cat.subcategories.forEach(sub => {
+      const r = MANUAL.ratings[`${cat.id}.${sub.id}`];
+      const pts = r ? sub.weight * pctOf[r] / 100 : 0;
+      catPts += pts;
+      set(`ms-pts-${cat.id}.${sub.id}`, r ? pts.toFixed(2).replace(/\.?0+$/, '') : '—');
+    });
+    set(`ms-total-${cat.id}`, `${catPts.toFixed(2).replace(/\.?0+$/, '') || 0} / ${cat.weight}`);
+  });
+  const manual = manualScore(MANUAL.ratings);
+  const auto = currentScore ? currentScore.total : 0;
+  const combined = combinedScore(auto, manual);
+  set('ms-manual-total', manual + '%'); set('ms-manual-grade', grade(manual));
+  set('ms-combined-total', combined + '%'); set('ms-combined-grade', grade(combined));
+  set('ms-outcome-suggest', `Suggested: ${suggestedOutcome(combined, MANUAL.attempt)} (pass mark ${SCORING.passMark}% is provisional)`);
+  const missing = manualReadiness();
+  const box = document.getElementById('ms-readiness');
+  if (box) {
+    box.innerHTML = missing.length
+      ? `<b>Before the final report:</b> ${missing.map(escHtml).join(' · ')}`
+      : '<b style="color:var(--green)">✓ Ready for the final report</b>';
+    box.style.borderColor = missing.length ? 'var(--amber)' : 'var(--green)';
+  }
+}
 
 function renderManualTab(model, issues, autoScore) {
-  // Build auto-insights for the scoresheet
-  const sebTrebIssues = issues.filter(i => RULE_BY_ID[i.ruleId].source === 'SebTreb');
-  const crossLayerIssues = issues.filter(i => i.category === 'crosslayer');
-  const completenessIssues = issues.filter(i => i.ruleId.startsWith('COMP-'));
-  const mustCount = issues.filter(i => i.severity === 'MUST').length;
+  const m = MANUAL;
+  const esc = v => escHtml(String(v ?? ''));
+  const subAuto = Object.fromEntries(autoScore.breakdown.flatMap(c => c.subs).map(s => [s.id, s]));
+  const field = (path, label, value, type = 'text', extra = '') =>
+    `<div class="ms-field"><label>${label}</label><input type="${type}" data-path="${path}" value="${esc(value)}" oninput="msSet(this)" ${extra}></div>`;
 
-  // Build insights text
+  // Insights from the automated analysis (structure-based)
   const insights = [];
-  if (model.views.length < 6) insights.push(`Only <b>${model.views.length}</b> views found — minimum 6 required. Consider rating 3a as "Poor".`);
-  if (!model.views.some(v => v.classification?.type === 'contextual')) insights.push('No view has a <b>contextual</b> structure — impacts criteria 3a.');
-  if (!model.views.some(v => v.classification?.type === 'conceptual')) insights.push('No view has a <b>conceptual</b> structure — impacts criteria 3a.');
-  if (sebTrebIssues.length > 0) {
-    const ruleIds = [...new Set(sebTrebIssues.map(i => i.ruleId))].slice(0,6).join(', ');
-    insights.push(`<b>${sebTrebIssues.length}</b> SebTreb violations: ${ruleIds}. Review Section 5 carefully.`);
-  }
-  if (crossLayerIssues.filter(i=>i.severity==='MUST').length > 0) insights.push(`<b>${crossLayerIssues.filter(i=>i.severity==='MUST').length}</b> critical cross-layer issues found. Check Sections 1d & 4.`);
-  if (completenessIssues.length > 0) insights.push(`<b>${completenessIssues.length}</b> completeness issues detected — see Rule Checklist for detail.`);
-  if (mustCount === 0) insights.push('✓ No MUST violations found — automated checks passed.');
+  const sebTrebIssues = issues.filter(i => RULE_BY_ID[i.ruleId].source === 'SebTreb');
+  if (model.views.length < 6) insights.push(`Only <b>${model.views.length}</b> views — the case study asks for at least 6.`);
+  if (!model.views.some(v => v.classification?.type === 'contextual')) insights.push('No view has a <b>contextual</b> structure.');
+  if (!model.views.some(v => v.classification?.type === 'conceptual')) insights.push('No view has a <b>conceptual</b> structure.');
+  if (sebTrebIssues.length) insights.push(`<b>${sebTrebIssues.length}</b> SebTreb findings: ${[...new Set(sebTrebIssues.map(i => i.ruleId))].join(', ')} — see SebTreb rules compliance.`);
+  const mustCount = issues.filter(i => i.severity === 'MUST').length;
+  if (!mustCount) insights.push('✓ No MUST findings from the automated checks.');
 
-  const insightHtml = insights.length
-    ? `<ul>${insights.map(i=>`<li>${i}</li>`).join('')}</ul>`
-    : '<p style="color:var(--green)">✓ Automated checks found no critical issues.</p>';
+  // Expected views for the chosen role
+  const roleDef = CASE_STUDY.roles[m.role];
+  const expectedHtml = roleDef
+    ? `<ul style="margin:6px 0 0 18px">${matchExpectedViews(model.views, m.role).map(x => x.view
+        ? `<li>✓ ${esc(x.expected.name)} — <i>${esc(x.view.name)}</i></li>`
+        : `<li style="color:var(--red)">✗ ${esc(x.expected.name)} — not found</li>`).join('')}</ul>`
+    : '<div style="color:var(--text-faint);margin-top:4px">Select the candidate\'s role to check the views expected for it.</div>';
 
   let html = `<div class="ms-wrap">
     <div class="ms-insight-box">
-      <strong>📊 Automated Analysis Insights</strong>
+      <strong>📊 Automated analysis (reference for the ratings below)</strong>
       <div style="margin-top:4px;font-size:12px;color:var(--text-dim)">
-        Automated Score: <b style="color:var(--accent)">${autoScore.total}%</b>
-        &nbsp;&nbsp;·&nbsp;&nbsp;
-        ${Object.entries(autoScore.byCategory).map(([k,v])=>`<span class="rag ${getRagClass(v)}" style="font-size:10px;padding:1px 7px">${CATEGORY_LABELS[k]}: ${v}%</span>`).join(' ')}
-        &nbsp;·&nbsp; Coverage: ${autoScore.coverage}% of rubric points checked automatically
+        Automated score <b style="color:var(--accent)">${autoScore.total}%</b> (${grade(autoScore.total)}) over ${autoScore.possible} assessable points ·
+        coverage ${autoScore.coverage}% of the rubric · details in the Detailed Report breakdown.
       </div>
-      ${insightHtml}
+      <ul>${insights.map(i => `<li>${i}</li>`).join('')}</ul>
     </div>
 
     <div class="ms-meta-grid">
       <div>
-        <div class="ms-field"><label>Candidate Name / ID</label><input type="text" id="ms-candidate" placeholder="Enter candidate name"></div>
+        ${field('candidate', 'Candidate Name / ID', m.candidate, 'text', 'placeholder="Enter candidate name"')}
         <div class="ms-field"><label>Architecture Role</label>
-          <select id="ms-role">
+          <select data-path="role" onchange="msSet(this)">
             <option value="">Select role…</option>
-            <option value="EA">Enterprise Architect</option>
-            <option value="SA">Solutions Architect</option>
-          </select>
-        </div>
-        <div class="ms-field"><label>Assessment Date</label><input type="date" id="ms-date" value="${new Date().toISOString().split('T')[0]}"></div>
+            ${Object.entries(CASE_STUDY.roles).map(([k, r]) => `<option value="${k}" ${m.role === k ? 'selected' : ''}>${esc(r.label)}</option>`).join('')}
+          </select></div>
+        ${field('date', 'Assessment Date', m.date, 'date')}
+        ${field('attempt', 'Attempt (re-review after improvement plan = 2)', m.attempt, 'number', 'min="1"')}
       </div>
       <div>
-        <div class="ms-field"><label>Assessor Name</label><input type="text" id="ms-assessor" placeholder="Enter assessor name"></div>
-        <div class="ms-field"><label>Model</label><input type="text" id="ms-model" value="${escHtml(model.modelName)}" readonly></div>
-        <div class="ms-field"><label>Automated Score</label><input type="text" id="ms-autoscore" value="${autoScore.total}% (${getRagLabel(autoScore.total)})" readonly></div>
-      </div>
-    </div>`;
-
-  // Generate scoring sections
-  MS_SECTIONS.forEach(section => {
-    html += `<div class="ms-section">
-      <div class="ms-section-header">
-        <span>${section.label}</span>
-        <span class="ms-section-pct" id="ms-total-${section.id}">0.0 / ${section.pct}%</span>
-      </div>
-      <table class="ms-table">
-        <thead>
-          <tr>
-            <th style="width:44%">Criteria</th>
-            <th style="width:18%">Rating</th>
-            <th style="width:10%;text-align:center">Weighted</th>
-            <th style="width:28%">Evidence / Comments</th>
-          </tr>
-        </thead>
-        <tbody>`;
-
-    section.rows.forEach(row => {
-      const sebtrebHint = row.sebtreb
-        ? `<span class="ms-sebtreb-hint">📏 SebTreb: ${row.sebtreb}</span>`
-        : '';
-      html += `<tr>
-        <td>${row.label}${sebtrebHint}</td>
-        <td>
-          <select class="ms-select" id="ms-sel-${row.id}"
-            onchange="msOnChange('${row.id}','${section.id}',${row.weight},this)">
-            ${MS_RATINGS.map(r=>`<option value="${r.value}">${r.label}</option>`).join('')}
-          </select>
-        </td>
-        <td style="text-align:center"><span class="ms-wt" id="ms-wt-${row.id}">0.0%</span></td>
-        <td><textarea class="ms-comment" id="ms-cmt-${row.id}" rows="1" placeholder="Evidence / notes…"></textarea></td>
-      </tr>`;
-    });
-
-    html += `<tr class="ms-subtotal-row">
-      <td colspan="2" style="text-align:right">Section Total</td>
-      <td style="text-align:center"><span class="ms-pts" id="ms-subtotal-${section.id}">0.0%</span></td>
-      <td></td>
-    </tr>
-        </tbody>
-      </table>
-    </div>`;
-  });
-
-  // Overall summary box
-  html += `<div class="ms-overall">
-    <h3>Overall Assessment Summary</h3>
-    <div class="ms-score-row">
-      <div class="ms-score-box">
-        <div class="ms-score-label">Automated Score</div>
-        <div class="ms-score-val" style="color:#93c5fd">${autoScore.total}%</div>
-        <div class="ms-grade">${gradeFromScore(autoScore.total)} &nbsp;<span class="rag ${getRagClass(autoScore.total)}" style="font-size:10px">${getRagLabel(autoScore.total)}</span></div>
-      </div>
-      <div class="ms-score-box">
-        <div class="ms-score-label">Manual Score</div>
-        <div class="ms-score-val" id="ms-manual-total" style="color:#a5f3fc">0.0%</div>
-        <div class="ms-grade" id="ms-manual-grade">—</div>
-      </div>
-      <div class="ms-score-box combined">
-        <div class="ms-score-label">Combined Score</div>
-        <div class="ms-score-val" id="ms-combined-total">${autoScore.total}%</div>
-        <div class="ms-grade" id="ms-combined-grade">${gradeFromScore(autoScore.total)}</div>
+        ${field('assessor', 'Assessor Name', m.assessor, 'text', 'placeholder="Enter assessor name"')}
+        <div class="ms-field"><label>Model</label><input type="text" value="${esc(model.modelName)}" readonly></div>
+        <div class="ms-field"><label>Case Study</label><input type="text" value="${esc(CASE_STUDY.name)}" readonly></div>
       </div>
     </div>
 
+    <div class="ms-insight-box" style="margin-top:0">
+      <strong>Expected views${roleDef ? ' — ' + esc(roleDef.label) : ''}</strong>${expectedHtml}
+      <details style="margin-top:8px"><summary style="cursor:pointer;font-size:12px">Case-study stakeholders and requirements</summary>
+        <div style="font-size:12px;margin-top:6px"><b>Stakeholders:</b> ${CASE_STUDY.stakeholders.map(esc).join(' · ')}</div>
+        <ul style="font-size:12px;margin:6px 0 0 18px">${CASE_STUDY.requirements.map(r => `<li>${esc(r)}</li>`).join('')}</ul>
+      </details>
+    </div>`;
+
+  // One section per scoring category, one row per subcategory
+  SCORING.categories.forEach((cat, ci) => {
+    const d = cat.descriptors;
+    html += `<div class="ms-section">
+      <div class="ms-section-header">
+        <span>${ci + 1}. ${esc(cat.label)} (${cat.weight})</span>
+        <span class="ms-section-pct" id="ms-total-${cat.id}">0 / ${cat.weight}</span>
+      </div>
+      <div style="padding:8px 14px;font-size:11.5px;color:var(--text-dim);border-bottom:1px solid var(--border)">
+        <b>Poor:</b> ${esc(d.poor)} · <b>Average:</b> ${esc(d.average)} · <b>Outstanding:</b> ${esc(d.outstanding)}
+      </div>
+      <table class="ms-table">
+        <thead><tr>
+          <th style="width:36%">Criteria</th><th style="width:18%">Automated (reference)</th>
+          <th style="width:16%">Rating</th><th style="width:8%;text-align:center">Points</th><th style="width:22%">Evidence / Comments</th>
+        </tr></thead><tbody>`;
+    cat.subcategories.forEach(sub => {
+      const key = `${cat.id}.${sub.id}`;
+      const a = subAuto[key];
+      const autoPct = a && a.assessable ? Math.round(a.score / a.weight * 100) : null;
+      const autoCell = autoPct === null
+        ? '<span style="color:var(--text-faint)">Not checked automatically</span>'
+        : `<b>${suggestedRating(autoPct)}</b> (${autoPct}%)${a.hits.length ? `<div style="font-size:11px;color:var(--text-dim)">${a.hits.map(h => h.ruleId).join(', ')}</div>` : ''}`;
+      html += `<tr>
+        <td>${esc(sub.label)} <span style="color:var(--text-faint)">(${sub.weight})</span>
+          <ul style="margin:4px 0 0 16px;font-size:11px;color:var(--text-dim)">${(sub.prompts || []).map(p => `<li>${esc(p)}</li>`).join('')}</ul></td>
+        <td style="font-size:12px">${autoCell}</td>
+        <td><select class="ms-select ${RATING_CLASS[m.ratings[key]] || ''}" data-path="ratings/${key}" onchange="msSet(this)">
+          <option value="">— Select —</option>
+          ${SCORING.ratingScale.map(r => `<option value="${r.label}" ${m.ratings[key] === r.label ? 'selected' : ''}>${r.label} (${r.pct}%)</option>`).join('')}
+        </select></td>
+        <td style="text-align:center"><span class="ms-wt" id="ms-pts-${key}">—</span></td>
+        <td><textarea class="ms-comment" rows="2" data-path="comments/${key}" oninput="msSet(this)" placeholder="Evidence / notes…">${esc(m.comments[key])}</textarea></td>
+      </tr>`;
+    });
+    html += `</tbody></table></div>`;
+  });
+
+  // Totals, outcome, narrative
+  html += `<div class="ms-overall">
+    <h3>Overall Assessment Summary</h3>
+    <div class="ms-score-row">
+      <div class="ms-score-box"><div class="ms-score-label">Automated Score</div>
+        <div class="ms-score-val" style="color:#93c5fd">${autoScore.total}%</div>
+        <div class="ms-grade">${grade(autoScore.total)} · coverage ${autoScore.coverage}%</div></div>
+      <div class="ms-score-box"><div class="ms-score-label">Manual Score</div>
+        <div class="ms-score-val" id="ms-manual-total" style="color:#a5f3fc">0%</div>
+        <div class="ms-grade" id="ms-manual-grade">—</div></div>
+      <div class="ms-score-box combined"><div class="ms-score-label">Combined Score</div>
+        <div class="ms-score-val" id="ms-combined-total">—</div>
+        <div class="ms-grade" id="ms-combined-grade">—</div></div>
+    </div>
+    <div class="ms-field" style="max-width:420px;margin-top:12px"><label>Outcome</label>
+      <select data-path="outcome" onchange="msSet(this)">
+        <option value="">Select outcome…</option>
+        ${SCORING.outcomes.map(o => `<option ${m.outcome === o ? 'selected' : ''}>${o}</option>`).join('')}
+      </select>
+      <div id="ms-outcome-suggest" style="font-size:11.5px;color:var(--text-dim);margin-top:4px"></div></div>
     <div class="ms-textarea-section">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
-        <div>
-          <label>Key Strengths</label>
-          <textarea id="ms-strengths" placeholder="Highlight the candidate's strongest areas…"></textarea>
-        </div>
-        <div>
-          <label>Areas for Improvement</label>
-          <textarea id="ms-improvement" placeholder="Specific areas to develop further…"></textarea>
-        </div>
-        <div>
-          <label>Recommendations</label>
-          <textarea id="ms-recommendations" placeholder="Actionable next steps…"></textarea>
-        </div>
+        <div><label>Key Strengths</label><textarea data-path="narrative/strengths" oninput="msSet(this)" placeholder="The candidate's strongest areas…">${esc(m.narrative.strengths)}</textarea></div>
+        <div><label>Areas for Improvement</label><textarea data-path="narrative/improvements" oninput="msSet(this)" placeholder="Specific areas to develop (feedback-session notes)…">${esc(m.narrative.improvements)}</textarea></div>
+        <div><label>Recommendations</label><textarea data-path="narrative/recommendations" oninput="msSet(this)" placeholder="Actionable next steps…">${esc(m.narrative.recommendations)}</textarea></div>
       </div>
     </div>
   </div>
 
   <div class="ms-sig-grid">
-    <div class="ms-sig-box">
-      <div class="ms-sig-role">Primary Assessor</div>
-      <div class="ms-sig-line">Signature &amp; Date: ___________________</div>
-    </div>
-    <div class="ms-sig-box">
-      <div class="ms-sig-role">Secondary Assessor</div>
-      <div class="ms-sig-line">Signature &amp; Date: ___________________</div>
-    </div>
-    <div class="ms-sig-box">
-      <div class="ms-sig-role">Quality Assurance Review</div>
-      <div class="ms-sig-line">Signature &amp; Date: ___________________</div>
-    </div>
+    ${[['assessor', 'Assessor'], ['reviewer', 'Reviewer'], ['candidate', 'Candidate Acknowledgement']].map(([k, label]) => `
+      <div class="ms-sig-box">
+        <div class="ms-sig-role">${label}</div>
+        ${field(`signatures/${k}/name`, 'Name', m.signatures[k].name)}
+        ${field(`signatures/${k}/date`, 'Date', m.signatures[k].date, 'date')}
+      </div>`).join('')}
   </div>
+
+  <div id="ms-readiness" style="margin:16px 0;padding:10px 14px;border:1px solid var(--amber);border-radius:8px;font-size:12.5px"></div>
 
   <div class="ms-export-bar">
     <button class="btn btn-ghost" onclick="printManualSheet()">🖨️ Print Scoresheet</button>
@@ -2268,108 +2369,31 @@ function renderManualTab(model, issues, autoScore) {
 </div>`;
 
   document.getElementById('manual-tab').innerHTML = html;
-}
-
-function msOnChange(rowId, sectionId, weight, sel) {
-  const val = parseFloat(sel.value) || 0;
-  const weighted = (val / 100) * weight;
-  document.getElementById(`ms-wt-${rowId}`).textContent = weighted.toFixed(1) + '%';
-  // Update select colour class
-  sel.className = 'ms-select ' + (MS_RATED_CLASSES[sel.value] || '');
-  msUpdateSection(sectionId);
-  msUpdateOverall();
-}
-
-function msUpdateSection(sectionId) {
-  const section = MS_SECTIONS.find(s => s.id === sectionId);
-  if (!section) return;
-  let total = 0;
-  section.rows.forEach(row => {
-    const sel = document.getElementById(`ms-sel-${row.id}`);
-    if (!sel) return;
-    const val = parseFloat(sel.value) || 0;
-    total += (val / 100) * row.weight;
-  });
-  const el = document.getElementById(`ms-subtotal-${sectionId}`);
-  const hdr = document.getElementById(`ms-total-${sectionId}`);
-  if (el) el.textContent = total.toFixed(1) + '%';
-  if (hdr) hdr.textContent = `${total.toFixed(1)} / ${section.pct}%`;
-}
-
-function msUpdateOverall() {
-  let total = 0;
-  MS_SECTIONS.forEach(section => {
-    section.rows.forEach(row => {
-      const sel = document.getElementById(`ms-sel-${row.id}`);
-      if (!sel) return;
-      const val = parseFloat(sel.value) || 0;
-      total += (val / 100) * row.weight;
-    });
-  });
-  const manualEl = document.getElementById('ms-manual-total');
-  const manualGrade = document.getElementById('ms-manual-grade');
-  const combinedEl = document.getElementById('ms-combined-total');
-  const combinedGrade = document.getElementById('ms-combined-grade');
-  if (manualEl) manualEl.textContent = total.toFixed(1) + '%';
-  if (manualGrade) manualGrade.textContent = gradeFromScore(total);
-
-  // Combined: average of auto + manual
-  const autoVal = currentIssues ? calculateScore(currentIssues, currentModel.views).total : 0;
-  const combined = combinedScore(autoVal, total).toFixed(1);
-  if (combinedEl) combinedEl.textContent = combined + '%';
-  if (combinedGrade) combinedGrade.textContent = gradeFromScore(parseFloat(combined));
+  msRecalc();
 }
 
 function gradeFromScore(s) { return grade(s); }  // kept name for existing callers; see grade()
 
 function exportManualScore() {
   if (!currentModel) return;
-  const autoScore = calculateScore(currentIssues, currentModel.views);
-  const manualScores = {};
-  let manualTotal = 0;
-  MS_SECTIONS.forEach(section => {
-    manualScores[section.id] = {};
-    section.rows.forEach(row => {
-      const sel = document.getElementById(`ms-sel-${row.id}`);
-      const cmt = document.getElementById(`ms-cmt-${row.id}`);
-      const val = parseFloat(sel?.value) || 0;
-      const weighted = (val / 100) * row.weight;
-      manualTotal += weighted;
-      manualScores[section.id][row.id] = {
-        criteria: row.label,
-        rating: sel?.options[sel.selectedIndex]?.text || '—',
-        weightedScore: weighted.toFixed(1) + '%',
-        comment: cmt?.value || ''
-      };
-    });
-  });
-
+  const manual = manualScore(MANUAL.ratings);
   const data = {
-    candidate: document.getElementById('ms-candidate')?.value || '',
-    role: document.getElementById('ms-role')?.value || '',
-    assessor: document.getElementById('ms-assessor')?.value || '',
-    date: document.getElementById('ms-date')?.value || '',
+    caseStudy: CASE_STUDY.name,
     modelName: currentModel.modelName,
-    automatedScore: autoScore,
-    manualScore: {
-      total: manualTotal.toFixed(1) + '%',
-      grade: gradeFromScore(manualTotal),
-      bySection: manualScores
-    },
-    combinedScore: combinedScore(autoScore.total, parseFloat(manualTotal)).toFixed(1) + '%',
-    narrative: {
-      strengths: document.getElementById('ms-strengths')?.value || '',
-      improvements: document.getElementById('ms-improvement')?.value || '',
-      recommendations: document.getElementById('ms-recommendations')?.value || ''
-    },
+    assessment: MANUAL,
+    analysisSettings: ANALYSIS,
+    automated: { total: currentScore.total, grade: grade(currentScore.total), coverage: currentScore.coverage, breakdown: currentScore.breakdown },
+    manual: { total: manual, grade: grade(manual) },
+    combined: { total: combinedScore(currentScore.total, manual), grade: grade(combinedScore(currentScore.total, manual)) },
+    readiness: manualReadiness(),
     issues: currentIssues,
-    exportedAt: new Date().toISOString()
+    exportedAt: new Date().toISOString(),
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `archimate-assessment-${(data.candidate||'candidate').replace(/\s+/g,'_')}-${data.date||'undated'}.json`;
+  a.download = `archimate-assessment-${(MANUAL.candidate || 'candidate').replace(/\s+/g, '_')}-${MANUAL.date || 'undated'}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -2377,7 +2401,6 @@ function exportManualScore() {
 function printManualSheet() {
   window.print();
 }
-
 
 
 // RAG helpers: all delegate to rag() (thresholds in scoring-config)
@@ -2778,6 +2801,9 @@ function showReportModal(score) {
     </div>
   `;
   document.body.appendChild(modal);
+  // One shared form: prefill from the Manual Assessment tab
+  const pre = { candidate: MANUAL.candidate, role: (CASE_STUDY.roles[MANUAL.role] || {}).label || '', assessor: MANUAL.assessor, date: MANUAL.date };
+  Object.entries(pre).forEach(([k, v]) => { const el = document.getElementById(`rf-${k}`); if (el && v) el.value = v; });
 }
 
 function field(id, label, placeholder) {
@@ -3240,7 +3266,33 @@ function renderPDF(data) {
 
 let currentModel = null;
 let currentIssues = null;
+let currentScore = null;
 let pendingFile = null;
+
+function renderAll(model, issues, score) {
+  renderSummary(model, issues, score);          // KPI strip (Tab 1 header)
+  renderOverviewSubTab(model, issues, score);   // Tab 1 > Overview
+  renderByViewSubTab(model, issues);            // Tab 1 > By View Type
+  renderByIssueSubTab(model, issues);           // Tab 1 > By Issue Type
+  renderRulesTab(model, issues);                // Tab 1 > Rule Checklist
+  renderManualTab(model, issues, score);        // Tab 2 (from MANUAL state)
+  renderDetailedReport(model, issues, score);   // Tab 3
+  renderViewAnalysis(model, issues);            // Tab 4
+}
+
+// Re-run the checks with the assessor's settings (role, view-type overrides) and re-render.
+// Manual inputs live in MANUAL, so nothing the assessor typed is lost.
+function reanalyse() {
+  if (!currentModel) return;
+  currentIssues = runAllChecks(currentModel, ANALYSIS);
+  currentScore = calculateScore(currentIssues);
+  renderAll(currentModel, currentIssues, currentScore);
+}
+
+function overrideViewType(viewId, type) {
+  if (type) ANALYSIS.overrides[viewId] = type; else delete ANALYSIS.overrides[viewId];
+  reanalyse();
+}
 
 function handleFileSelect(event) {
   const file = event.target.files[0];
@@ -3284,27 +3336,21 @@ function processFile(file) {
       await sleep(200);
       updateLoading('Running SebTreb style checks…', 55);
       await sleep(250);
-      updateLoading('Checking ArchiMate 3.2 cross-layer rules…', 70);
-      const issues = runAllChecks(model);
+      updateLoading('Checking ArchiMate 3.2 relationships, views and traceability…', 70);
+      MANUAL = freshManualState();               // new model → new assessment
+      ANALYSIS = { role: '', overrides: {} };
+      const issues = runAllChecks(model, ANALYSIS);
       await sleep(200);
-      updateLoading('Calculating scores and RAG status…', 85);
-      const score = calculateScore(issues, model.views);
+      updateLoading('Calculating scores…', 85);
+      const score = calculateScore(issues);
       await sleep(200);
       updateLoading('Building dashboards…', 95);
       await sleep(100);
 
       currentModel = model;
       currentIssues = issues;
-
-      // Render all tabs
-      renderSummary(model, issues, score);          // KPI strip (Tab 1 header)
-      renderOverviewSubTab(model, issues, score);   // Tab 1 > Overview
-      renderByViewSubTab(model, issues);            // Tab 1 > By View Type
-      renderByIssueSubTab(model, issues);           // Tab 1 > By Issue Type
-      renderRulesTab(model, issues);                // Tab 1 > Rule Checklist
-      renderManualTab(model, issues, score);        // Tab 2
-      renderDetailedReport(model, issues, score);   // Tab 3
-      renderViewAnalysis(model, issues);            // Tab 4
+      currentScore = score;
+      renderAll(model, issues, score);
 
       document.getElementById('loading-section').style.display = 'none';
       document.getElementById('results-section').style.display = '';
@@ -3331,7 +3377,8 @@ function resetTool() {
   document.getElementById('fileInput').value = '';
   document.getElementById('summary-section').innerHTML = '';
   pendingFile = null;
-  currentModel = null; currentIssues = null;
+  currentModel = null; currentIssues = null; currentScore = null;
+  MANUAL = freshManualState(); ANALYSIS = { role: '', overrides: {} };
 }
 
 // Drag & drop
@@ -3721,6 +3768,12 @@ function renderViewAnalysis(model, issues) {
       <div class="va-card-body">
         <div class="va-stat-row"><span class="va-stat-label">Detected Type</span><span class="va-stat-val" title="${viewTypeWhy}">${viewType}</span></div>
         <div class="va-stat-row"><span class="va-stat-label">Why</span><span class="va-stat-val" style="font-size:11px;text-align:right">${viewTypeWhy || '—'}</span></div>
+        <div class="va-stat-row"><span class="va-stat-label">Assessor override</span>
+          <select style="font-size:11px" onchange="overrideViewType('${escHtml(view.id)}', this.value)">
+            <option value="">Use detected type</option>
+            ${Object.entries(VIEW_TYPE_LABELS).filter(([t]) => t !== 'other').map(([t, l]) =>
+              `<option value="${t}" ${ANALYSIS.overrides[view.id] === t ? 'selected' : ''}>${l}</option>`).join('')}
+          </select></div>
         <div class="va-stat-row"><span class="va-stat-label">Elements</span><span class="va-stat-val">${view.nodes.length}</span></div>
         <div class="va-stat-row"><span class="va-stat-label">Connections</span><span class="va-stat-val">${view.connections.length}</span></div>
         <div class="va-stat-row"><span class="va-stat-label">Layers Present</span><span class="va-stat-val" style="font-size:11px">${[...viewLayers].join(', ') || '—'}</span></div>
