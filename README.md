@@ -1,3 +1,5 @@
+> **Start here:** [AGENTS.md](AGENTS.md) has the project context, layout and rules. [docs/plan.md](docs/plan.md) has status, and [docs/decisions.md](docs/decisions.md) has the open questions.
+
 # Requirements
 
 ## [GYM-4127] Jira Description

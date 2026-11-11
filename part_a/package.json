@@ -1,0 +1,16 @@
+{
+  "name": "archimate-assessor-part-a",
+  "private": true,
+  "description": "GYM-4127 Part A: tests for the single-file ArchiMate assessment tool (archimate-assessor.html). The tool itself has no build step and no dependencies.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/",
+    "baseline:update": "node tests/update-baseline.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "24.1.3"
+  }
+}
