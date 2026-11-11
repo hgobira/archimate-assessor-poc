@@ -11,7 +11,8 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | D2 | Manual rating scale: 0/25/50/75/100 | Provisional | Meenakshi |
 | D3 | Grade bands: Replit (≥80 Outstanding, ≥60 Average, else Poor) | Provisional | Meenakshi |
 | D4 | Signature roles: Assessor / Reviewer / Candidate acknowledgement | Provisional | Meenakshi |
-| D5 | Meaning of automated "Confidence" | Provisional | Meenakshi |
+| D5 | Meaning of automated "Confidence": rubric coverage (implemented: 75% on the sample) | Provisional | Meenakshi |
+| D9 | Penalty sizes: MUST −25%, SHOULD −10% of a subcategory, max 3 occurrences per rule; manual-only subcategories excluded from the automated score | Provisional | Meenakshi |
 | D6 | Pass mark ("meets criteria") | Open | Meenakshi |
 | D7 | Vendoring Archi `relationships.xml` (MIT) | Provisional | Hamza / org policy |
 | D8 | Assessment Level 1 / Level 2 distinction in the tool | Open | Meenakshi |

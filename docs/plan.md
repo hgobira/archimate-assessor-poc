@@ -8,7 +8,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | 1 | Tool at `part_a/archimate-assessor.html` (one file, no build) + baseline tests, with no change in behaviour | ✅ 2026-11-11 |
 | 2 | Rule catalogue + knowledgebase (3.2 Reference Cards, Archi relationship matrix) | ✅ 2026-11-11 |
 | 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ✅ 2026-11-11 |
-| 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ⏳ |
+| 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ✅ 2026-11-11 |
 | 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ⏳ |
 | 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ⏳ |
 | 7 | Tests: unit, regression, renamed-view fixture, Report Format arithmetic, Archi fixtures | ⏳ |
@@ -120,7 +120,20 @@ Original steps:
    - Goal→Capability/Service→Application→Technology traceability
 5. **Done when:** a fixture where "Contextual View" is renamed "Overview" is still recognised as contextual.
 
-## Phase 4 — Scoring
+## Phase 4 — Scoring ✅
+
+**Result:** see [scoring-model.md](scoring-model.md).
+- **`scoring-config` JSON block:** Report Format categories and subcategories, severity penalties, per-rule cap, rating scale, grade bands, RAG thresholds.
+  - Rules map to subcategories via `rubric`, so the old category buckets (and the catalogue's duplicated `category` field) are gone.
+- **`calculateScore()`** returns `{total, earned, possible, coverage, byCategory, breakdown}`.
+  - Subcategories with no automated check are excluded, not given free marks.
+  - Sample: 66.5 / 75 = **88.7%**, coverage 75%.
+- **One `grade()`, `rag()`, `combinedScore()` and `manualScore()`.** Every inline threshold or grade copy in the UI and PDF now delegates to them: 9 local category maps and 6 threshold copies removed.
+- **Detailed Report:** a new "Automated Score Breakdown" table showing rule → occurrences → penalty → cap → score.
+- **Tests:** 31 passing. `scoring.test.mjs` reproduces the Report Format arithmetic (72.5 → 80.25) and checks both caps.
+- **Not yet:** the manual scoresheet still uses its own 110% rows. Phase 5 rebuilds it on `SCORING` + `manualScore()`.
+
+Original steps:
 
 - Penalty per rule = severity weight × min(occurrences, perRuleCap). Category penalty is capped at the category's points, and the score is clamped at ≥ 0.
 - Configurable in a `<script type="application/json" id="scoring-config">` block in the HTML: weights, severity weights, caps, rating scale, grade bands.

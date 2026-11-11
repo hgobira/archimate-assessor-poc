@@ -984,7 +984,7 @@
     <div id="tab-detailed" class="main-tab-content" style="display:none">
       <div class="detailed-label">
         <span class="detailed-label-icon">📋</span>
-        <span>Comprehensive report combining automated AI analysis with manual assessment scores.</span>
+        <span>Comprehensive report combining the automated rule-based analysis with manual assessment scores.</span>
       </div>
       <div id="detailed-report-content"></div>
     </div>
@@ -1004,57 +1004,57 @@
      from the XML, shown as "Manual review". Retired ids (never reuse): see docs/decisions.md. -->
 <script type="application/json" id="rule-catalogue">
 {
-  "fields": "id | source | severity (MUST/SHOULD/INFO) | category (current score bucket) | rubric (Report Format subcategory, used from Phase 4) | automation (automated/partial/manual) | description",
+  "fields": "id | source | severity (MUST/SHOULD/INFO) | rubric (category.subcategory in scoring-config) | automation (automated/partial/manual) | description",
   "rules": [
-    {"id":"elm-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must use the rectangle notation"},
-    {"id":"elm-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Elements should be the same size"},
-    {"id":"elm-003","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"partial","description":"Elements at the same level should align horizontally and vertically"},
-    {"id":"elm-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must be sized to align to the grid on all four sides"},
-    {"id":"elm-005","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"partial","description":"Spacing between elements should be consistent"},
-    {"id":"elm-006","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Spacing between nested elements and their container must be consistent"},
-    {"id":"elm-007","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Data entity elements must be named in the singular"},
-    {"id":"elm-008","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on non-container elements must be centred"},
-    {"id":"elm-009","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on container elements should be at the top, centred, consistently placed"},
-    {"id":"cnn-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must not run diagonally"},
-    {"id":"cnn-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors should not cross each other"},
-    {"id":"cnn-003","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must have the minimum number of bends"},
-    {"id":"cnn-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connectors must run parallel to element edges, equidistant from sandwiching elements"},
-    {"id":"cnn-005","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should be on the horizontal part and centred"},
-    {"id":"cnn-006","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on vertical connectors must be rotated 90° anti-clockwise and centred"},
-    {"id":"cnn-007","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should not sit on a corner"},
-    {"id":"cnn-008","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Data view associations should show multiplicity"},
-    {"id":"cnn-009","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"partial","description":"Data view association labels must meaningfully describe the relationship"},
-    {"id":"cnn-010","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"A single connector must attach to the centre of the source side"},
-    {"id":"cnn-011","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"A single connector must attach to the centre of the target side"},
-    {"id":"cnn-012","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Multiple connectors leaving the same side must be evenly spaced"},
-    {"id":"cnn-013","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Multiple connectors arriving at the same side must be evenly spaced"},
-    {"id":"vws-001","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"automated","description":"View names must indicate the diagram type (contextual/conceptual/logical/physical)"},
-    {"id":"msc-001","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"manual","description":"Note elements listing actions should be sized so actions do not wrap"},
-    {"id":"msc-002","source":"SebTreb","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"manual","description":"Grouping should be used to reduce clutter where elements share a relationship"},
-    {"id":"msc-003","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"automated","description":"Grouped concepts must be nested, not connected to the Grouping by aggregation"},
-    {"id":"msc-004","source":"SebTreb","severity":"MUST","category":"SebTreb","rubric":"clarity.sebtreb","automation":"manual","description":"Grouping must not be used where a more appropriate element exists"},
+    {"id":"elm-001","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must use the rectangle notation"},
+    {"id":"elm-002","source":"SebTreb","severity":"SHOULD","rubric":"clarity.sebtreb","automation":"partial","description":"Elements should be the same size"},
+    {"id":"elm-003","source":"SebTreb","severity":"SHOULD","rubric":"clarity.layout","automation":"partial","description":"Elements at the same level should align horizontally and vertically"},
+    {"id":"elm-004","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Elements must be sized to align to the grid on all four sides"},
+    {"id":"elm-005","source":"SebTreb","severity":"SHOULD","rubric":"clarity.layout","automation":"partial","description":"Spacing between elements should be consistent"},
+    {"id":"elm-006","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"partial","description":"Spacing between nested elements and their container must be consistent"},
+    {"id":"elm-007","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"partial","description":"Data entity elements must be named in the singular"},
+    {"id":"elm-008","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on non-container elements must be centred"},
+    {"id":"elm-009","source":"SebTreb","severity":"SHOULD","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on container elements should be at the top, centred, consistently placed"},
+    {"id":"cnn-001","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must not run diagonally"},
+    {"id":"cnn-002","source":"SebTreb","severity":"SHOULD","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors should not cross each other"},
+    {"id":"cnn-003","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"partial","description":"Connectors must have the minimum number of bends"},
+    {"id":"cnn-004","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Connectors must run parallel to element edges, equidistant from sandwiching elements"},
+    {"id":"cnn-005","source":"SebTreb","severity":"SHOULD","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should be on the horizontal part and centred"},
+    {"id":"cnn-006","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Labels on vertical connectors must be rotated 90° anti-clockwise and centred"},
+    {"id":"cnn-007","source":"SebTreb","severity":"SHOULD","rubric":"clarity.sebtreb","automation":"manual","description":"Connector labels should not sit on a corner"},
+    {"id":"cnn-008","source":"SebTreb","severity":"SHOULD","rubric":"clarity.sebtreb","automation":"manual","description":"Data view associations should show multiplicity"},
+    {"id":"cnn-009","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"partial","description":"Data view association labels must meaningfully describe the relationship"},
+    {"id":"cnn-010","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"A single connector must attach to the centre of the source side"},
+    {"id":"cnn-011","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"A single connector must attach to the centre of the target side"},
+    {"id":"cnn-012","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Multiple connectors leaving the same side must be evenly spaced"},
+    {"id":"cnn-013","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Multiple connectors arriving at the same side must be evenly spaced"},
+    {"id":"vws-001","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"automated","description":"View names must indicate the diagram type (contextual/conceptual/logical/physical)"},
+    {"id":"msc-001","source":"SebTreb","severity":"SHOULD","rubric":"clarity.layout","automation":"manual","description":"Note elements listing actions should be sized so actions do not wrap"},
+    {"id":"msc-002","source":"SebTreb","severity":"SHOULD","rubric":"clarity.layout","automation":"manual","description":"Grouping should be used to reduce clutter where elements share a relationship"},
+    {"id":"msc-003","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"automated","description":"Grouped concepts must be nested, not connected to the Grouping by aggregation"},
+    {"id":"msc-004","source":"SebTreb","severity":"MUST","rubric":"clarity.sebtreb","automation":"manual","description":"Grouping must not be used where a more appropriate element exists"},
 
-    {"id":"ARC-REL-002","source":"ArchiMate 3.2 Appendix B (Archi relationships.xml v3.2)","severity":"MUST","category":"ArchiMate","rubric":"metamodel.relationships","automation":"automated","description":"Relationship type must be permitted by ArchiMate 3.2 between its source and target element types"},
-    {"id":"ARC-REL-003","source":"Review Guide: meta-model (\"association instead of serving\")","severity":"SHOULD","category":"ArchiMate","rubric":"metamodel.relationships","automation":"partial","params":{"maxShare":0.3,"minRelationships":10},"description":"Association should not be used where a more specific relationship applies"},
-    {"id":"ARC-ELM-001","source":"Review Guide: clarity (\"mislabelled\")","severity":"SHOULD","category":"ArchiMate","rubric":"metamodel.elements","automation":"automated","description":"Elements should be named"},
-    {"id":"ARC-ELM-002","source":"Review Guide: consistency","severity":"SHOULD","category":"ArchiMate","rubric":"metamodel.elements","automation":"automated","description":"Element names should be unique within an element type"},
+    {"id":"ARC-REL-002","source":"ArchiMate 3.2 Appendix B (Archi relationships.xml v3.2)","severity":"MUST","rubric":"metamodel.relationships","automation":"automated","description":"Relationship type must be permitted by ArchiMate 3.2 between its source and target element types"},
+    {"id":"ARC-REL-003","source":"Review Guide: meta-model (\"association instead of serving\")","severity":"SHOULD","rubric":"metamodel.relationships","automation":"partial","params":{"maxShare":0.3,"minRelationships":10},"description":"Association should not be used where a more specific relationship applies"},
+    {"id":"ARC-ELM-001","source":"Review Guide: clarity (\"mislabelled\")","severity":"SHOULD","rubric":"metamodel.elements","automation":"automated","description":"Elements should be named"},
+    {"id":"ARC-ELM-002","source":"Review Guide: consistency","severity":"SHOULD","rubric":"metamodel.elements","automation":"automated","description":"Element names should be unique within an element type"},
 
-    {"id":"VW-001","source":"Review Guide: clarity","severity":"SHOULD","category":"SebTreb","rubric":"clarity.layout","automation":"automated","description":"Every element on a view should be connected or nested"},
-    {"id":"VW-002","source":"Review Guide: clarity (\"mislabelled\") + SebTreb vws-001","severity":"SHOULD","category":"ArchiMate","rubric":"viewpoints.selection","automation":"partial","description":"A view's name should match what its content shows"},
+    {"id":"VW-001","source":"Review Guide: clarity","severity":"SHOULD","rubric":"clarity.layout","automation":"automated","description":"Every element on a view should be connected or nested"},
+    {"id":"VW-002","source":"Review Guide: clarity (\"mislabelled\") + SebTreb vws-001","severity":"SHOULD","rubric":"viewpoints.selection","automation":"partial","description":"A view's name should match what its content shows"},
 
-    {"id":"TRC-001","source":"Review Guide: cross-layer alignment; case-study task","severity":"SHOULD","category":"CrossLayer","rubric":"crosslayer.vertical","automation":"automated","description":"Each layer in the chain Motivation → Strategy → Business → Application → Technology should be linked to the next"},
-    {"id":"TRC-002","source":"Review Guide prompt 1: traceability","severity":"SHOULD","category":"CrossLayer","rubric":"crosslayer.e2e","automation":"partial","description":"Each goal should trace into the architecture (strategy, business, application or technology)"},
+    {"id":"TRC-001","source":"Review Guide: cross-layer alignment; case-study task","severity":"SHOULD","rubric":"crosslayer.vertical","automation":"automated","description":"Each layer in the chain Motivation → Strategy → Business → Application → Technology should be linked to the next"},
+    {"id":"TRC-002","source":"Review Guide prompt 1: traceability","severity":"SHOULD","rubric":"crosslayer.e2e","automation":"partial","description":"Each goal should trace into the architecture (strategy, business, application or technology)"},
 
-    {"id":"COMP-001","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"At least 6 views are required"},
-    {"id":"COMP-002","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A contextual view is required"},
-    {"id":"COMP-003","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A conceptual view is required"},
-    {"id":"COMP-004","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"viewpoints.selection","automation":"partial","description":"A technology view is required"},
-    {"id":"COMP-005","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"crosslayer.vertical","automation":"partial","description":"A cross-layer view is required"},
-    {"id":"COMP-006","source":"Review Guide: traceability","severity":"SHOULD","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"Model should include motivation elements (Goals, Drivers, Requirements)"},
-    {"id":"COMP-007","source":"Case study checklist","severity":"MUST","category":"Completeness","rubric":"scenario.coverage","automation":"automated","description":"Model must include technology-layer elements"},
-    {"id":"COMP-008","source":"Review Guide: stakeholder fit","severity":"SHOULD","category":"Completeness","rubric":"viewpoints.stakeholder","automation":"automated","description":"Model should include business actors or roles"},
-    {"id":"COMP-009","source":"Case study checklist","severity":"MUST","category":"Assessment","rubric":"crosslayer.vertical","automation":"partial","description":"Two cross-layer views are expected (e.g. Capability → Application, Strategy → Technology)"},
-    {"id":"COMP-010","source":"Review Guide: consistency","severity":"INFO","category":"Completeness","rubric":"metamodel.elements","automation":"automated","description":"Elements defined but not used in any view"}
+    {"id":"COMP-001","source":"Case study checklist","severity":"MUST","rubric":"scenario.coverage","automation":"automated","description":"At least 6 views are required"},
+    {"id":"COMP-002","source":"Case study checklist","severity":"MUST","rubric":"viewpoints.selection","automation":"partial","description":"A contextual view is required"},
+    {"id":"COMP-003","source":"Case study checklist","severity":"MUST","rubric":"viewpoints.selection","automation":"partial","description":"A conceptual view is required"},
+    {"id":"COMP-004","source":"Case study checklist","severity":"MUST","rubric":"viewpoints.selection","automation":"partial","description":"A technology view is required"},
+    {"id":"COMP-005","source":"Case study checklist","severity":"MUST","rubric":"crosslayer.vertical","automation":"partial","description":"A cross-layer view is required"},
+    {"id":"COMP-006","source":"Review Guide: traceability","severity":"SHOULD","rubric":"scenario.coverage","automation":"automated","description":"Model should include motivation elements (Goals, Drivers, Requirements)"},
+    {"id":"COMP-007","source":"Case study checklist","severity":"MUST","rubric":"scenario.coverage","automation":"automated","description":"Model must include technology-layer elements"},
+    {"id":"COMP-008","source":"Review Guide: stakeholder fit","severity":"SHOULD","rubric":"viewpoints.stakeholder","automation":"automated","description":"Model should include business actors or roles"},
+    {"id":"COMP-009","source":"Case study checklist","severity":"MUST","rubric":"crosslayer.vertical","automation":"partial","description":"Two cross-layer views are expected (e.g. Capability → Application, Strategy → Technology)"},
+    {"id":"COMP-010","source":"Review Guide: consistency","severity":"INFO","rubric":"metamodel.elements","automation":"automated","description":"Elements defined but not used in any view"}
   ]
 }
 </script>
@@ -1159,6 +1159,48 @@ SOFTWARE.
 }
 </script>
 
+<!-- ===================== SCORING CONFIG =====================
+     One scoring model for automated AND manual scores (decisions D1-D3, D5; provisional until confirmed).
+     categories/subcategories: Report Format weights (total 100). Rules map to a subcategory via "rubric".
+     Automated scoring, per subcategory:
+       penalty % = sum over rules of severityPenaltyPct[severity] x min(occurrences, perRuleMaxOccurrences)
+       capped at 100% of the subcategory, so a subcategory never goes below 0
+       score = weight x (1 - penalty%)
+     Subcategories with no automated/partial rule are "manual only" and excluded from the automated score.
+     Automated total = earned / assessable points; confidence = assessable points / 100 (rubric coverage).
+     Manual: rating % x subcategory weight. Combined = mean(automated, manual). One grade() and rag() for all. -->
+<script type="application/json" id="scoring-config">
+{
+  "categories": [
+    {"id":"metamodel","label":"Meta-model & Relationships","weight":30,"subcategories":[
+      {"id":"elements","label":"Correct use of ArchiMate elements","weight":10},
+      {"id":"relationships","label":"Valid relationships","weight":10},
+      {"id":"layers","label":"Layer correctness","weight":10}]},
+    {"id":"scenario","label":"Scenario Interpretation & Completeness","weight":20,"subcategories":[
+      {"id":"coverage","label":"Coverage of case study requirements","weight":10},
+      {"id":"accuracy","label":"Accuracy of interpretation","weight":10}]},
+    {"id":"viewpoints","label":"Viewpoints & Stakeholder Relevance","weight":25,"subcategories":[
+      {"id":"selection","label":"Appropriate viewpoint selection","weight":15},
+      {"id":"stakeholder","label":"Stakeholder alignment","weight":10}]},
+    {"id":"crosslayer","label":"Cross-layer Alignment","weight":15,"subcategories":[
+      {"id":"vertical","label":"Vertical traceability","weight":5},
+      {"id":"horizontal","label":"Horizontal alignment","weight":5},
+      {"id":"e2e","label":"End-to-end clarity","weight":5}]},
+    {"id":"clarity","label":"SebTreb Visual Clarity","weight":10,"subcategories":[
+      {"id":"layout","label":"Layout and organisation","weight":5},
+      {"id":"sebtreb","label":"SebTreb rules compliance","weight":5}]}
+  ],
+  "severityPenaltyPct": {"MUST": 25, "SHOULD": 10, "INFO": 0},
+  "perRuleMaxOccurrences": 3,
+  "ratingScale": [
+    {"label":"Missing","pct":0}, {"label":"Poor","pct":25}, {"label":"Adequate","pct":50},
+    {"label":"Good","pct":75}, {"label":"Outstanding","pct":100}],
+  "grades": [{"min":80,"label":"Outstanding"}, {"min":60,"label":"Average"}, {"min":0,"label":"Poor"}],
+  "rag": {"green":70, "amber":40},
+  "combined": "mean"
+}
+</script>
+
 <script>
 // ===================== ARCHIMATE KNOWLEDGE BASE =====================
 // Element types per layer: ArchiMate 3.2 (Reference Cards, resources/n221p.pdf).
@@ -1196,6 +1238,7 @@ const DATA_TYPES = ['DataObject','BusinessObject','Artifact'];
 
 // ----- Rule catalogue (see <script id="rule-catalogue">) -----
 const RULES = JSON.parse(document.getElementById('rule-catalogue').textContent).rules;
+RULES.forEach(r => { r.category = r.rubric.split('.')[0]; });  // scoring category id, from the rubric
 const RULE_BY_ID = Object.fromEntries(RULES.map(r => [r.id, r]));
 
 // Build an issue for a catalogue rule: checks supply only the rule id, location and evidence.
@@ -1936,56 +1979,68 @@ function getNodeElement(nodeId, view, elements) {
 
 // ===================== SCORING =====================
 
-function calculateScore(issues, views) {
-  // Weighted scoring system
-  const weights = {
-    MUST: 3,
-    SHOULD: 1.5,
-    MAY: 0.5,
-    INFO: 0
-  };
+// Model and formulas: see the comment above <script id="scoring-config">.
+const SCORING = JSON.parse(document.getElementById('scoring-config').textContent);
+const CATEGORY_ORDER = SCORING.categories.map(c => c.id);
+const CATEGORY_LABELS = Object.fromEntries(SCORING.categories.map(c => [c.id, c.label]));
+const round1 = x => Math.round(x * 10) / 10;
 
-  const categoryWeights = {
-    Completeness: 30,  // 30% — did they include required views?
-    CrossLayer: 25,    // 25% — are cross-layer relationships valid?
-    ArchiMate: 25,     // 25% — correct ArchiMate usage?
-    SebTreb: 15,       // 15% — styling guidelines
-    Assessment: 5,     // 5%  — assessment-specific criteria
-  };
+// The single grade / RAG functions used for automated, manual and combined scores alike.
+function grade(score) { return SCORING.grades.find(g => score >= g.min).label; }
+function rag(score) { return score >= SCORING.rag.green ? 'green' : score >= SCORING.rag.amber ? 'amber' : 'red'; }
+function combinedScore(automated, manual) { return Math.round((automated + manual) / 2 * 100) / 100; }
 
-  // Max penalty per category
-  const categoryMaxPenalty = {
-    Completeness: 30,
-    CrossLayer: 25,
-    ArchiMate: 25,
-    SebTreb: 15,
-    Assessment: 5,
-  };
+// Manual score from assessor ratings: { 'metamodel.elements': 'Outstanding', … } → points out of 100.
+// Each subcategory earns rating % × its weight (ratingScale in scoring-config). Unrated = 0.
+function manualScore(ratings) {
+  const pctOf = Object.fromEntries(SCORING.ratingScale.map(r => [r.label, r.pct]));
+  let total = 0;
+  SCORING.categories.forEach(cat => cat.subcategories.forEach(sub => {
+    const r = ratings[`${cat.id}.${sub.id}`];
+    if (r !== undefined && r !== '') total += sub.weight * (pctOf[r] ?? 0) / 100;
+  }));
+  return Math.round(total * 100) / 100;
+}
 
-  const penaltyByCategory = {};
-  Object.keys(categoryWeights).forEach(cat => { penaltyByCategory[cat] = 0; });
+// Deterministic automated score with a full breakdown:
+// { total, earned, possible, coverage, byCategory: {id: pct}, breakdown: [category → subcategory → rule hits] }
+function calculateScore(issues) {
+  const byRule = {};
+  issues.forEach(i => { (byRule[i.ruleId] = byRule[i.ruleId] || []).push(i); });
 
-  issues.forEach(issue => {
-    const w = weights[issue.severity] || 0;
-    const cat = issue.category;
-    penaltyByCategory[cat] = (penaltyByCategory[cat] || 0) + w;
+  const breakdown = SCORING.categories.map(cat => {
+    const subs = cat.subcategories.map(sub => {
+      const key = `${cat.id}.${sub.id}`;
+      const rules = RULES.filter(r => r.rubric === key);
+      const assessable = rules.some(r => r.automation !== 'manual');
+      const hits = rules.filter(r => byRule[r.id]).map(r => {
+        const occurrences = byRule[r.id].length;
+        const counted = Math.min(occurrences, SCORING.perRuleMaxOccurrences);
+        return { ruleId: r.id, severity: r.severity, occurrences, counted,
+          penaltyPct: (SCORING.severityPenaltyPct[r.severity] || 0) * counted };
+      });
+      const rawPenaltyPct = hits.reduce((s, h) => s + h.penaltyPct, 0);
+      const appliedPenaltyPct = Math.min(rawPenaltyPct, 100);
+      return { id: key, label: sub.label, weight: sub.weight, assessable,
+        rules: rules.map(r => r.id), hits, rawPenaltyPct, appliedPenaltyPct, capped: rawPenaltyPct > 100,
+        score: assessable ? round1(sub.weight * (1 - appliedPenaltyPct / 100)) : null };
+    });
+    const assessed = subs.filter(s => s.assessable);
+    const max = assessed.reduce((s, x) => s + x.weight, 0);
+    const earned = round1(assessed.reduce((s, x) => s + x.score, 0));
+    return { id: cat.id, label: cat.label, weight: cat.weight, subs, earned, max,
+      pct: max ? Math.round(earned / max * 100) : null };
   });
 
-  // Score per category (0-100, then weighted)
-  let totalScore = 0;
-  const catScores = {};
-
-  Object.entries(categoryWeights).forEach(([cat, weight]) => {
-    const penalty = penaltyByCategory[cat] || 0;
-    const maxPenalty = categoryMaxPenalty[cat];
-    // Diminishing penalty — first few issues hurt more
-    const normalizedPenalty = Math.min(penalty / (maxPenalty * 0.5), 1);
-    const catScore = Math.round((1 - normalizedPenalty) * 100);
-    catScores[cat] = Math.max(0, catScore);
-    totalScore += catScore * (weight / 100);
-  });
-
-  return { total: Math.round(totalScore), byCategory: catScores };
+  const possible = breakdown.reduce((s, c) => s + c.max, 0);
+  const earned = round1(breakdown.reduce((s, c) => s + c.earned, 0));
+  return {
+    total: possible ? round1(earned / possible * 100) : 0,
+    earned, possible,
+    coverage: possible,   // weights total 100, so assessable points = % of the rubric checked automatically
+    byCategory: Object.fromEntries(breakdown.filter(c => c.pct !== null).map(c => [c.id, c.pct])),
+    breakdown,
+  };
 }
 
 // ===================== MANUAL SCORESHEET =====================
@@ -2054,9 +2109,9 @@ const MS_RATED_CLASSES = { '': '', '0':'rated-missing', '25':'rated-poor', '50':
 
 function renderManualTab(model, issues, autoScore) {
   // Build auto-insights for the scoresheet
-  const sebTrebIssues = issues.filter(i => i.category === 'SebTreb');
-  const crossLayerIssues = issues.filter(i => i.category === 'CrossLayer');
-  const completenessIssues = issues.filter(i => i.category === 'Completeness');
+  const sebTrebIssues = issues.filter(i => RULE_BY_ID[i.ruleId].source === 'SebTreb');
+  const crossLayerIssues = issues.filter(i => i.category === 'crosslayer');
+  const completenessIssues = issues.filter(i => i.ruleId.startsWith('COMP-'));
   const mustCount = issues.filter(i => i.severity === 'MUST').length;
 
   // Build insights text
@@ -2082,7 +2137,8 @@ function renderManualTab(model, issues, autoScore) {
       <div style="margin-top:4px;font-size:12px;color:var(--text-dim)">
         Automated Score: <b style="color:var(--accent)">${autoScore.total}%</b>
         &nbsp;&nbsp;·&nbsp;&nbsp;
-        ${Object.entries(autoScore.byCategory).map(([k,v])=>`<span class="rag ${getRagClass(v)}" style="font-size:10px;padding:1px 7px">${k}: ${v}%</span>`).join(' ')}
+        ${Object.entries(autoScore.byCategory).map(([k,v])=>`<span class="rag ${getRagClass(v)}" style="font-size:10px;padding:1px 7px">${CATEGORY_LABELS[k]}: ${v}%</span>`).join(' ')}
+        &nbsp;·&nbsp; Coverage: ${autoScore.coverage}% of rubric points checked automatically
       </div>
       ${insightHtml}
     </div>
@@ -2259,18 +2315,12 @@ function msUpdateOverall() {
 
   // Combined: average of auto + manual
   const autoVal = currentIssues ? calculateScore(currentIssues, currentModel.views).total : 0;
-  const combined = ((total + autoVal) / 2).toFixed(1);
+  const combined = combinedScore(autoVal, total).toFixed(1);
   if (combinedEl) combinedEl.textContent = combined + '%';
   if (combinedGrade) combinedGrade.textContent = gradeFromScore(parseFloat(combined));
 }
 
-function gradeFromScore(s) {
-  if (s >= 85) return 'Distinction';
-  if (s >= 70) return 'Good';
-  if (s >= 55) return 'Average';
-  if (s >= 40) return 'Below Average';
-  return 'Poor';
-}
+function gradeFromScore(s) { return grade(s); }  // kept name for existing callers; see grade()
 
 function exportManualScore() {
   if (!currentModel) return;
@@ -2306,7 +2356,7 @@ function exportManualScore() {
       grade: gradeFromScore(manualTotal),
       bySection: manualScores
     },
-    combinedScore: (((parseFloat(manualTotal) + autoScore.total) / 2)).toFixed(1) + '%',
+    combinedScore: combinedScore(autoScore.total, parseFloat(manualTotal)).toFixed(1) + '%',
     narrative: {
       strengths: document.getElementById('ms-strengths')?.value || '',
       improvements: document.getElementById('ms-improvement')?.value || '',
@@ -2330,23 +2380,11 @@ function printManualSheet() {
 
 
 
-function getRagClass(score) {
-  if (score >= 70) return 'rag-green';
-  if (score >= 40) return 'rag-amber';
-  return 'rag-red';
-}
-
-function getRagLabel(score) {
-  if (score >= 70) return 'GREEN';
-  if (score >= 40) return 'AMBER';
-  return 'RED';
-}
-
-function getCardClass(score) {
-  if (score >= 70) return 'green';
-  if (score >= 40) return 'amber';
-  return 'red';
-}
+// RAG helpers: all delegate to rag() (thresholds in scoring-config)
+function getRagClass(score) { return 'rag-' + rag(score); }
+function getRagLabel(score) { return rag(score).toUpperCase(); }
+function getCardClass(score) { return rag(score); }
+function ragVar(score) { return `var(--${rag(score)})`; }
 
 function getSeverityRag(severity) {
   if (severity === 'MUST') return 'rag-red';
@@ -2357,11 +2395,11 @@ function getSeverityRag(severity) {
 
 function getCatBadgeClass(cat) {
   const map = {
-    SebTreb: 'cat-sebtreb',
-    ArchiMate: 'cat-archimate',
-    CrossLayer: 'cat-crosslayer',
-    Completeness: 'cat-completeness',
-    Assessment: 'cat-assessment',
+    metamodel: 'cat-archimate',
+    scenario: 'cat-completeness',
+    viewpoints: 'cat-assessment',
+    crosslayer: 'cat-crosslayer',
+    clarity: 'cat-sebtreb',
   };
   return map[cat] || 'cat-archimate';
 }
@@ -2382,14 +2420,14 @@ function renderSummary(model, issues, score) {
       <svg class="score-ring" viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="42" fill="none" stroke="#dde3ef" stroke-width="8"/>
         <circle cx="50" cy="50" r="42" fill="none"
-          stroke="${score.total >= 70 ? 'var(--green)' : score.total >= 40 ? 'var(--amber)' : 'var(--red)'}"
+          stroke="${ragVar(score.total)}"
           stroke-width="8"
           stroke-dasharray="${2 * Math.PI * 42}"
           stroke-dashoffset="${2 * Math.PI * 42 * (1 - score.total/100)}"
           stroke-linecap="round"
           transform="rotate(-90 50 50)"/>
         <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
-          fill="${score.total >= 70 ? 'var(--green)' : score.total >= 40 ? 'var(--amber)' : 'var(--red)'}"
+          fill="${ragVar(score.total)}"
           font-size="20" font-family="DM Mono" font-weight="700">${score.total}%</text>
       </svg>
       <div style="flex:1">
@@ -2423,13 +2461,7 @@ function renderSummary(model, issues, score) {
     <div class="score-grid">
   `;
 
-  const catLabels = {
-    Completeness: '📋 Completeness',
-    CrossLayer: '🔗 Cross-Layer',
-    ArchiMate: '🏛 ArchiMate',
-    SebTreb: '🎨 SebTreb Style',
-    Assessment: '📝 Assessment'
-  };
+  const catLabels = CATEGORY_LABELS;
 
   Object.entries(score.byCategory).forEach(([cat, catScore]) => {
     const catClass = getCardClass(catScore);
@@ -2541,14 +2573,8 @@ function renderIssueTab(model, issues) {
     catGroups[cat].push(issue);
   });
 
-  const catOrder = ['Completeness', 'CrossLayer', 'ArchiMate', 'SebTreb', 'Assessment'];
-  const catLabels = {
-    Completeness: '📋 Completeness',
-    CrossLayer: '🔗 Cross-Layer Alignment',
-    ArchiMate: '🏛 ArchiMate Specification',
-    SebTreb: '🎨 SebTreb Style Guidelines',
-    Assessment: '📝 Assessment Criteria'
-  };
+  const catOrder = CATEGORY_ORDER;
+  const catLabels = CATEGORY_LABELS;
 
   let html = '';
 
@@ -2565,7 +2591,7 @@ function renderIssueTab(model, issues) {
 
     html += `<div class="panel">
       <div class="panel-header" onclick="togglePanel(this)">
-        <span class="cat-badge ${getCatBadgeClass(cat)}">${cat}</span>
+        <span class="cat-badge ${getCatBadgeClass(cat)}">${CATEGORY_LABELS[cat] || cat}</span>
         <span class="panel-title">${catLabels[cat]}</span>
         ${getIssueBadges(catIssues)}
         <span class="chevron">▶</span>
@@ -2629,8 +2655,8 @@ function renderRulesTab(model, issues) {
   });
 
   // Category headers within rules table
-  const catOrder = ['Completeness','CrossLayer','ArchiMate','SebTreb','Assessment'];
-  const catLabels = { Completeness:'📋 Completeness', CrossLayer:'🔗 Cross-Layer', ArchiMate:'🏛 ArchiMate 3.2', SebTreb:'🎨 SebTreb Style', Assessment:'📝 Assessment' };
+  const catOrder = CATEGORY_ORDER;
+  const catLabels = CATEGORY_LABELS;
 
   catOrder.forEach(cat => {
     const rules = grouped[cat] || [];
@@ -2732,8 +2758,8 @@ function showReportModal(score) {
                   border-radius:8px;font-size:12px">
         <div style="margin-bottom:8px;font-weight:600;color:#1a2340">Report Preview</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;color:#5a6480">
-          <div>Overall Score: <span style="color:${score.total>=70?'#0f9956':score.total>=40?'#d97706':'#d93025'}">
-            <b>${score.total}%</b> — ${score.total>=85?'Distinction':score.total>=70?'Good':score.total>=55?'Average':'Below Average'}</span></div>
+          <div>Automated Score: <span style="color:${ragVar(score.total)}">
+            <b>${score.total}%</b> — ${grade(score.total)}</span></div>
           <div>Total Issues: <b style="color:#1a2340">${currentIssues.length}</b></div>
           <div>Views Analysed: <b style="color:#1a2340">${currentModel.views.length}</b></div>
           <div>Elements: <b style="color:#1a2340">${Object.keys(currentModel.elements).length}</b></div>
@@ -2831,21 +2857,18 @@ function renderPDF(data) {
   const TMID   = [74,80,104];
   const TLIGHT = [136,144,170];
 
-  function ragRGB(s) {
-    return s>=70 ? [79,205,139] : s>=40 ? [255,184,79] : [255,79,106];
-  }
-  function ragLabel(s) { return s>=70?'GREEN':s>=40?'AMBER':'RED'; }
-  function gradeLabel(s) {
-    if(s>=85)return'Distinction';if(s>=70)return'Good';
-    if(s>=55)return'Average';if(s>=40)return'Below Average';return'Poor';
-  }
+  // Colours only; thresholds and grades come from rag() / grade() (scoring-config)
+  function ragRGB(s) { return { green:[79,205,139], amber:[255,184,79], red:[255,79,106] }[rag(s)]; }
+  function ragLabel(s) { return rag(s).toUpperCase(); }
+  function gradeLabel(s) { return grade(s); }
   const CAT_RGB = {
-    SebTreb:[168,85,247], ArchiMate:[79,124,255],
-    CrossLayer:[245,158,11], Completeness:[16,185,129], Assessment:[236,72,153]
+    clarity:[168,85,247], metamodel:[79,124,255],
+    crosslayer:[245,158,11], scenario:[16,185,129], viewpoints:[236,72,153]
   };
+  // Short labels to fit the PDF columns (full labels: CATEGORY_LABELS)
   const CAT_LABELS = {
-    Completeness:'Completeness', CrossLayer:'Cross-Layer Alignment',
-    ArchiMate:'ArchiMate 3.2', SebTreb:'SebTreb Style', Assessment:'Assessment Criteria'
+    metamodel:'Meta-model', scenario:'Scenario', viewpoints:'Viewpoints',
+    crosslayer:'Cross-layer', clarity:'Visual Clarity'
   };
 
   let y = 0;
@@ -3009,7 +3032,7 @@ function renderPDF(data) {
   y = cardY + 42;
 
   // ── Category Breakdown ───────────────────────────────────────────────────
-  sectionTitle('AI Analysis – Category Breakdown');
+  sectionTitle('Automated Analysis – Category Breakdown');
 
   // Table header
   doc.setFillColor(...DARK); doc.rect(ML, y-3, UW, 7, 'F');
@@ -3021,9 +3044,10 @@ function renderPDF(data) {
   doc.text('Top Issues Found', ML+86, y+1);
   y += 7;
 
-  const catOrder2 = ['Completeness','CrossLayer','ArchiMate','SebTreb','Assessment'];
+  const catOrder2 = CATEGORY_ORDER;
   catOrder2.forEach((cat, idx) => {
-    const cs = catScores[cat] || 0;
+    const manualOnly = catScores[cat] === undefined;
+    const cs = manualOnly ? 0 : catScores[cat];
     const cc = CAT_RGB[cat] || BLUE;
     const ic3 = data.issues.filter(i=>i.category===cat).length;
     const topI = data.issues.filter(i=>i.category===cat&&i.severity==='MUST')
@@ -3038,11 +3062,14 @@ function renderPDF(data) {
     // Category name
     doc.setFontSize(8.5); doc.setFont('helvetica','bold'); doc.setTextColor(...cc);
     doc.text(CAT_LABELS[cat]||cat, ML+5, y+1.5);
-    // Score
-    doc.setTextColor(...ragRGB(cs));
-    doc.text(`${cs}%`, ML+42, y+1.5);
-    // RAG
-    ragPill(ragLabel(cs), cs, ML+53, y+2, 16);
+    // Score (categories with no automated checks are left to the manual review)
+    if (manualOnly) {
+      doc.setTextColor(...TLIGHT); doc.text('manual', ML+42, y+1.5);
+    } else {
+      doc.setTextColor(...ragRGB(cs));
+      doc.text(`${cs}%`, ML+42, y+1.5);
+      ragPill(ragLabel(cs), cs, ML+53, y+2, 16);
+    }
     // Issues count
     doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(...TMID);
     doc.text(String(ic3||'—'), ML+76, y+1.5);
@@ -3137,7 +3164,7 @@ function renderPDF(data) {
   doc.text('Views Affected',ML+130,y+1);
   y += 7;
 
-  const catOrder3 = ['Completeness','CrossLayer','ArchiMate','SebTreb','Assessment'];
+  const catOrder3 = CATEGORY_ORDER;
   const rbc2 = {};
   ALL_RULES2.forEach(r => { (rbc2[r[0]]=rbc2[r[0]]||[]).push(r); });
 
@@ -3351,18 +3378,54 @@ function showTab(tabId, btn) { /* kept for PDF report compat */ }
 
 // ===================== TAB 1 SUB-TAB: OVERVIEW =====================
 
+// Transparent automated score: category → subcategory → rules hit → penalty → cap → score.
+function renderScoreBreakdown(score) {
+  const th = 'padding:8px 12px;color:#fff;font-size:11.5px;text-align:left';
+  const td = 'padding:7px 12px;font-size:12.5px;border-top:1px solid var(--border)';
+  let rows = '';
+  score.breakdown.forEach(cat => {
+    rows += `<tr style="background:var(--surface3)">
+      <td style="${td};font-weight:700" colspan="3"><span class="cat-badge ${getCatBadgeClass(cat.id)}">${escHtml(cat.label)}</span> (weight ${cat.weight})</td>
+      <td style="${td};font-weight:700;text-align:right;font-family:'DM Mono',monospace">${cat.max ? `${cat.earned} / ${cat.max}` : 'manual only'}</td></tr>`;
+    cat.subs.forEach(sub => {
+      const hits = !sub.assessable
+        ? '<span style="color:var(--text-faint)">No automated checks — scored in the manual review</span>'
+        : sub.hits.length
+          ? sub.hits.map(h => `<span class="rule-id">${h.ruleId}</span> ${h.severity} × ${h.counted}${h.occurrences > h.counted ? ` (of ${h.occurrences}, capped)` : ''} = −${h.penaltyPct}%`).join('<br>')
+          : `<span style="color:var(--green)">No findings</span> <span style="color:var(--text-faint)">(${sub.rules.join(', ')})</span>`;
+      const pen = !sub.assessable ? '—' : `−${sub.appliedPenaltyPct}%${sub.capped ? ` <span title="Raw penalty ${sub.rawPenaltyPct}% capped at 100%">(capped)</span>` : ''}`;
+      rows += `<tr>
+        <td style="${td};padding-left:28px">${escHtml(sub.label)} <span style="color:var(--text-faint)">(${sub.weight})</span></td>
+        <td style="${td}">${hits}</td>
+        <td style="${td};text-align:right">${pen}</td>
+        <td style="${td};text-align:right;font-family:'DM Mono',monospace">${sub.assessable ? `${sub.score} / ${sub.weight}` : '—'}</td></tr>`;
+    });
+  });
+  const p = SCORING.severityPenaltyPct;
+  return `<div class="panel" style="margin-bottom:20px">
+    <div class="panel-header" style="cursor:default"><span class="panel-title">Automated Score Breakdown</span></div>
+    <div style="padding:10px 16px;font-size:12px;color:var(--text-dim)">
+      Each finding deducts a share of its subcategory: MUST −${p.MUST}%, SHOULD −${p.SHOULD}%, INFO −${p.INFO}%,
+      counting at most ${SCORING.perRuleMaxOccurrences} occurrences per rule; a subcategory cannot go below 0.
+      Automated score = <b>${score.earned} / ${score.possible}</b> assessable points = <b>${score.total}%</b> (${grade(score.total)}).
+      Coverage ${score.coverage}%: the remaining points are scored only in the manual review.
+    </div>
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr style="background:var(--navy)"><th style="${th}">Subcategory (points)</th><th style="${th}">Findings → deduction</th>
+        <th style="${th};text-align:right">Penalty</th><th style="${th};text-align:right">Score</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+}
+
 function renderOverviewSubTab(model, issues, score) {
-  const catLabels = {
-    Completeness: '📋 Completeness', CrossLayer: '🔗 Cross-Layer Alignment',
-    ArchiMate: '🏛 ArchiMate 3.2', SebTreb: '🎨 SebTreb Style', Assessment: '📝 Assessment'
-  };
+  const catLabels = CATEGORY_LABELS;
 
   let html = '';
   Object.entries(score.byCategory).forEach(([cat, catScore]) => {
     const catIssues = issues.filter(i => i.category === cat);
     const mustC = catIssues.filter(i => i.severity === 'MUST').length;
     const shouldC = catIssues.filter(i => i.severity === 'SHOULD').length;
-    const fillColor = catScore >= 70 ? 'var(--green)' : catScore >= 40 ? 'var(--amber)' : 'var(--red)';
+    const fillColor = ragVar(catScore);
 
     html += `<div class="ov-card">
       <div class="ov-card-header">
@@ -3464,16 +3527,13 @@ function renderByIssueSubTab(model, issues) {
     byCat[r.category].push(r);
   });
 
-  const catLabels = {
-    Completeness:'📋 Completeness', CrossLayer:'🔗 Cross-Layer',
-    ArchiMate:'🏛 ArchiMate 3.2', SebTreb:'🎨 SebTreb Style', Assessment:'📝 Assessment'
-  };
+  const catLabels = CATEGORY_LABELS;
 
   let html = '';
   if (Object.keys(byCat).length === 0) {
     html = `<div class="empty"><div class="icon">✅</div><div>No issues found!</div></div>`;
   } else {
-    ['Completeness','CrossLayer','ArchiMate','SebTreb','Assessment'].forEach(cat => {
+    CATEGORY_ORDER.forEach(cat => {
       const rules = byCat[cat];
       if (!rules) return;
       html += `<div style="margin-bottom:20px">
@@ -3522,7 +3582,8 @@ function renderDetailedReport(model, issues, score) {
     <!-- Model stats strip -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px">
       ${[
-        ['AI Score', score.total+'%', getRagClass(score.total)],
+        ['Automated Score', score.total+'%', getCardClass(score.total)],
+        ['Coverage', score.coverage+'%', 'blue'],
         ['Views', totalViews, 'blue'],
         ['Elements', totalEls, 'blue'],
         ['Relationships', totalRels, 'blue'],
@@ -3535,43 +3596,9 @@ function renderDetailedReport(model, issues, score) {
         </div>`).join('')}
     </div>
 
-    <!-- Category summary table -->
-    <div class="panel" style="margin-bottom:20px">
-      <div class="panel-header" style="cursor:default">
-        <span class="panel-title">Category Score Breakdown</span>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:13px">
-        <thead>
-          <tr style="background:var(--navy)">
-            <th style="padding:10px 16px;text-align:left;color:#fff;font-size:12px">Category</th>
-            <th style="padding:10px 16px;text-align:center;color:#fff;font-size:12px">Score</th>
-            <th style="padding:10px 16px;text-align:center;color:#fff;font-size:12px">RAG</th>
-            <th style="padding:10px 16px;text-align:center;color:#fff;font-size:12px">MUST Issues</th>
-            <th style="padding:10px 16px;text-align:center;color:#fff;font-size:12px">SHOULD Issues</th>
-            <th style="padding:10px 16px;text-align:left;color:#fff;font-size:12px">Weight</th>
-          </tr>
-        </thead>
-        <tbody>`;
+    ${renderScoreBreakdown(score)}`;
 
-  const catWeights = {Completeness:30,CrossLayer:25,ArchiMate:25,SebTreb:15,Assessment:5};
-  const catLabels2 = {Completeness:'📋 Completeness',CrossLayer:'🔗 Cross-Layer',ArchiMate:'🏛 ArchiMate 3.2',SebTreb:'🎨 SebTreb Style',Assessment:'📝 Assessment'};
-  Object.entries(score.byCategory).forEach(([cat, cs], idx) => {
-    const catIssues = issues.filter(i => i.category === cat);
-    const mc = catIssues.filter(i => i.severity === 'MUST').length;
-    const sc2 = catIssues.filter(i => i.severity === 'SHOULD').length;
-    html += `<tr style="background:${idx%2===0?'#fff':'var(--surface2)'}">
-      <td style="padding:9px 16px">
-        <span class="cat-badge ${getCatBadgeClass(cat)}">${catLabels2[cat]||cat}</span>
-      </td>
-      <td style="padding:9px 16px;text-align:center;font-family:'DM Mono',monospace;font-weight:700;color:${getRagClass(cs)==='rag-green'?'var(--green)':getRagClass(cs)==='rag-amber'?'var(--amber)':'var(--red)'}">${cs}%</td>
-      <td style="padding:9px 16px;text-align:center"><span class="rag ${getRagClass(cs)}" style="font-size:10px">${getRagLabel(cs)}</span></td>
-      <td style="padding:9px 16px;text-align:center;font-weight:600;color:${mc>0?'var(--red)':'var(--text-faint)'}">${mc||'—'}</td>
-      <td style="padding:9px 16px;text-align:center;font-weight:600;color:${sc2>0?'var(--amber)':'var(--text-faint)'}">${sc2||'—'}</td>
-      <td style="padding:9px 16px;color:var(--text-dim)">${catWeights[cat]}%</td>
-    </tr>`;
-  });
-  html += `</tbody></table></div>
-
+  html += `
   <!-- View-by-view issue breakdown -->
   <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px">
     View-by-View Issue Breakdown
@@ -3606,12 +3633,6 @@ function renderDetailedReport(model, issues, score) {
     if (vis.length === 0) {
       html += `<div style="padding:14px 16px;color:var(--green);font-size:13px">✓ All checks passed for this view</div>`;
     } else {
-      // SebTreb violations for this view
-      const sebIssues = vis.filter(i => i.category === 'SebTreb');
-      const clIssues = vis.filter(i => i.category === 'CrossLayer');
-      const amIssues = vis.filter(i => i.category === 'ArchiMate');
-      const coIssues = vis.filter(i => i.category === 'Completeness' || i.category === 'Assessment');
-
       html += `<table class="dr-issue-table"><thead>
         <tr><th>Rule</th><th>Category</th><th>Sev.</th><th>Violation</th><th>Detail</th></tr>
       </thead><tbody>`;

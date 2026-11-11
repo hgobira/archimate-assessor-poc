@@ -51,7 +51,7 @@
   "issues": [
     {
       "ruleId": "VW-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "SHOULD",
       "viewId": "id-29654",
       "viewName": "Conceptual View",
@@ -60,7 +60,7 @@
     },
     {
       "ruleId": "elm-006",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29660",
       "viewName": "Technology View",
@@ -69,7 +69,7 @@
     },
     {
       "ruleId": "cnn-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -78,7 +78,7 @@
     },
     {
       "ruleId": "cnn-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -87,7 +87,7 @@
     },
     {
       "ruleId": "cnn-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -96,7 +96,7 @@
     },
     {
       "ruleId": "cnn-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -105,7 +105,7 @@
     },
     {
       "ruleId": "cnn-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -114,7 +114,7 @@
     },
     {
       "ruleId": "cnn-002",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "SHOULD",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -123,7 +123,7 @@
     },
     {
       "ruleId": "VW-001",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "SHOULD",
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
@@ -132,7 +132,7 @@
     },
     {
       "ruleId": "elm-006",
-      "category": "SebTreb",
+      "category": "clarity",
       "severity": "MUST",
       "viewId": "id-29669",
       "viewName": "Component View - Data Ingestion",
@@ -141,7 +141,7 @@
     },
     {
       "ruleId": "ARC-REL-003",
-      "category": "ArchiMate",
+      "category": "metamodel",
       "severity": "SHOULD",
       "viewId": "model",
       "viewName": "Model Level",
@@ -150,7 +150,7 @@
     },
     {
       "ruleId": "ARC-ELM-002",
-      "category": "ArchiMate",
+      "category": "metamodel",
       "severity": "SHOULD",
       "viewId": "model",
       "viewName": "Model Level",
@@ -159,7 +159,7 @@
     },
     {
       "ruleId": "TRC-002",
-      "category": "CrossLayer",
+      "category": "crosslayer",
       "severity": "SHOULD",
       "viewId": "model",
       "viewName": "Model Level",
@@ -168,7 +168,7 @@
     },
     {
       "ruleId": "COMP-010",
-      "category": "Completeness",
+      "category": "metamodel",
       "severity": "INFO",
       "viewId": "model",
       "viewName": "Model Level",
@@ -177,13 +177,327 @@
     }
   ],
   "score": {
-    "total": 76,
+    "total": 88.7,
+    "earned": 66.5,
+    "possible": 75,
+    "coverage": 75,
     "byCategory": {
-      "Completeness": 100,
-      "CrossLayer": 88,
-      "ArchiMate": 76,
-      "SebTreb": 0,
-      "Assessment": 100
-    }
+      "metamodel": 90,
+      "scenario": 100,
+      "viewpoints": 100,
+      "crosslayer": 95,
+      "clarity": 40
+    },
+    "breakdown": [
+      {
+        "id": "metamodel",
+        "label": "Meta-model & Relationships",
+        "weight": 30,
+        "subs": [
+          {
+            "id": "metamodel.elements",
+            "label": "Correct use of ArchiMate elements",
+            "weight": 10,
+            "assessable": true,
+            "rules": [
+              "ARC-ELM-001",
+              "ARC-ELM-002",
+              "COMP-010"
+            ],
+            "hits": [
+              {
+                "ruleId": "ARC-ELM-002",
+                "severity": "SHOULD",
+                "occurrences": 1,
+                "counted": 1,
+                "penaltyPct": 10
+              },
+              {
+                "ruleId": "COMP-010",
+                "severity": "INFO",
+                "occurrences": 1,
+                "counted": 1,
+                "penaltyPct": 0
+              }
+            ],
+            "rawPenaltyPct": 10,
+            "appliedPenaltyPct": 10,
+            "capped": false,
+            "score": 9
+          },
+          {
+            "id": "metamodel.relationships",
+            "label": "Valid relationships",
+            "weight": 10,
+            "assessable": true,
+            "rules": [
+              "ARC-REL-002",
+              "ARC-REL-003"
+            ],
+            "hits": [
+              {
+                "ruleId": "ARC-REL-003",
+                "severity": "SHOULD",
+                "occurrences": 1,
+                "counted": 1,
+                "penaltyPct": 10
+              }
+            ],
+            "rawPenaltyPct": 10,
+            "appliedPenaltyPct": 10,
+            "capped": false,
+            "score": 9
+          },
+          {
+            "id": "metamodel.layers",
+            "label": "Layer correctness",
+            "weight": 10,
+            "assessable": false,
+            "rules": [],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": null
+          }
+        ],
+        "earned": 18,
+        "max": 20,
+        "pct": 90
+      },
+      {
+        "id": "scenario",
+        "label": "Scenario Interpretation & Completeness",
+        "weight": 20,
+        "subs": [
+          {
+            "id": "scenario.coverage",
+            "label": "Coverage of case study requirements",
+            "weight": 10,
+            "assessable": true,
+            "rules": [
+              "COMP-001",
+              "COMP-006",
+              "COMP-007"
+            ],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": 10
+          },
+          {
+            "id": "scenario.accuracy",
+            "label": "Accuracy of interpretation",
+            "weight": 10,
+            "assessable": false,
+            "rules": [],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": null
+          }
+        ],
+        "earned": 10,
+        "max": 10,
+        "pct": 100
+      },
+      {
+        "id": "viewpoints",
+        "label": "Viewpoints & Stakeholder Relevance",
+        "weight": 25,
+        "subs": [
+          {
+            "id": "viewpoints.selection",
+            "label": "Appropriate viewpoint selection",
+            "weight": 15,
+            "assessable": true,
+            "rules": [
+              "VW-002",
+              "COMP-002",
+              "COMP-003",
+              "COMP-004"
+            ],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": 15
+          },
+          {
+            "id": "viewpoints.stakeholder",
+            "label": "Stakeholder alignment",
+            "weight": 10,
+            "assessable": true,
+            "rules": [
+              "COMP-008"
+            ],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": 10
+          }
+        ],
+        "earned": 25,
+        "max": 25,
+        "pct": 100
+      },
+      {
+        "id": "crosslayer",
+        "label": "Cross-layer Alignment",
+        "weight": 15,
+        "subs": [
+          {
+            "id": "crosslayer.vertical",
+            "label": "Vertical traceability",
+            "weight": 5,
+            "assessable": true,
+            "rules": [
+              "TRC-001",
+              "COMP-005",
+              "COMP-009"
+            ],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": 5
+          },
+          {
+            "id": "crosslayer.horizontal",
+            "label": "Horizontal alignment",
+            "weight": 5,
+            "assessable": false,
+            "rules": [],
+            "hits": [],
+            "rawPenaltyPct": 0,
+            "appliedPenaltyPct": 0,
+            "capped": false,
+            "score": null
+          },
+          {
+            "id": "crosslayer.e2e",
+            "label": "End-to-end clarity",
+            "weight": 5,
+            "assessable": true,
+            "rules": [
+              "TRC-002"
+            ],
+            "hits": [
+              {
+                "ruleId": "TRC-002",
+                "severity": "SHOULD",
+                "occurrences": 1,
+                "counted": 1,
+                "penaltyPct": 10
+              }
+            ],
+            "rawPenaltyPct": 10,
+            "appliedPenaltyPct": 10,
+            "capped": false,
+            "score": 4.5
+          }
+        ],
+        "earned": 9.5,
+        "max": 10,
+        "pct": 95
+      },
+      {
+        "id": "clarity",
+        "label": "SebTreb Visual Clarity",
+        "weight": 10,
+        "subs": [
+          {
+            "id": "clarity.layout",
+            "label": "Layout and organisation",
+            "weight": 5,
+            "assessable": true,
+            "rules": [
+              "elm-003",
+              "elm-005",
+              "msc-001",
+              "msc-002",
+              "VW-001"
+            ],
+            "hits": [
+              {
+                "ruleId": "VW-001",
+                "severity": "SHOULD",
+                "occurrences": 2,
+                "counted": 2,
+                "penaltyPct": 20
+              }
+            ],
+            "rawPenaltyPct": 20,
+            "appliedPenaltyPct": 20,
+            "capped": false,
+            "score": 4
+          },
+          {
+            "id": "clarity.sebtreb",
+            "label": "SebTreb rules compliance",
+            "weight": 5,
+            "assessable": true,
+            "rules": [
+              "elm-001",
+              "elm-002",
+              "elm-004",
+              "elm-006",
+              "elm-007",
+              "elm-008",
+              "elm-009",
+              "cnn-001",
+              "cnn-002",
+              "cnn-003",
+              "cnn-004",
+              "cnn-005",
+              "cnn-006",
+              "cnn-007",
+              "cnn-008",
+              "cnn-009",
+              "cnn-010",
+              "cnn-011",
+              "cnn-012",
+              "cnn-013",
+              "vws-001",
+              "msc-003",
+              "msc-004"
+            ],
+            "hits": [
+              {
+                "ruleId": "elm-006",
+                "severity": "MUST",
+                "occurrences": 2,
+                "counted": 2,
+                "penaltyPct": 50
+              },
+              {
+                "ruleId": "cnn-001",
+                "severity": "MUST",
+                "occurrences": 5,
+                "counted": 3,
+                "penaltyPct": 75
+              },
+              {
+                "ruleId": "cnn-002",
+                "severity": "SHOULD",
+                "occurrences": 1,
+                "counted": 1,
+                "penaltyPct": 10
+              }
+            ],
+            "rawPenaltyPct": 135,
+            "appliedPenaltyPct": 100,
+            "capped": true,
+            "score": 0
+          }
+        ],
+        "earned": 4,
+        "max": 10,
+        "pct": 40
+      }
+    ]
   }
 }

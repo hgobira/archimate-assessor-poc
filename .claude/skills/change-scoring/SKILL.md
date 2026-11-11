@@ -5,7 +5,7 @@ description: Change the archimate-assessor scoring model — category or subcate
 
 # Change the scoring model
 
-> Status: **stub.** Usable from Phase 4, when the `scoring-config` block exists in `part_a/archimate-assessor.html`.
+> Status: **usable.** The engine functions are `calculateScore()`, `manualScore()`, `combinedScore()`, `grade()` and `rag()` in the SCORING section. The tests are in `part_a/tests/scoring.test.mjs`.
 
 1. **Check the decision first.** Read [docs/decisions.md](../../../docs/decisions.md). Change scoring only to implement a decision recorded there, then update its status (Provisional → Accepted, with date and who confirmed it).
 2. **Edit only the `<script type="application/json" id="scoring-config">` block** in `part_a/archimate-assessor.html`. Weights, severities, caps, rating scale, grade bands and the pass mark all live there. Make sure no thresholds are hard-coded elsewhere: `grep -nE ">= ?(80|60|70|40)" part_a/archimate-assessor.html`.
