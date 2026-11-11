@@ -12,7 +12,7 @@ The STS ArchiMate assessment checks how architects model in ArchiMate 3.2.
 
 The tool is a **single, offline HTML file** that parses the XML, runs rule checks, scores, takes the manual scores, and produces the PDF.
 
-- **Part A** (Jira **GYM-4127**): **delivered** on branch `feature/GYM-4127-part-a`. It refines the existing rule-based tool:
+- **Part A** (Jira **GYM-4127**): **delivered** on `main` (2026-11-11). It refines the existing rule-based tool:
   - a 3.2 knowledgebase
   - a traceable rule catalogue
   - structural (not name-based) checks

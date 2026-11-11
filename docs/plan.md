@@ -224,7 +224,7 @@ Unit tests for checks, classifier and scoring. Regression tests on the sample XM
 - requirements-analysis.md: delivery status per requirement, plus the open questions.
 - READMEs point to the tool.
 - All four skills marked usable.
-- PR opened from `feature/GYM-4127-part-a`. The tests stay until the PR is accepted, then can be removed (user preference: lean).
+- Delivered by pushing `main` (Hamza's choice; no PR). Phases 0–2 reached `main` first, and Phases 3–8 were committed on `main` too. `feature/GYM-4127-part-a` on the remote is stale at Phase 1. The tests stay until the work is accepted, then can be removed (user preference: lean).
 
 Original plan:
 

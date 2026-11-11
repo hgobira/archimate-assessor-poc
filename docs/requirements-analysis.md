@@ -6,7 +6,7 @@ Analysis date: 2026-11-11.
 
 ## Delivery status
 
-GYM-4127 / Part A is delivered on `feature/GYM-4127-part-a`. The tool is [part_a/archimate-assessor.html](../part_a/archimate-assessor.html); changes are listed in [CHANGELOG.md](../CHANGELOG.md).
+GYM-4127 / Part A is delivered on `main` (2026-11-11). The tool is [part_a/archimate-assessor.html](../part_a/archimate-assessor.html); changes are listed in [CHANGELOG.md](../CHANGELOG.md).
 
 | Requirement (ticket wording) | Status | Where |
 |---|---|---|
