@@ -11,6 +11,8 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | D2 | Manual rating scale: **Replit** 0–5 (0/20/40/60/80/100) | Accepted (interim, 2026-11-11) | Hamza; confirm with Meenakshi |
 | D3 | Grade bands: **Replit** (≥80 Outstanding, ≥60 Average, else Poor) | Accepted (interim, 2026-11-11) | Hamza; confirm with Meenakshi |
 | D10 | Subcategory split of the Replit category weights (Replit doc does not list its subcategories) | Provisional | Hamza / Meenakshi |
+| D11 | Minimum-evidence rule: should a near-empty model be capped (e.g. automated score scaled by views present ÷ 6), or should subcategories with nothing to inspect be excluded? | Open | Meenakshi |
+| F1 | Follow-up: use Open Exchange `sourceAttachment`/`targetAttachment`, when present, to automate cnn-010 to cnn-013 | Open (not in GYM-4127 scope) | — |
 | D4 | Signature roles: Assessor / Reviewer / Candidate acknowledgement | Provisional | Meenakshi |
 | D5 | Meaning of automated "Confidence": rubric coverage (implemented: 75% on the sample) | Provisional | Meenakshi |
 | D9 | Penalty sizes: MUST −25%, SHOULD −10% of a subcategory, max 3 occurrences per rule; manual-only subcategories excluded from the automated score | Provisional | Meenakshi |

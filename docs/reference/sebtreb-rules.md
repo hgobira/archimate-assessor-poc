@@ -3,7 +3,7 @@
 Source: [resources/AS-SebTreb rules for ArchiMate modelling…pdf](../../resources/). These are internal STS style rules, named after Sebastian Trebaczkiewicz (EA lead 2020–2024). They are the Visual Clarity marking scheme.
 Keywords follow RFC 2119 (MUST, SHOULD, MAY). They are guidelines: a rule may be challenged if following it makes a view less readable, and a client's own style guide takes precedence. A caveat of **N/A** means the rule is absolute.
 
-The "Automatable?" column is our assessment against the Open Exchange XML, which has node x/y/w/h and connection bendpoints but no anchor points and no label positions.
+The "Automatable?" column is our assessment against the Open Exchange XML. That has node x/y/w/h and connection bendpoints, but no label positions. Anchor points (`sourceAttachment`/`targetAttachment`) appear in Archi exports but not in BizzDesign exports, so the attachment rules stay manual (follow-up F1).
 
 ## Elements
 

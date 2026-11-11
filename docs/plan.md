@@ -11,7 +11,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ✅ 2026-11-11 |
 | 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ✅ 2026-11-11 |
 | 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ✅ 2026-11-11 |
-| 7 | Tests: unit, regression, renamed-view fixture, Report Format arithmetic, Archi fixtures | ⏳ |
+| 7 | Tests: unit, regression, renamed-view fixture, Report Format arithmetic, Archi fixtures | ✅ 2026-11-11 |
 | 8 | Handover: docs final, skills final, CHANGELOG, PR | ⏳ |
 
 Each phase ends by updating this table, [decisions.md](decisions.md) and, if conventions changed, [AGENTS.md](../AGENTS.md). Then commit.
@@ -193,7 +193,26 @@ Original plan:
   - Signatures
 - Fix the async success/failure bug, and block generation until the required fields are filled.
 
-## Phase 7 — Tests
+## Phase 7 — Tests ✅
+
+**Result:** 43 tests in 9 files, each phase having added its own:
+- `baseline`: regression and determinism
+- `rules`: catalogue and 3.2 matrix
+- `views`: classifier, the "Overview" rename, geometry, traceability
+- `scoring`: Replit model and caps
+- `manual`: roles, overrides, state
+- `report`: offline, blocking, PDF content
+- `smoke`: full upload pipeline
+- `fixtures`: Archi exchange files
+
+The Report Format arithmetic test was replaced by Replit's worked example when D1–D3 switched to Replit.
+
+**Findings from the Archi fixtures:**
+- **COMP-001 now counts one occurrence per missing view** (`count` on issues). The sample, with 7 views, is unchanged.
+- **A model with no views still scores about 71% automated**, because view and meta-model checks have nothing to fault. This is a scoring-policy question, logged as **D11**.
+- **Archi exports carry `sourceAttachment`/`targetAttachment`.** These could automate cnn-010 to cnn-013 for such files; BizzDesign exports omit them. Logged as follow-up **F1**.
+
+Original plan:
 
 Unit tests for checks, classifier and scoring. Regression tests on the sample XML. The renamed-view fixture. A test that the Report Format example arithmetic (manual 72.5, automated 88, combined 80.25) reproduces. Archi exchange fixtures.
 

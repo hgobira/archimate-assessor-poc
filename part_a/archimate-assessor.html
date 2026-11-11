@@ -1701,11 +1701,12 @@ RULES.forEach(r => { r.category = r.rubric.split('.')[0]; });  // scoring catego
 const RULE_BY_ID = Object.fromEntries(RULES.map(r => [r.id, r]));
 
 // Build an issue for a catalogue rule: checks supply only the rule id, location and evidence.
-function makeIssue(ruleId, viewId, viewName, detail) {
+// count: how many occurrences one finding stands for (e.g. COMP-001 counts each missing view); default 1.
+function makeIssue(ruleId, viewId, viewName, detail, count = 1) {
   const rule = RULE_BY_ID[ruleId];
   if (!rule) throw new Error(`Rule ${ruleId} is not in the rule catalogue`);
   return { ruleId, category: rule.category, severity: rule.severity,
-    viewId, viewName, description: rule.description, detail };
+    viewId, viewName, description: rule.description, detail, count };
 }
 
 // Checklist status of a rule given its issues. Manual rules are never reported as PASS.
@@ -2379,11 +2380,13 @@ function runAllChecks(model, settings = {}) {
   const typeSummary = views.map(v => `"${v.name}" = ${VIEW_TYPE_LABELS[v.classification.type]}`).join('; ');
 
   // Check for minimum 6 views
+  // One occurrence per missing view, so a near-empty model is penalised in proportion
   if (views.length < 6) {
     allIssues.push({
       ruleId: 'COMP-001',
       viewId: 'model', viewName: 'Model Level',
-      detail: `Only ${views.length} views found. Required: at least 6 (contextual, conceptual + 4 others).`
+      detail: `Only ${views.length} views found; at least 6 expected (contextual, conceptual + 4 others) — ${6 - views.length} missing.`,
+      count: 6 - views.length
     });
   }
 
@@ -2472,7 +2475,7 @@ function runAllChecks(model, settings = {}) {
   }
 
   // Description, severity and category come from the rule catalogue only.
-  return allIssues.map(i => makeIssue(i.ruleId, i.viewId, i.viewName, i.detail));
+  return allIssues.map(i => makeIssue(i.ruleId, i.viewId, i.viewName, i.detail, i.count));
 }
 
 function getNodeElement(nodeId, view, elements) {
@@ -2518,7 +2521,7 @@ function calculateScore(issues) {
       const rules = RULES.filter(r => r.rubric === key);
       const assessable = rules.some(r => r.automation !== 'manual');
       const hits = rules.filter(r => byRule[r.id]).map(r => {
-        const occurrences = byRule[r.id].length;
+        const occurrences = byRule[r.id].reduce((n, i) => n + (i.count || 1), 0);
         const counted = Math.min(occurrences, SCORING.perRuleMaxOccurrences);
         return { ruleId: r.id, severity: r.severity, occurrences, counted,
           penaltyPct: (SCORING.severityPenaltyPct[r.severity] || 0) * counted };

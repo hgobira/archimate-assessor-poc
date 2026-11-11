@@ -56,7 +56,8 @@
       "viewId": "id-29654",
       "viewName": "Conceptual View",
       "description": "Every element on a view should be connected or nested",
-      "detail": "2 element(s) with no relationship or nesting on this view: \"Monitoring & Observability\", \"Security & Compliance\"."
+      "detail": "2 element(s) with no relationship or nesting on this view: \"Monitoring & Observability\", \"Security & Compliance\".",
+      "count": 1
     },
     {
       "ruleId": "elm-006",
@@ -65,7 +66,8 @@
       "viewId": "id-29660",
       "viewName": "Technology View",
       "description": "Spacing between nested elements and their container must be consistent",
-      "detail": "Uneven padding inside 3 container(s): \"External Sources\" (left 67, right 33, bottom 32); \"AWS Home Region\" (left 33, right 33, bottom 20); \"ClimateIQ Platform\" (left 306, right 33, bottom 113)."
+      "detail": "Uneven padding inside 3 container(s): \"External Sources\" (left 67, right 33, bottom 32); \"AWS Home Region\" (left 33, right 33, bottom 20); \"ClimateIQ Platform\" (left 306, right 33, bottom 113).",
+      "count": 1
     },
     {
       "ruleId": "cnn-001",
@@ -74,7 +76,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Connectors must not run diagonally",
-      "detail": "Connector \"CTO\" → \"Reduce operational costs\" can only be drawn diagonally with its current positions (no bendpoints)."
+      "detail": "Connector \"CTO\" → \"Reduce operational costs\" can only be drawn diagonally with its current positions (no bendpoints).",
+      "count": 1
     },
     {
       "ruleId": "cnn-001",
@@ -83,7 +86,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Connectors must not run diagonally",
-      "detail": "Connector \"Expand to global markets\" → \"99.9% Uptime\" can only be drawn diagonally with its current positions (no bendpoints)."
+      "detail": "Connector \"Expand to global markets\" → \"99.9% Uptime\" can only be drawn diagonally with its current positions (no bendpoints).",
+      "count": 1
     },
     {
       "ruleId": "cnn-001",
@@ -92,7 +96,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Connectors must not run diagonally",
-      "detail": "Connector \"Expand to global markets\" → \"Feed insights into dashboards. App. APIS, etc\" can only be drawn diagonally with its current positions (no bendpoints)."
+      "detail": "Connector \"Expand to global markets\" → \"Feed insights into dashboards. App. APIS, etc\" can only be drawn diagonally with its current positions (no bendpoints).",
+      "count": 1
     },
     {
       "ruleId": "cnn-001",
@@ -101,7 +106,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Connectors must not run diagonally",
-      "detail": "Connector \"Expand to global markets\" → \"Meet global data residency and security standards\" can only be drawn diagonally with its current positions (no bendpoints)."
+      "detail": "Connector \"Expand to global markets\" → \"Meet global data residency and security standards\" can only be drawn diagonally with its current positions (no bendpoints).",
+      "count": 1
     },
     {
       "ruleId": "cnn-001",
@@ -110,7 +116,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Connectors must not run diagonally",
-      "detail": "Connector \"Reduce operational costs\" → \"Use container orchestration\" can only be drawn diagonally with its current positions (no bendpoints)."
+      "detail": "Connector \"Reduce operational costs\" → \"Use container orchestration\" can only be drawn diagonally with its current positions (no bendpoints).",
+      "count": 1
     },
     {
       "ruleId": "cnn-002",
@@ -119,7 +126,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Connectors should not cross each other",
-      "detail": "1 connector crossing(s), e.g. \"Expand to global markets→Meet global data residency and security standards\" × \"Reduce operational costs→Use container orchestration\". Endpoints are approximated — confirm on the diagram."
+      "detail": "1 connector crossing(s), e.g. \"Expand to global markets→Meet global data residency and security standards\" × \"Reduce operational costs→Use container orchestration\". Endpoints are approximated — confirm on the diagram.",
+      "count": 1
     },
     {
       "ruleId": "VW-001",
@@ -128,7 +136,8 @@
       "viewId": "id-29666",
       "viewName": "Motivation View (2)",
       "description": "Every element on a view should be connected or nested",
-      "detail": "13 element(s) with no relationship or nesting on this view: \"Platform Engineer\", \"Developer / Interagtion Partner\", \"Enterprise Client\", \"Data Scientist\", \"Product Manager\"."
+      "detail": "13 element(s) with no relationship or nesting on this view: \"Platform Engineer\", \"Developer / Interagtion Partner\", \"Enterprise Client\", \"Data Scientist\", \"Product Manager\".",
+      "count": 1
     },
     {
       "ruleId": "elm-006",
@@ -137,7 +146,8 @@
       "viewId": "id-29669",
       "viewName": "Component View - Data Ingestion",
       "description": "Spacing between nested elements and their container must be consistent",
-      "detail": "Uneven padding inside 1 container(s): \"Data Ingestion\" (left 33, right 67, bottom 32)."
+      "detail": "Uneven padding inside 1 container(s): \"Data Ingestion\" (left 33, right 67, bottom 32).",
+      "count": 1
     },
     {
       "ruleId": "ARC-REL-003",
@@ -146,7 +156,8 @@
       "viewId": "model",
       "viewName": "Model Level",
       "description": "Association should not be used where a more specific relationship applies",
-      "detail": "31 of 82 relationships (38%) are Associations; threshold 30%. Prefer Serving, Realization, Assignment, Access, Flow or Triggering where they apply."
+      "detail": "31 of 82 relationships (38%) are Associations; threshold 30%. Prefer Serving, Realization, Assignment, Access, Flow or Triggering where they apply.",
+      "count": 1
     },
     {
       "ruleId": "ARC-ELM-002",
@@ -155,7 +166,8 @@
       "viewId": "model",
       "viewName": "Model Level",
       "description": "Element names should be unique within an element type",
-      "detail": "1 duplicated name(s): \"Sensor Data Feed\" (TechnologyInterface ×2)."
+      "detail": "1 duplicated name(s): \"Sensor Data Feed\" (TechnologyInterface ×2).",
+      "count": 1
     },
     {
       "ruleId": "TRC-002",
@@ -164,7 +176,8 @@
       "viewId": "model",
       "viewName": "Model Level",
       "description": "Each goal should trace into the architecture (strategy, business, application or technology)",
-      "detail": "2 of 7 goal(s) do not trace to any strategy, business, application or technology element: \"Ingest structured and unstructured data from multiple spurces\", \"Support analytics\"."
+      "detail": "2 of 7 goal(s) do not trace to any strategy, business, application or technology element: \"Ingest structured and unstructured data from multiple spurces\", \"Support analytics\".",
+      "count": 1
     },
     {
       "ruleId": "COMP-010",
@@ -173,7 +186,8 @@
       "viewId": "model",
       "viewName": "Model Level",
       "description": "Elements defined but not used in any view",
-      "detail": "7 elements defined but not appearing in any view — consider removing or including them."
+      "detail": "7 elements defined but not appearing in any view — consider removing or including them.",
+      "count": 1
     }
   ],
   "score": {
