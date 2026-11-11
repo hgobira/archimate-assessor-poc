@@ -125,6 +125,16 @@ Also: the `viewpoint` attribute, if present (the sample has none), and the name 
 - Signature roles: Primary/Secondary/QA, versus the Report Format's Assessor/Reviewer/Candidate.
 - **Target:** the [Report Format](reference/report-format.md) layout, plus outcome (Pass / Improvement plan / Fail) and attempt number (see [reference/assessment-overview.md](reference/assessment-overview.md)).
 
+## Baseline result on the sample model (Phase 1 snapshot)
+
+Captured in [part_a/tests/baseline/sample.json](../part_a/tests/baseline/sample.json): **total 76%**, with Completeness 100, **CrossLayer 4**, ArchiMate 100, SebTreb 100, Assessment 100. There are 5 issues:
+
+- **4 × ARC-CL-001 (MUST), all false positives.** Each flags a Flow or Triggering relationship between Application and Business elements as an "invalid cross-layer type". All 82 relationships in the model are valid per the Archi 3.2 matrix. Under the current cap, these 4 false findings alone take CrossLayer from 100 to 4 and the total from 100 to 76.
+- 1 × COMP-010 (INFO): 7 elements not used in any view.
+- **SebTreb scores 100%** even though 5 connectors in "Motivation View (2)" can only be drawn diagonally (the cnn-001 gap above).
+
+So the current tool penalises valid modelling heavily and misses real style violations. That's the concrete case for Phases 2–4.
+
 ## Inputs and gaps
 
 | Need | Source | Status |

@@ -1,0 +1,17 @@
+{
+  "name": "archimate-assessor-part-a",
+  "private": true,
+  "description": "GYM-4127 Part A: rule-based ArchiMate assessment tool (single offline HTML). Dev tooling only; the built tool has no runtime dependencies.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "python3 tools/build.py",
+    "test": "python3 tools/build.py --check && node --test tests/",
+    "baseline:update": "node tests/update-baseline.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "24.1.3"
+  }
+}

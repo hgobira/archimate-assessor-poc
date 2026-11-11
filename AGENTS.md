@@ -60,12 +60,21 @@ part_a/                   Part A deliverable (code arrives from Phase 1)
 
 ## Commands
 
-From Phase 1 (Node 22+ for tests, Python 3 stdlib for the build):
+Prerequisites: Python 3 (build, stdlib only) and Node 22+ (tests only). Run `npm install --prefix part_a` once.
 
-- `python3 part_a/tools/build.py` builds `part_a/dist/archimate-assessor.html`
-- `npm test --prefix part_a` runs the unit and regression tests
+| Command | What |
+|---|---|
+| `python3 part_a/tools/build.py` | Build `part_a/dist/archimate-assessor.html` from `part_a/src/` |
+| `python3 part_a/tools/build.py --check` | Fail if the committed dist is stale |
+| `npm test --prefix part_a` | Freshness check + all tests (`node:test`, jsdom) |
+| `npm run baseline:update --prefix part_a` | Regenerate `tests/baseline/sample.json`. **Only for intended behaviour changes**; explain the diff in the commit. |
 
-(Not yet available. Update this section when Phase 1 lands.)
+**Workflow:** edit `part_a/src/` (never `dist/`), build, test, and commit the `src` and `dist` changes together.
+
+**Module layout:**
+- `src/index.html` is the page shell with `/*@@CSS@@*/` and `//@@JS@@` markers.
+- The JS modules share one global scope (no import/export), so their order in `build.py` `JS_MODULES` matters.
+- The engine modules (`kb.js`, `parser.js`, `checks.js`, `scoring.js`) must stay free of UI and DOM access, except `parseXML`'s `DOMParser`. That keeps them headlessly testable via `tests/helpers/engine.mjs`.
 
 ## Conventions
 

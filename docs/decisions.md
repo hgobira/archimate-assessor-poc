@@ -21,6 +21,7 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | A4 | Proceed on D1–D5 recommended defaults, marked provisional | Accepted | Hamza |
 | A5 | Relationship validity from Archi's 3.2 matrix; element/layer list from the 3.2 Reference Cards | Accepted | Hamza |
 | A6 | Case-study profile and candidate role (EA/SA) drive expected views and scenario rows | Accepted | Hamza |
+| A7 | Tooling: built-in `node:test` + jsdom (dev only); modules stay plain scripts; `dist/` is committed | Accepted | Hamza |
 
 ---
 
@@ -85,4 +86,8 @@ The overview doc shows "Archimate Assessment: Level 1 (Online) / Level 2 (Self S
 - **A3 Tests.** Node 22+ test runner, pure-logic modules tested headlessly, fixtures in `part_a/tests/fixtures/`.
 - **A4 Defaults.** Build on D1–D5 as above, all values in one scoring config.
 - **A5 Knowledgebase sources.** Relationships come from Archi's 3.2 matrix, element types and layers from the 3.2 Reference Cards (`resources/n221p.pdf`). Derivation rules and viewpoint definitions wait for the full 3.2 spec, and the entries that depend on them carry `verified: false`.
+- **A7 Tooling (Phase 1).**
+  - Tests use Node's built-in `node:test` runner and jsdom (pinned dev dependency). No Vitest or bundler; the fewer moving parts, the easier the handover.
+  - Modules stay plain scripts sharing one global scope, exactly as in the original file. Converting to ES modules would change how the single-file build works, so it's deferred unless needed.
+  - `dist/archimate-assessor.html` is committed because it is the deliverable assessors open. `build.py --check` in `npm test` stops it going stale.
 - **A6 Case-study profile.** Expected views, stakeholders and requirements come from a profile (ClimateIQ is the default), keyed by candidate role (EA/SA). This is because candidates may agree a different case study with the reviewer.

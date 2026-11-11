@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ArchiMate Assessment Tool</title>
+<style>
+/*@@CSS@@*/
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🏛</div>
+  <div>
+    <h1>ArchiMate Assessment Tool</h1>
+    <p>SebTreb Rules · ArchiMate 3.2 · Cross-Layer Analysis</p>
+  </div>
+  <span class="badge">v2.0</span>
+</header>
+
+<main>
+  <!-- ── Upload Section ─────────────────────────────────────────────────── -->
+  <div id="upload-section">
+    <div class="upload-zone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept=".xml" onchange="handleFileSelect(event)"/>
+      <div class="upload-icon">📂</div>
+      <h2>Upload ArchiMate Open Exchange XML</h2>
+      <p>Drag & drop your Bizzdesign export, or click to browse</p>
+      <span class="hint">Supports ArchiMate Open Exchange Format (.xml)</span>
+    </div>
+
+    <!-- File selected — ready to analyse -->
+    <div id="file-ready" style="display:none;margin-top:20px">
+      <div class="file-info" style="margin-bottom:16px">
+        <span style="font-size:20px">📄</span>
+        <div>
+          <div class="file-name" id="fileNameReady"></div>
+          <div class="file-size" id="fileSizeReady" style="color:var(--text-faint);font-size:12px"></div>
+        </div>
+        <span style="flex:1"></span>
+        <button class="btn btn-ghost btn-sm" onclick="clearFile()">✕ Remove</button>
+      </div>
+      <div style="text-align:center">
+        <button class="btn btn-primary" id="analyseBtn" onclick="runAnalysis()" style="padding:14px 40px;font-size:15px;font-weight:600;letter-spacing:-0.2px;box-shadow:0 4px 16px rgba(30,86,200,0.3)">
+          🔍 Analyse Model
+        </button>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-faint)">
+          Runs SebTreb, ArchiMate 3.2 & cross-layer checks
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Loading ────────────────────────────────────────────────────────── -->
+  <div id="loading-section" style="display:none">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <div id="loading-msg" style="color:var(--text-dim);font-weight:500">Parsing XML…</div>
+      <div class="progress-bar-wrap" style="max-width:320px;margin:12px auto">
+        <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Results ────────────────────────────────────────────────────────── -->
+  <div id="results-section" style="display:none">
+
+    <!-- Top bar -->
+    <div class="file-info" style="margin-bottom:20px">
+      <span style="font-size:18px">📄</span>
+      <div>
+        <span class="file-name" id="fileName"></span>
+        <span class="file-size" id="fileSize" style="margin-left:8px"></span>
+      </div>
+      <span style="flex:1"></span>
+      <button class="btn btn-primary btn-sm" onclick="generateReport()">📄 Generate Report PDF</button>
+      <button class="btn btn-ghost btn-sm" onclick="resetTool()">↩ New File</button>
+    </div>
+
+    <!-- ── MAIN TABS ──────────────────────────────────────────────────── -->
+    <div class="main-tabs-wrap">
+      <div class="main-tabs" id="main-tabs">
+        <button class="main-tab active" onclick="showMainTab('tab-automated',this)">
+          <span class="tab-icon">🤖</span> Automated Analysis
+        </button>
+        <button class="main-tab" onclick="showMainTab('tab-manual',this)">
+          <span class="tab-icon">📝</span> Manual Assessment
+        </button>
+        <button class="main-tab" onclick="showMainTab('tab-detailed',this)">
+          <span class="tab-icon">📊</span> Detailed Report
+        </button>
+        <button class="main-tab" onclick="showMainTab('tab-views',this)">
+          <span class="tab-icon">🗂️</span> View Analysis
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ TAB 1: AUTOMATED ANALYSIS ══════════════════════════════════ -->
+    <div id="tab-automated" class="main-tab-content">
+
+      <!-- Summary KPI strip -->
+      <div id="summary-section"></div>
+
+      <!-- Sub-tabs -->
+      <div class="sub-tabs" id="auto-sub-tabs">
+        <button class="sub-tab active" onclick="showSubTab('auto-overview',this,'auto-sub-tabs')">Overview</button>
+        <button class="sub-tab" onclick="showSubTab('auto-byview',this,'auto-sub-tabs')">By View Type</button>
+        <button class="sub-tab" onclick="showSubTab('auto-byissue',this,'auto-sub-tabs')">By Issue Type</button>
+        <button class="sub-tab" onclick="showSubTab('auto-rules',this,'auto-sub-tabs')">Rule Checklist</button>
+      </div>
+
+      <div id="auto-overview" class="sub-tab-content"></div>
+      <div id="auto-byview"   class="sub-tab-content" style="display:none"></div>
+      <div id="auto-byissue"  class="sub-tab-content" style="display:none"></div>
+      <div id="auto-rules"    class="sub-tab-content" style="display:none"></div>
+    </div>
+
+    <!-- ══ TAB 2: MANUAL ASSESSMENT ═══════════════════════════════════ -->
+    <div id="tab-manual" class="main-tab-content" style="display:none">
+      <div id="manual-tab"></div>
+    </div>
+
+    <!-- ══ TAB 3: DETAILED REPORT ══════════════════════════════════════ -->
+    <div id="tab-detailed" class="main-tab-content" style="display:none">
+      <div class="detailed-label">
+        <span class="detailed-label-icon">📋</span>
+        <span>Comprehensive report combining automated AI analysis with manual assessment scores.</span>
+      </div>
+      <div id="detailed-report-content"></div>
+    </div>
+
+    <!-- ══ TAB 4: VIEW ANALYSIS ════════════════════════════════════════ -->
+    <div id="tab-views" class="main-tab-content" style="display:none">
+      <div id="view-analysis-content"></div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+//@@JS@@
+</script>
+</body>
+</html>

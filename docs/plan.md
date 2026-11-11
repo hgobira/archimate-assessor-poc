@@ -5,7 +5,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | Phase | Outcome | Status |
 |---|---|---|
 | 0 | Portable context: AGENTS.md, CLAUDE.md, docs/, reference digests, skill stubs | ✅ 2026-11-11 |
-| 1 | Restructure into `part_a/src` + `build.py`, with no change in behaviour; baseline snapshot of current output | ⏳ |
+| 1 | Restructure into `part_a/src` + `build.py`, with no change in behaviour; baseline snapshot of current output | ✅ 2026-11-11 |
 | 2 | Rule catalogue + knowledgebase (3.2 Reference Cards, Archi relationship matrix) | ⏳ |
 | 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ⏳ |
 | 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ⏳ |
@@ -16,7 +16,15 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 
 Each phase ends by updating this table, [decisions.md](decisions.md) and, if conventions changed, [AGENTS.md](../AGENTS.md). Then commit.
 
-## Phase 1 — Restructure (no change in behaviour)
+## Phase 1 — Restructure (no change in behaviour) ✅
+
+**Result:**
+- The baseline was split at its own `// =====` section markers into 11 JS modules + `styles.css` + `index.html`.
+- `build.py` reassembles a file that is **byte-identical** to `resources/archimate-assessor_2.html`.
+- Tests: baseline snapshot (model summary, issues, scores, determinism), plus a jsdom smoke test that runs the built file through the real upload pipeline and checks all tabs render. A deliberate regression was confirmed to fail the tests.
+- Remaining network loads: the Google Fonts `@import` (falls back to system fonts offline) and jsPDF from CDN. Both are removed in Phase 6.
+
+Original steps:
 
 1. Install Node 22+ (`brew install node`).
 2. Split `resources/archimate-assessor_2.html` into `part_a/src/`:
