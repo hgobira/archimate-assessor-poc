@@ -27,6 +27,7 @@ Every decision that affects scoring, rules, structure or delivery goes here. Sta
 | A8 | The tool is one hand-edited HTML file (`part_a/archimate-assessor.html`), with no build step; data held in labelled JSON blocks | Accepted | Hamza |
 | A9 | Retired rule ids (never reuse): ARC-CL-001…004, ARC-STR-001, ARC-REL-001; replaced by ARC-REL-002 (3.2 matrix) | Accepted | Hamza |
 | A10 | Views classified by structure; ARC-USE-001…003 retired for VW-002; thresholds as documented in the VIEW CLASSIFIER section | Provisional | Hamza / assessors |
+| A11 | PDF via jsPDF 2.5.1 inlined in the HTML (MIT), not print-to-PDF; Google Fonts removed | Accepted | Hamza |
 
 ---
 
@@ -131,4 +132,5 @@ The overview doc shows "Archimate Assessment: Level 1 (Online) / Level 2 (Self S
   - **ARC-USE-001 to 003 retired.** They asked "does a view *named* X contain X elements?". This is replaced by **VW-002** "name contradicts content", which uses the name for what it legitimately is: a claim to verify.
   - **elm-004 (grid) stays manual.** The coordinates in BizzDesign exports follow no consistent grid.
   - **Assessor override** of a detected type is deferred to Phase 5.
+- **A11 PDF generation (Phase 6, 2026-11-11).** Hamza chose jsPDF inlined over the browser's print-to-PDF: it gives a one-click .pdf download, at the cost of a larger file (about 190 KB → 554 KB). The library is pasted unmodified, with its licence header and sha256 in the comment above it. Only jsPDF's core drawing API is used (no html(), so no html2canvas or DOMPurify).
 - **A6 Case-study profile.** Expected views, stakeholders and requirements come from a profile (ClimateIQ is the default), keyed by candidate role (EA/SA). This is because candidates may agree a different case study with the reviewer.

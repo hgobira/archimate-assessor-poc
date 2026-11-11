@@ -58,7 +58,9 @@ The tool stays one file, organised into clearly labelled blocks so data is separ
 | `// ===== VIEW CLASSIFIER` / `VIEW GEOMETRY` | `classifyView()` (type from structure, with reasons); diagonal/crossing geometry helpers | ✅ P3 |
 | `<script type="application/json" id="scoring-config">` | Weights, penalties, caps, rating scale, grade bands, RAG thresholds ([docs/scoring-model.md](docs/scoring-model.md)) | ✅ P4 |
 | `// ===== PARSING / CHECKS ENGINE / SCORING` | Logic only; reads the blocks above, never hard-codes rule text or thresholds | existing; reworked P2–4 |
-| `// ===== UI / REPORT …` sections | Rendering, manual sheet, PDF | existing; reworked P5–6 |
+| jsPDF 2.5.1 `<script>` (inlined, MIT) | PDF library, unmodified. Do not edit. | ✅ P6 |
+| `// ===== REPORT GENERATION (PDF)` | `generateReport()` (blocked until `manualReadiness()` is empty), `buildReportPdf()` in the Report Format order, `pdfText()` | ✅ P6 |
+| `// ===== UI …` sections | Tabs and rendering | existing |
 
 ## Golden rules
 

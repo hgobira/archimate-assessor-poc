@@ -15,7 +15,10 @@ export const SAMPLE_XML = path.join(REPO, 'resources', 'Arhchimateexample.xml');
 export function loadTool() {
   const errors = [];
   const virtualConsole = new VirtualConsole();
-  virtualConsole.on('jsdomError', (e) => errors.push(e.message));
+  // jsdom has no <canvas>; the inlined jsPDF probes for it on load. Browsers have canvas, so ignore only that.
+  virtualConsole.on('jsdomError', (e) => {
+    if (!/^Not implemented: HTMLCanvasElement\.prototype\.getContext/.test(e.message)) errors.push(e.message);
+  });
   const { window } = new JSDOM(readFileSync(TOOL_HTML, 'utf-8'), {
     runScripts: 'dangerously',
     pretendToBeVisual: true,

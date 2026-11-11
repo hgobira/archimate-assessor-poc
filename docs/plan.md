@@ -10,7 +10,7 @@ The status is updated at the end of every phase. ✅ done · 🔄 in progress ·
 | 3 | Structural view classifier; replace name-based checks; fix geometry checks; add new checks | ✅ 2026-11-11 |
 | 4 | Scoring model: shared categories, capped penalties, breakdown table, one `grade()` | ✅ 2026-11-11 |
 | 5 | Manual scoresheet aligned to the same model; case-study profile + EA/SA role | ✅ 2026-11-11 |
-| 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ⏳ |
+| 6 | PDF report to Report Format: offline, combined, signatures, outcome + attempt | ✅ 2026-11-11 |
 | 7 | Tests: unit, regression, renamed-view fixture, Report Format arithmetic, Archi fixtures | ⏳ |
 | 8 | Handover: docs final, skills final, CHANGELOG, PR | ⏳ |
 
@@ -162,7 +162,27 @@ Original steps:
 - Case-study profile and role (EA/SA) feed the scenario rows and expected views.
 - One shared form for the candidate, assessor and date.
 
-## Phase 6 — PDF
+## Phase 6 — PDF ✅
+
+**Result:**
+- **Library:** jsPDF 2.5.1 inlined in the HTML (MIT, sha256 recorded in its header comment). Google Fonts `@import` removed. The file loads nothing from the network: 554 KB, all offline (decision A11).
+- **Report layout:** one PDF in the Report Format order:
+  1. Cover summary: candidate, role, assessor, date, attempt, case study, model; overall, automated (with "Confidence" = coverage) and manual cards; outcome bar.
+  2. Category breakdown with the issues found per rule.
+  3. Automated score breakdown table.
+  4. Expected views for the role.
+  5. Findings by rule.
+  6. Manual scores with comments.
+  7. Narrative.
+  8. Combined score and grade.
+  9. Signatures (Assessor, Reviewer, Candidate acknowledgement).
+
+  Header and footer on every page, tables carry over pages, and text is made PDF-safe (`pdfText()`).
+- **Blocked until `manualReadiness()` is empty.** The dialog lists what's missing and links to the Manual tab. The success message shows only after the save; errors are reported. The file is named `ArchiMate_Assessment_<Candidate>_<Date>.pdf` (Replit).
+- The old jsPDF-from-CDN renderer, the report modal and their duplicate inputs are removed.
+- **Tests:** 40 passing (`report.test.mjs`): offline check, blocking, all parts present, file name, symbol mapping. A full sample report was rendered and checked visually (4 pages).
+
+Original plan:
 
 - Vendored jsPDF, inlined.
 - Sections:

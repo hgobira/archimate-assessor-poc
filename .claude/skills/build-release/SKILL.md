@@ -5,7 +5,7 @@ description: Test, verify and release the single-file offline archimate-assessor
 
 # Test and release
 
-> Status: **usable.** Steps 1–2 work now. Steps 3–4 become fully meaningful after Phase 6 (offline PDF).
+> Status: **usable.** `report.test.mjs` already covers the offline check and the PDF content. Steps 3–4 are the manual double-check in a real browser.
 
 There's no build: `part_a/archimate-assessor.html` *is* the deliverable.
 
